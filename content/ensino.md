@@ -11,7 +11,6 @@ Minha maior realização é ensinar Astrofísica. Desde o início da graduação
 
 {{< figura src="/images/ensino/aula-presencial.jpg" alt="Aula presencial" caption="Aula presencial de Astrofísica. Joinville, 2018." tamanho="media" pos="direita" >}}
 
-Aqui vai um parágrafo sobre as aulas presenciais, ou qualquer outro texto que você queira ao lado desta foto.
 
 ---
 
