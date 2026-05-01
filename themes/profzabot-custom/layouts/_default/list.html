@@ -1,0 +1,9 @@
+{{ define "main" }}
+{{ if eq .Title "Posts" }}
+  {{ partial "posts-list" . }}
+{{ else }}
+  <div class="linha-indigo"></div>
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+{{ end }}
+{{ end }}

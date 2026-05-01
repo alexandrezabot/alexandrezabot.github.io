@@ -1,0 +1,26 @@
+{{ define "main" }}
+<h1>Astrofísica de A a Z</h1>
+<div class="linha-indigo"></div>
+
+<div class="posts-grid">
+  {{ range .Pages.ByDate.Reverse }}
+    <article class="post-card">
+      <a href="{{ .Permalink }}" style="text-decoration: none; color: inherit;">
+        <div class="post-card-title">{{ .Title }}</div>
+      </a>
+      <div class="post-meta">
+        📅 {{ .Date.Format "02 de January de 2006" }}
+      </div>
+      <p>{{ .Summary }}</p>
+      <div class="post-tags">
+        {{ range .Params.tags }}
+          <span class="tag">{{ . }}</span>
+        {{ end }}
+      </div>
+      <div style="margin-top: 1rem;">
+        <a href="{{ .Permalink }}" style="color: #6168B9; font-weight: 500;">Ler mais →</a>
+      </div>
+    </article>
+  {{ end }}
+</div>
+{{ end }}

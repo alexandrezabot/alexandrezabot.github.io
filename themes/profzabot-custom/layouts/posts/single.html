@@ -1,0 +1,29 @@
+{{ define "main" }}
+<article>
+  <div class="linha-indigo"></div>
+  <h1>{{ .Title }}</h1>
+  <div class="post-meta" style="margin-bottom: 2rem;">
+    📅 {{ .Date.Format "02 de January de 2006" }}
+    {{ if .Params.categories }}
+      | 📁 {{ range .Params.categories }}{{ . }}{{ end }}
+    {{ end }}
+  </div>
+  
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+  
+  {{ if .Params.tags }}
+  <div class="separador"></div>
+  <div class="post-tags" style="margin-top: 2rem;">
+    {{ range .Params.tags }}
+      <span class="tag">{{ . }}</span>
+    {{ end }}
+  </div>
+  {{ end }}
+  
+  <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(97, 104, 185, 0.2);">
+    <a href="/posts">← Voltar aos artigos</a>
+  </div>
+</article>
+{{ end }}
