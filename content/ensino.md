@@ -5,6 +5,12 @@ url: "/ensino"
 
 Minha maior realização é ensinar Astrofísica. Desde o início da graduação tenho me dedicado a ministrar cursos, organizar noites de observações e oficinas de construção de telescópio. Em 2018 comecei os cursos online, que hoje já alcançaram dezenas de milhares de pessoas.
 
+{{< figura src="/images/ensino/floripa.jpg" alt="Observação em praça pública" caption="Observação em praça pública. Florianópolis, 2005." tamanho="media" pos="esquerda" >}}
+
+{{< figura src="/images/ensino/aula-presencial.jpg" alt="Aula presencial" caption="Aula presencial de Astrofísica. Joinville, 2018." tamanho="media" pos="direita" >}}
+
+{{< figura src="/images/ensino/mcti.jpg" alt="Live no MCTI" caption="Live com o Min. Marcos Pontes, no MCTI. Brasília, 2020." tamanho="grande" >}}
+
 ---
 
 ## Saiba mais
@@ -14,9 +20,3 @@ Minha maior realização é ensinar Astrofísica. Desde o início da graduação
 - [Perfil no Instagram](https://www.instagram.com/prof.zabot/)
 
 ---
-
-{{< figura src="/images/ensino/floripa.jpg" alt="Observação em praça pública" caption="Observação em praça pública. Florianópolis, 2005." tamanho="media" pos="esquerda" >}}
-
-{{< figura src="/images/ensino/aula-presencial.jpg" alt="Aula presencial" caption="Aula presencial de Astrofísica. Joinville, 2018." tamanho="media" pos="direita" >}}
-
-{{< figura src="/images/ensino/mcti.jpg" alt="Live no MCTI" caption="Live com o Min. Marcos Pontes, no MCTI. Brasília, 2020." tamanho="grande" >}}
