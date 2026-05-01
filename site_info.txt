@@ -1,0 +1,152 @@
+============================================================
+INFORMAÇÕES DO SITE — 2026-05-01 17:27:05
+============================================================
+
+>>> SISTEMA
+Linux eddington 6.17.0-1017-oem #17-Ubuntu SMP PREEMPT_DYNAMIC Fri Mar 27 13:48:03 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+
+>>> VERSÕES
+Hugo: hugo v0.123.7+extended linux/amd64 BuildDate=2025-07-18T03:41:49Z VendorInfo=ubuntu:0.123.7-1ubuntu0.3
+Go: go version go1.22.2 linux/amd64
+Git: git version 2.43.0
+
+>>> GIT
+Branch atual: main
+Remotes:
+origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
+origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
+
+Último commit:
+fe04e9c Add static files and images
+
+Branches:
+* main
+  remotes/origin/gh-pages
+  remotes/origin/main
+
+>>> CONFIGURAÇÃO HUGO
+--- hugo.toml ---
+baseURL = "https://www.profzabot.com.br/"
+languageCode = "pt-br"
+title = "Prof. Zabot"
+theme = "profzabot-custom"
+
+[outputs]
+  home = ["HTML"]
+
+
+>>> TEMA
+--- .hugo_build.lock ---
+
+Temas instalados em themes/:
+profzabot-custom
+
+>>> ESTRUTURA DO SITE
+.
+./archetypes
+./archetypes/default.md
+./assets
+./coleta_site.sh
+./content
+./content/ciencia-fe.md
+./content/contato.md
+./content/ensino.md
+./content/_index.md
+./content/posts
+./content/posts/01.md
+./content/posts/_index.md
+./content/sobre.md
+./data
+./estrutura
+./.git
+./.github
+./.github/workflows
+./.github/workflows/deploy.yml
+./.gitignore
+./.hugo_build.lock
+./hugo.toml
+./i18n
+./layouts
+./public
+./site_info.txt
+./static
+./static/CNAME
+./static/images
+./static/images/ciencia-fe
+./static/images/ensino
+./static/images/sobre
+./themes
+./themes/profzabot-custom
+./themes/profzabot-custom/layouts
+./themes/profzabot-custom/static
+
+>>> CONTEÚDO (arquivos .md)
+content/ciencia-fe.md
+content/contato.md
+content/ensino.md
+content/_index.md
+content/posts/01.md
+content/posts/_index.md
+content/sobre.md
+
+>>> LAYOUTS CUSTOMIZADOS
+
+>>> ASSETS
+
+>>> STATIC
+static/CNAME
+static/images/ciencia-fe/papa.jpg
+static/images/ensino/aula-presencial.jpg
+static/images/ensino/floripa.jpg
+static/images/ensino/mcti.jpg
+static/images/sobre/eu.jpg
+static/images/sobre/familia.jpg
+
+>>> GITHUB ACTIONS
+--- .github/workflows/deploy.yml ---
+name: Deploy Hugo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          cname: www.profzabot.com.br
+
+
+>>> CNAME
+--- static/CNAME ---
+www.profzabot.com.br
+
+
+>>> TESTE DE BUILD
+  Processed images |  0  
+  Aliases          |  0  
+  Cleaned          |  0  
+
+Total in 17 ms
+
+============================================================
+Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
+============================================================
