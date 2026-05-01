@@ -15,8 +15,8 @@ Minha maior realização é ensinar Astrofísica. Desde o início da graduação
 
 ---
 
-{{< figura src="/images/ensino/floripa.jpg" alt="Observação em praça pública" caption="Observação em praça pública. Florianópolis, 2005." >}}
+{{< figura src="/images/ensino/floripa.jpg" alt="Observação em praça pública" caption="Observação em praça pública. Florianópolis, 2005." tamanho="media" pos="esquerda" >}}
 
-{{< figura src="/images/ensino/aula-presencial.jpg" alt="Aula presencial" caption="Aula presencial de Astrofísica. Joinville, 2018." >}}
+{{< figura src="/images/ensino/aula-presencial.jpg" alt="Aula presencial" caption="Aula presencial de Astrofísica. Joinville, 2018." tamanho="media" pos="direita" >}}
 
-{{< figura src="/images/ensino/mcti.jpg" alt="Live no MCTI" caption="Live com o Min. Marcos Pontes, no MCTI. Brasília, 2020." >}}
+{{< figura src="/images/ensino/mcti.jpg" alt="Live no MCTI" caption="Live com o Min. Marcos Pontes, no MCTI. Brasília, 2020." tamanho="grande" >}}

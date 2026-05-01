@@ -1,4 +1,16 @@
-<figure style="margin: 2rem 0; text-align: center;">
-  <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" style="max-width: 100%; height: auto; border-radius: 8px; border-top: 2px solid #6168B9;">
+{{ $tamanho := .Get "tamanho" | default "grande" }}
+{{ $pos := .Get "pos" | default "centro" }}
+
+{{ $largura := "100%" }}
+{{ if eq $tamanho "pequena" }}{{ $largura = "35%" }}{{ end }}
+{{ if eq $tamanho "media" }}{{ $largura = "55%" }}{{ end }}
+
+{{ $float := "none" }}
+{{ $margin := "2rem auto" }}
+{{ if eq $pos "esquerda" }}{{ $float = "left" }}{{ $margin = "0.5rem 2rem 1rem 0" }}{{ end }}
+{{ if eq $pos "direita" }}{{ $float = "right" }}{{ $margin = "0.5rem 0 1rem 2rem" }}{{ end }}
+
+<figure style="max-width: {{ $largura }}; float: {{ $float }}; margin: {{ $margin }}; text-align: center;">
+  <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" style="width: 100%; height: auto; border-radius: 8px; border-top: 2px solid #6168B9;">
   <figcaption style="color: #FD8354; font-style: italic; margin-top: 0.8rem; font-size: 13px;">{{ .Get "caption" }}</figcaption>
 </figure>
