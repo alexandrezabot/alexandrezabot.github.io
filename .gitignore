@@ -1,0 +1,5 @@
+/public/
+/resources/
+*.swp
+*.swo
+.DS_Store
