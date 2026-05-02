@@ -1,5 +1,5 @@
 ============================================================
-INFORMAÇÕES DO SITE — 2026-05-01 17:27:05
+INFORMAÇÕES DO SITE — 
 ============================================================
 
 >>> SISTEMA
@@ -17,7 +17,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-fe04e9c Add static files and images
+487b183 pag ensino
 
 Branches:
 * main
@@ -39,19 +39,25 @@ theme = "profzabot-custom"
 --- .hugo_build.lock ---
 
 Temas instalados em themes/:
-profzabot-custom
+profzabot-custom/
 
 >>> ESTRUTURA DO SITE
 .
 ./archetypes
 ./archetypes/default.md
 ./assets
+./atualiza
 ./coleta_site.sh
 ./content
 ./content/ciencia-fe.md
 ./content/contato.md
 ./content/ensino.md
 ./content/_index.md
+./content/mentoria
+./content/mentoria/01.md
+./content/mentoria/02.md
+./content/mentoria/03.md
+./content/mentoria/_index.md
 ./content/posts
 ./content/posts/01.md
 ./content/posts/_index.md
@@ -68,6 +74,7 @@ profzabot-custom
 ./i18n
 ./layouts
 ./public
+./resources
 ./site_info.txt
 ./static
 ./static/CNAME
@@ -85,6 +92,10 @@ content/ciencia-fe.md
 content/contato.md
 content/ensino.md
 content/_index.md
+content/mentoria/01.md
+content/mentoria/02.md
+content/mentoria/03.md
+content/mentoria/_index.md
 content/posts/01.md
 content/posts/_index.md
 content/sobre.md
@@ -145,7 +156,7 @@ www.profzabot.com.br
   Aliases          |  0  
   Cleaned          |  0  
 
-Total in 17 ms
+Total in 20 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
