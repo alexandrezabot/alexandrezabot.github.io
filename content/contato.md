@@ -3,7 +3,6 @@ title: "Contato"
 url: "/contato"
 ---
 
-# Contato
 
 **Email:** [astrofisica.ufsc@gmail.com](mailto:astrofisica.ufsc@gmail.com)
 

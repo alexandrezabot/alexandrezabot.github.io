@@ -2,12 +2,6 @@
 title: "Home"
 ---
 
-# Prof. Alexandre Zabot
-
-Doutor em Astrofísica | Professor da UFSC | Escritor
-
----
-
 ## Explorando o Universo de forma acessível e apaixonante.
 
 Aqui você encontra cursos, livros e vídeos para quem deseja compreender melhor o cosmos.
