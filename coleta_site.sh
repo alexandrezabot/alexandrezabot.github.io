@@ -211,6 +211,11 @@ OUTPUT_PATH="$(pwd)/$OUTPUT"
     echo "Arquivo gerado em: $OUTPUT_PATH"
     echo "============================================================"
 
+
+    echo "Estrutura de diretórios e arquivos:"
+    ls -R .
+
+
 } > "$OUTPUT_PATH"
 
 echo "Pronto. Informações salvas em: $OUTPUT_PATH"

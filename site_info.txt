@@ -1,5 +1,5 @@
 ============================================================
-INFORMAÇÕES DO SITE — 
+INFORMAÇÕES DO SITE — 2026-05-02 16:57:54
 ============================================================
 
 >>> SISTEMA
@@ -17,7 +17,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-487b183 pag ensino
+cb6f608 atualiza site
 
 Branches:
 * main
@@ -39,7 +39,7 @@ theme = "profzabot-custom"
 --- .hugo_build.lock ---
 
 Temas instalados em themes/:
-profzabot-custom/
+profzabot-custom
 
 >>> ESTRUTURA DO SITE
 .
@@ -156,8 +156,236 @@ www.profzabot.com.br
   Aliases          |  0  
   Cleaned          |  0  
 
-Total in 20 ms
+Total in 40 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
 ============================================================
+Estrutura de diretórios e arquivos:
+.:
+archetypes
+assets
+atualiza
+coleta_site.sh
+content
+data
+estrutura
+hugo.toml
+i18n
+layouts
+public
+resources
+site_info.txt
+static
+themes
+
+./archetypes:
+default.md
+
+./assets:
+
+./content:
+ciencia-fe.md
+contato.md
+ensino.md
+_index.md
+mentoria
+posts
+sobre.md
+
+./content/mentoria:
+01.md
+02.md
+03.md
+_index.md
+
+./content/posts:
+01.md
+_index.md
+
+./data:
+
+./i18n:
+
+./layouts:
+
+./public:
+categories
+ciencia-fe
+CNAME
+contato
+css
+ensino
+fonts
+images
+index.html
+index.xml
+mentoria
+posts
+sitemap.xml
+sobre
+tags
+
+./public/categories:
+astrofísica-de-a-a-z
+index.html
+index.xml
+
+./public/categories/astrofísica-de-a-a-z:
+index.html
+index.xml
+
+./public/ciencia-fe:
+index.html
+
+./public/contato:
+index.html
+
+./public/css:
+style.css
+
+./public/ensino:
+index.html
+
+./public/fonts:
+
+./public/images:
+ciencia-fe
+ensino
+sobre
+
+./public/images/ciencia-fe:
+papa.jpg
+
+./public/images/ensino:
+aula-presencial.jpg
+floripa.jpg
+mcti.jpg
+
+./public/images/sobre:
+eu.jpg
+familia.jpg
+
+./public/mentoria:
+01
+02
+03
+index.html
+index.xml
+
+./public/mentoria/01:
+index.html
+
+./public/mentoria/02:
+index.html
+
+./public/mentoria/03:
+index.html
+
+./public/posts:
+01
+index.html
+index.xml
+modelo
+modelo-copy
+primeiro-artigo
+
+./public/posts/01:
+index.html
+
+./public/posts/modelo:
+index.html
+
+./public/posts/modelo-copy:
+index.html
+
+./public/posts/primeiro-artigo:
+index.html
+
+./public/sobre:
+index.html
+
+./public/tags:
+astrofísica
+divulgação
+index.html
+index.xml
+
+./public/tags/astrofísica:
+index.html
+index.xml
+
+./public/tags/divulgação:
+index.html
+index.xml
+
+./resources:
+_gen
+
+./resources/_gen:
+assets
+images
+
+./resources/_gen/assets:
+
+./resources/_gen/images:
+
+./static:
+CNAME
+images
+
+./static/images:
+ciencia-fe
+ensino
+sobre
+
+./static/images/ciencia-fe:
+papa.jpg
+
+./static/images/ensino:
+aula-presencial.jpg
+floripa.jpg
+mcti.jpg
+
+./static/images/sobre:
+eu.jpg
+familia.jpg
+
+./themes:
+profzabot-custom
+
+./themes/profzabot-custom:
+layouts
+static
+
+./themes/profzabot-custom/layouts:
+_default
+partials
+posts
+shortcodes
+
+./themes/profzabot-custom/layouts/_default:
+baseof.html
+home.html
+list.html
+single.html
+
+./themes/profzabot-custom/layouts/partials:
+footer.html
+header.html
+
+./themes/profzabot-custom/layouts/posts:
+list.html
+single.html
+
+./themes/profzabot-custom/layouts/shortcodes:
+figura.html
+
+./themes/profzabot-custom/static:
+css
+fonts
+
+./themes/profzabot-custom/static/css:
+style.css
+
+./themes/profzabot-custom/static/fonts:
