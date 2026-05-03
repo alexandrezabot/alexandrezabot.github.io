@@ -4,7 +4,7 @@
   <h1>{{ .Title }}</h1>
   {{ .Content }}
   <div class="artigos-list">
-    {{ range .Pages.ByDate.Reverse }}
+    {{ range .Pages.ByDate }}
       <div class="artigo-item">
         <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
         <p class="data">{{ .Date.Format "2 de January de 2006" }}</p>
