@@ -40,7 +40,7 @@ Informe seus dados abaixo para se inscrever gratuitamente:
       <div class="post-meta">
         📅 {{ .Date.Format "02 de January de 2006" }}
       </div>
-      <p>{{ .Summary }}</p>
+      <p>{{ .Params.description }}</p>
       <div class="post-tags">
         {{ range .Params.tags }}
           <span class="tag">{{ . }}</span>
