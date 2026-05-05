@@ -8,7 +8,7 @@ url: "/contato"
 
 **Instagram:** [@prof.zabot](https://www.instagram.com/prof.zabot)
 
-**WhatsApp:** [(47) 3204-7484](https://wa.me/5547998047484)
+**WhatsApp:** [(47) 3204-7484](https://wa.me/554732047484)
 
 ---
 
