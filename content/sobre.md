@@ -26,3 +26,21 @@ Minha trajetória inclui pesquisa com estrelas e discos em torno de anãs branca
 - **2016:** [Bíblia e Natureza – Os Dois Livros de Deus: Reflexões Sobre Ciência e Fé](https://omensageiro.org.br/produto/biblia-e-natureza-os-dois-livros-de-deus-reflexoes-sobre-ciencia-e-fe/?srsltid=AfmBOorDU8N3mzLrhq7azrQ_gkOAP8ZpfzF-EqwNYsz7OOdgUVPdiWY8)
   - Coletânea de artigos de vários autores
   - Meus artigos publicados neste livro também estão em [meu blog](https://alexandrezabot.blogspot.com/)
+
+
+---
+
+# Ciência & Fé
+
+O Universo é maravilhoso e nada como a ciência nos revela isso com mais clareza. Ao mesmo tempo, este sentimento de encantamento nos leva a reflexões que apenas a fé é capaz de responder. É dessa forma que as duas se harmonizam na minha vida e na de tantas pessoas para quem a ciência e a fé são complementares.
+
+---
+
+## Para saber um pouco mais
+
+- [Meu blog pessoal](https://alexandrezabot.blogspot.com/?m=1) com textos e vídeos sobre Ciência & Fé
+- [Meu canal do YouTube](https://www.youtube.com/@luzdomundo541) com vídeos sobre Ciência e também sobre Fé
+
+---
+
+{{< figura src="/images/ciencia-fe/papa.jpg" alt="Com o papa Bento XVI" caption="Com o papa Bento XVI (Roma, 2007), durante a Escola de Verão do Observatório Astronômico do Vaticano." >}}
