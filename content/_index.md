@@ -16,5 +16,4 @@ Você também pode fazer parte dessa jornada!
 
 - [**Sobre mim**](/sobre) — Conheca meu trajeto acadêmico e profissional
 - [**Ensino de Astrofísica**](/ensino) — Cursos, aulas e materiais didáticos
-- [**Ciência & Fé**](/ciencia-fe) — Reflexões sobre a relação entre ciência e religião
 - [**Contato**](/contato) — Entre em contato comigo
