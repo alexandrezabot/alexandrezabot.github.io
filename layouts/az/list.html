@@ -1,8 +1,8 @@
 {{ define "main" }}
-<h1>Astrofísica de A a Z</h1>
+<h1>{{ .Title }}</h1>
 <div class="linha-indigo"></div>
 
-<p>Informe seus dados abaixo para se inscrever gratuitamente:</p>
+{{ .Content }}
 
 <div class="newsletter-embed">
   <iframe

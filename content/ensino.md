@@ -23,7 +23,7 @@ Ensino astrofísica desde a graduação. Comecei em observações de praça púb
 
 Meu trabalho de ensino se organiza hoje em dois caminhos paralelos:
 
-- **Cursos abertos no YouTube.** Aulas gratuitas, em formato de curso, transmitidas duas vezes por semana no canal Astrofísica para Todos. Hoje somam mais de 50 mil alunos inscritos. Há cursos introdutórios sem matemática, cursos intermediários que exploram conceitos mais complexos mas também matemática, e cursos avançados com formalismo matemático completo.
+- **Cursos abertos no YouTube.** Aulas gratuitas, em formato de curso, transmitidas duas vezes por semana no canal Astrofísica para Todos. Hoje somam mais de 50 mil alunos inscritos. Há cursos introdutórios sem matemática, cursos intermediários que exploram conceitos mais complexos mas também sem matemática, e cursos avançados com formalismo matemático completo.
 
 - **Imersões e Mentorias.** Eventos online em turma fechada, com inscrição, voltados a quem quer ir mais fundo nos conceitos sem precisar de matemática. Valorizam a interação direta aluno-professor. Imersões são dias inteiros sobre um tema específico de astrofísica ou cosmologia, com atualização sobre o que está acontecendo agora na área. Mentorias são trimestres de aulas semanais sobre um pilar conceitual: relatividade, cosmologia, física quântica, partículas. Em ambos, o foco é apresentar os conceitos a partir das observações, sem cálculo.
 
