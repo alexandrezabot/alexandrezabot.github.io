@@ -1,5 +1,6 @@
 ---
 title: "Sobre mim"
+description: "Estudo e ensino astrofísica desde 2001. Desde 2018 meu trabalho se voltou também para o ensino online."
 url: "/sobre"
 ---
 

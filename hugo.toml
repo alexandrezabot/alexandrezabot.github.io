@@ -6,3 +6,8 @@ theme = "profzabot-custom"
 
 [outputs]
   home = ["HTML"]
+
+[params]
+  description = "Doutor em Astrofísica · Professor da UFSC"
+  ogImage = "/images/sobre/eu.jpg"
+  author = "Prof. Alexandre Zabot"
