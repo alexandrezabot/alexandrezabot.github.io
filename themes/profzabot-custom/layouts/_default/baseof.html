@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <title>{{ if .IsHome }}Prof. Zabot — Astrofísica e Cosmologia{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ .Summary | plainify }}">
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
 </head>
 <body>
   {{ partial "header.html" . }}
-  
+
   <main class="container">
     {{ block "main" . }}{{ end }}
   </main>
-  
+
   {{ partial "footer.html" . }}
-  
+
   <script>
     document.querySelectorAll('a').forEach(link => {
       if (link.hostname && link.hostname !== window.location.hostname && !link.href.startsWith('#')) {

@@ -14,6 +14,6 @@ Você também pode fazer parte dessa jornada!
 
 ### Navegação rápida
 
-- [**Sobre mim**](/sobre) — Conheca meu trajeto acadêmico e profissional
+- [**Sobre mim**](/sobre) — Conheça meu trajeto acadêmico e profissional
 - [**Ensino de Astrofísica**](/ensino) — Cursos, aulas e materiais didáticos
 - [**Contato**](/contato) — Entre em contato comigo

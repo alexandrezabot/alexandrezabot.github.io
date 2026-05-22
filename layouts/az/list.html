@@ -2,23 +2,7 @@
 <h1>Astrofísica de A a Z</h1>
 <div class="linha-indigo"></div>
 
-Informe seus dados abaixo para se inscrever gratuitamente:
-
-<style>
-  .newsletter-embed {
-    width: 50%;
-    margin: 2rem auto;
-    border: 2px solid #6168B9;
-    border-radius: 8px;
-    padding: 1rem;
-  }
-  @media (max-width: 768px) {
-    .newsletter-embed {
-      width: 95%;
-      padding: 0.5rem;
-    }
-  }
-</style>
+<p>Informe seus dados abaixo para se inscrever gratuitamente:</p>
 
 <div class="newsletter-embed">
   <iframe
@@ -37,9 +21,7 @@ Informe seus dados abaixo para se inscrever gratuitamente:
       <a href="{{ .Permalink }}" style="text-decoration: none; color: inherit;">
         <div class="post-card-title">{{ .Title }}</div>
       </a>
-      <div class="post-meta">
-        📅 {{ .Date.Format "02 de January de 2006" }}
-      </div>
+      <div class="post-meta">{{ .Date | time.Format ":date_long" }}</div>
       <p>{{ .Params.description }}</p>
       <div class="post-tags">
         {{ range .Params.tags }}
@@ -47,7 +29,7 @@ Informe seus dados abaixo para se inscrever gratuitamente:
         {{ end }}
       </div>
       <div style="margin-top: 1rem;">
-        <a href="{{ .Permalink }}" style="color: #6168B9; font-weight: 500;">Ler mais →</a>
+        <a href="{{ .Permalink }}">Ler mais →</a>
       </div>
     </article>
   {{ end }}
