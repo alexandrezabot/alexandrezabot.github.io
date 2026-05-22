@@ -7,7 +7,7 @@
     {{ range .Pages.ByDate }}
       <div class="artigo-item">
         <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-        <p class="data">{{ .Date.Format "2 de January de 2006" }}</p>
+        <p class="data">{{ .Date | time.Format ":date_long" }}</p>
       </div>
     {{ end }}
   </div>

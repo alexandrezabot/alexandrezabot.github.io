@@ -10,7 +10,7 @@
 {{ if eq $pos "esquerda" }}{{ $float = "left" }}{{ $margin = "0.5rem 2rem 1rem 0" }}{{ end }}
 {{ if eq $pos "direita" }}{{ $float = "right" }}{{ $margin = "0.5rem 0 1rem 2rem" }}{{ end }}
 
-<figure style="max-width: {{ $largura }}; float: {{ $float }}; margin: {{ $margin }}; text-align: center;">
-  <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}" style="width: 100%; height: auto; border-radius: 8px; border-top: 2px solid #6168B9;">
-  <figcaption style="color: #FD8354; font-style: italic; margin-top: 0.8rem; font-size: 13px;">{{ .Get "caption" }}</figcaption>
+<figure class="figura" style="max-width: {{ $largura }}; float: {{ $float }}; margin: {{ $margin }};">
+  <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}">
+  <figcaption>{{ .Get "caption" }}</figcaption>
 </figure>

@@ -1,5 +1,6 @@
 baseURL = "https://www.profzabot.com.br/"
 languageCode = "pt-br"
+defaultContentLanguage = "pt-br"
 title = "Prof. Zabot"
 theme = "profzabot-custom"
 
