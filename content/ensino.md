@@ -1,5 +1,6 @@
 ---
 title: "Ensino de Astrofísica"
+description: "Ensino astrofísica desde a graduação. Comecei em observações de praça pública, segui em sala de aula, e desde 2018 trabalho também com cursos online."
 url: "/ensino"
 ---
 

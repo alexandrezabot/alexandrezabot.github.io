@@ -3,8 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ if .IsHome }}Prof. Zabot — Astrofísica e Cosmologia{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-  <meta name="description" content="{{ .Summary | plainify }}">
+
+  {{ $title := cond .IsHome (printf "%s — Astrofísica e Cosmologia" .Site.Title) (printf "%s | %s" .Title .Site.Title) }}
+  {{ $description := cond (ne .Description "") .Description .Site.Params.description }}
+  {{ $image := .Site.Params.ogImage | absURL }}
+
+  <title>{{ $title }}</title>
+  <meta name="description" content="{{ $description }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:description" content="{{ $description }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="{{ $image }}">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ $title }}">
+  <meta name="twitter:description" content="{{ $description }}">
+  <meta name="twitter:image" content="{{ $image }}">
+
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
 </head>
 <body>
