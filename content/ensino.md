@@ -4,9 +4,9 @@ description: "Ensino astrofísica desde a graduação. Comecei em observações 
 url: "/ensino"
 ---
 
-{{< figura src="/images/ensino/floripa.jpg" alt="Observação em praça pública" caption="Observação em praça pública. Florianópolis, 2005." tamanho="media" pos="esquerda" >}}
+{{< figura src="/images/ensino/floripa.jpg" alt="Observação em praça pública" caption="Observação em praça pública. Florianópolis, 2005." tamanho="pequena" pos="esquerda" >}}
 
-Ensino astrofísica desde a graduação. Comecei em observações de praça pública, segui em sala de aula, e desde 2018 trabalho também com cursos online. O que aprendi nestes mais de vinte anos é que astrofísica pode ser ensinada com seriedade para públicos muito diferentes, desde que cada formato seja honesto sobre a profundidade que oferece.
+Ensino astrofísica desde a graduação. Comecei em observações de praça pública, segui em sala de aula, e desde 2018 trabalho também com cursos online. O que aprendi nestes mais de vinte anos é que astrofísica pode ser ensinada com seriedade para públicos muito diferentes, desde que cada formato seja bem pensado para ser coerente sobre a profundidade que oferece.
 
 ---
 
@@ -18,10 +18,13 @@ Ensino astrofísica desde a graduação. Comecei em observações de praça púb
 
 
 ---
+*Formatos de atuação*
 
-**Cursos abertos no YouTube.** Aulas gratuitas, em formato de curso, transmitidas duas vezes por semana no canal Astrofísica para Todos. Hoje somam mais de 50 mil alunos inscritos. Há cursos introdutórios sem matemática, cursos intermediários que exploram conceitos mais complexos sem matemática, e cursos avançados com formalismo completo.
+Meu trabalho de ensino se organiza hoje em dois caminhos paralelos:
 
-**Imersões e Mentorias.** Eventos online em turma fechada, com inscrição, voltados a quem quer ir mais fundo nos conceitos sem precisar de matemática. Imersões são dias inteiros sobre um tema específico de astrofísica ou cosmologia, com atualização sobre o que está acontecendo agora na área. Mentorias são trimestres de aulas semanais sobre um pilar conceitual: relatividade, cosmologia, física quântica, partículas. Em ambos, o foco é apresentar os conceitos a partir das observações, sem cálculo.
+- **Cursos abertos no YouTube.** Aulas gratuitas, em formato de curso, transmitidas duas vezes por semana no canal Astrofísica para Todos. Hoje somam mais de 50 mil alunos inscritos. Há cursos introdutórios sem matemática, cursos intermediários que exploram conceitos mais complexos mas também matemática, e cursos avançados com formalismo matemático completo.
+
+- **Imersões e Mentorias.** Eventos online em turma fechada, com inscrição, voltados a quem quer ir mais fundo nos conceitos sem precisar de matemática. Valorizam a interação direta aluno-professor. Imersões são dias inteiros sobre um tema específico de astrofísica ou cosmologia, com atualização sobre o que está acontecendo agora na área. Mentorias são trimestres de aulas semanais sobre um pilar conceitual: relatividade, cosmologia, física quântica, partículas. Em ambos, o foco é apresentar os conceitos a partir das observações, sem cálculo.
 
 
 
