@@ -4,3 +4,5 @@ description: "O Astrofísica de A a Z é o lugar onde escrevo toda semana sobre 
 ---
 
 Informe seus dados abaixo para se inscrever gratuitamente:
+
+{{< newsletter >}}
