@@ -27,8 +27,6 @@ Minha trajetória inclui pesquisa com estrelas e discos em torno de anãs branca
 
 O Universo é maravilhoso e nada como a ciência nos revela isso com mais clareza. Ao mesmo tempo, este sentimento de encantamento nos leva a reflexões que apenas a fé é capaz de responder. É dessa forma que as duas se harmonizam na minha vida e na de tantas pessoas para quem a ciência e a fé são complementares.
 
----
-
 ## Para saber um pouco mais
 
 - [Meu blog pessoal](https://alexandrezabot.blogspot.com/?m=1) com textos e vídeos sobre Ciência & Fé
