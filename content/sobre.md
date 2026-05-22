@@ -4,7 +4,7 @@ description: "Estudo e ensino astrofísica desde 2001. Desde 2018 meu trabalho s
 url: "/sobre"
 ---
 
-Sempre fui apaixonado pela ciência — especialmente a Astrofísica — e acredito que ela se harmoniza com a busca pela verdade, a beleza e a bondade. Também valorizo profundamente a fé e a família: sou casado há quase 20 anos com a Cristiane e pai de 8 filhos.
+Sempre fui apaixonado pela ciência e acredito que ela se harmoniza com a busca pela verdade, a beleza e a bondade. Também valorizo profundamente a fé e a família: sou casado há mais de 20 anos com a Cristiane e temos 8 filhos.
 
 ![Minha família, 2024](/images/sobre/familia.jpg)
 
