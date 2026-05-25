@@ -29,6 +29,16 @@
   <meta name="twitter:image" content="{{ $image }}">
 
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
+{{ if not .Site.IsServer }}
+< Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.ga_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "{{ .Site.Params.ga_id }}");
+</script>
+{{ end }}
 </head>
 <body>
   {{ partial "header.html" . }}

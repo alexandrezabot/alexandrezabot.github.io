@@ -1,5 +1,5 @@
 ============================================================
-INFORMAÇÕES DO SITE — 2026-05-22 15:57:07
+INFORMAÇÕES DO SITE — 2026-05-25 08:38:27
 ============================================================
 
 >>> SISTEMA
@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-95c96fc ajustes finais em home
+c4b227c quadro de inscricao
 
 Branches:
 * main
@@ -76,6 +76,8 @@ theme = "profzabot-custom"
 ./layouts
 ./layouts/az
 ./layouts/az/list.html
+./layouts/shortcodes
+./layouts/shortcodes/newsletter.html
 ./site_info.txt
 ./static
 ./static/CNAME
@@ -547,21 +549,10 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
 
 --- layouts/az/list.html ---
 {{ define "main" }}
-<h1>Astrofísica de A a Z</h1>
+<h1>{{ .Title }}</h1>
 <div class="linha-indigo"></div>
 
-<p>Informe seus dados abaixo para se inscrever gratuitamente:</p>
-
-<div class="newsletter-embed">
-  <iframe
-    src="https://newsletter.profzabot.com.br/f/GUgSs6SX8GISEo1Ud3NRExd6WAQJB2KRe8M49eJztJQ"
-    width="100%"
-    height="480"
-    frameborder="0"
-    scrolling="no"
-    style="border:none; display:block;">
-  </iframe>
-</div>
+{{ .Content }}
 
 <div class="posts-grid">
   {{ range .Pages.ByDate.Reverse }}
@@ -583,6 +574,18 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
   {{ end }}
 </div>
 {{ end }}
+
+--- layouts/shortcodes/newsletter.html ---
+<div class="newsletter-embed">
+  <iframe
+    src="https://newsletter.profzabot.com.br/f/GUgSs6SX8GISEo1Ud3NRExd6WAQJB2KRe8M49eJztJQ"
+    width="100%"
+    height="450"
+    frameborder="0"
+    scrolling="no"
+    style="border:none; display:block;">
+  </iframe>
+</div>
 
 ### CONTEÚDO .md ###
 
@@ -752,6 +755,10 @@ O caso Betelgeuse tornou-se o arquétipo do trabalho em Astrofísica. Não houve
 title: "Astrofísica de A a Z"
 description: "O Astrofísica de A a Z é o lugar onde escrevo toda semana sobre conceitos relevantes ou temas da atualidade na astrofísica e na cosmologia."
 ---
+
+O Astrofísica de A a Z é o lugar onde escrevo toda semana sobre conceitos relevantes ou temas da atualidade na astrofísica e na cosmologia. Não é uma curadoria de notícias. São textos opinativos sobre o que considero que vale a pena pensar com calma. Cinco a dez minutos de leitura por edição. Inscrição é gratuita.
+
+{{< newsletter >}}
 
 --- content/contato.md ---
 ---
@@ -2760,7 +2767,7 @@ git push
   Aliases          |     0  
   Cleaned          |     0  
 
-Total in 63 ms
+Total in 76 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
