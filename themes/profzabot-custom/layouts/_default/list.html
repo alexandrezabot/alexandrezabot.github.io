@@ -1,19 +1,13 @@
 {{ define "main" }}
-{{ if or (eq .Title "Posts") (eq .Title "Mentoria") }}
-  <div class="linha-indigo"></div>
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  <div class="artigos-list">
-    {{ range .Pages.ByDate }}
-      <div class="artigo-item">
-        <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-        <p class="data">{{ .Date | time.Format ":date_long" }}</p>
-      </div>
-    {{ end }}
-  </div>
-{{ else }}
-  <div class="linha-indigo"></div>
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-{{ end }}
+<div class="linha-indigo"></div>
+<h1>{{ .Title }}</h1>
+{{ .Content }}
+<div class="artigos-list">
+  {{ range .Pages.ByDate }}
+    <div class="artigo-item">
+      <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+      <p class="data">{{ .Date | time.Format ":date_long" }}</p>
+    </div>
+  {{ end }}
+</div>
 {{ end }}
