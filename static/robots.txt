@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /mentoria/
+Disallow: /artigos/
+
+User-agent: *
+Allow: /
