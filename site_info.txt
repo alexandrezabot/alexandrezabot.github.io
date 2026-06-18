@@ -1,9 +1,9 @@
 ============================================================
-INFORMAÇÕES DO SITE — 2026-05-26 15:28:03
+INFORMAÇÕES DO SITE — 
 ============================================================
 
 >>> SISTEMA
-Linux eddington 6.17.0-1023-oem #23-Ubuntu SMP PREEMPT_DYNAMIC Fri May  8 06:02:38 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+Linux eddington 6.17.0-1025-oem #25-Ubuntu SMP PREEMPT_DYNAMIC Fri May 29 12:11:29 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
 
 >>> VERSÕES
 Hugo: hugo v0.123.7+extended linux/amd64 BuildDate=2025-07-18T03:41:49Z VendorInfo=ubuntu:0.123.7-1ubuntu0.3
@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-d59c0a1 artigos
+04c0081 novo boletim
 
 Branches:
 * main
@@ -57,6 +57,10 @@ theme = "profzabot-custom"
 ./content/az/02.md
 ./content/az/03.md
 ./content/az/04.md
+./content/az/05.md
+./content/az/06.md
+./content/az/07.md
+./content/az/08.md
 ./content/az/_index.md
 ./content/contato.md
 ./content/ensino.md
@@ -94,6 +98,7 @@ theme = "profzabot-custom"
 ./static/images/sobre
 ./static/images/sobre/eu.jpg
 ./static/images/sobre/familia.jpg
+./static/robots.txt
 ./themes
 ./themes/profzabot-custom
 ./themes/profzabot-custom/layouts
@@ -123,6 +128,7 @@ static/images/ensino/floripa.jpg
 static/images/ensino/mcti.jpg
 static/images/sobre/eu.jpg
 static/images/sobre/familia.jpg
+static/robots.txt
 
 >>> GITHUB ACTIONS
 --- .github/workflows/deploy.yml ---
@@ -294,23 +300,17 @@ DUMP DOS ARQUIVOS
 
 --- themes/profzabot-custom/layouts/_default/list.html ---
 {{ define "main" }}
-{{ if or (eq .Title "Posts") (eq .Title "Mentoria") }}
-  <div class="linha-indigo"></div>
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  <div class="artigos-list">
-    {{ range .Pages.ByDate }}
-      <div class="artigo-item">
-        <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-        <p class="data">{{ .Date | time.Format ":date_long" }}</p>
-      </div>
-    {{ end }}
-  </div>
-{{ else }}
-  <div class="linha-indigo"></div>
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-{{ end }}
+<div class="linha-indigo"></div>
+<h1>{{ .Title }}</h1>
+{{ .Content }}
+<div class="artigos-list">
+  {{ range .Pages.ByDate }}
+    <div class="artigo-item">
+      <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+      <p class="data">{{ .Date | time.Format ":date_long" }}</p>
+    </div>
+  {{ end }}
+</div>
 {{ end }}
 
 --- themes/profzabot-custom/layouts/_default/single.html ---
@@ -888,6 +888,163 @@ O caso Betelgeuse tornou-se o arquétipo do trabalho em Astrofísica. Não houve
 - MacLeod, M., Antoni, A., Huang, C.-L. et al. (2025). Radial Velocity and Astrometric Evidence for a Close Companion to Betelgeuse. ApJ 978, 50. [arXiv](https://arxiv.org/abs/2409.11332)
 
 - Howell, S. B., Ciardi, D. R., Clark, C. A. et al. (2025). The Probable Direct-imaging Detection of the Stellar Companion to Betelgeuse. ApJL 988, L47. [ApJL](https://doi.org/10.3847/2041-8213/adeaaf)
+
+--- content/az/05.md ---
+---
+title: "Podemos resolver o Paradoxo de Fermi?"
+date: 2026-05-28
+draft: false
+tags: []
+categories: []
+description: "Nós sempre nos perguntamos se havia vida fora da Terra, mas foi apenas neste último século que esta pergunta ganhou contornos científicos"
+---
+
+
+
+Didier Queloz esteve no Brasil este mês, participando do São Paulo Innovation Week (SPIW). Ele e Michel Mayor ganharam o prêmio Nobel de Física de 2019 pela descoberta do primeiro exoplaneta em torno de estrela como o Sol, em 1995. Trinta anos depois, já são mais de seis mil exoplanetas confirmados, com dezenas tendo grande potencial para abrigar vida. Nós sempre nos perguntamos se havia vida fora da Terra, mas foi apenas neste último século que esta pergunta ganhou contornos científicos, na medida em que criamos instrumentos capazes de respondê-la, tanto modelos matemáticos quanto dados experimentais. 
+
+Diz a lenda que em 1950 o físico italiano Enrico Fermi perguntou em Los Alamos: “Onde estão todos?”, referindo-se aos ETs. O argumento era simples: se a Via Láctea tem cerca de cem mil anos-luz de diâmetro, mesmo numa taxa viável de colonização ela poderia ser totalmente preenchida em um milhão de anos. Como nossa galáxia já tem mais de dez bilhões de anos, se ETs existissem, deveriam estar por aí há tempo. Hart (1975) e Tipler (1980) refinaram o cálculo, mas o resultado é o mesmo: a ausência de ETs inteligentes aqui pesa muito contra a existência de outras civilizações.
+
+Mas nem todos concordam e o debate continua vivo. Na SPIW, Adam Frank debateu com Didier Queloz argumentando “se o universo é um oceano, só vasculhamos o equivalente ao volume de uma banheira”. Aqui muitos se lembrarão da famosa equação de Drake que relaciona a probabilidade de existir vida inteligente a partir de parâmetros como número de estrelas na galáxia, quantidade média de planetas em torno de estrelas e assim por diante. Quando foi proposta, esta equação era um exercício de adivinhação, mas agora já temos estatísticas confiáveis para poder fazer estimativas. Com base nestes dados, e em análises mais robustas, Sandberg et al (2018) mostraram que a probabilidade de estarmos sozinhos na Via Láctea é algo entre 30% a 50%.
+
+Várias pesquisas de hoje trarão mais luz sobre o tema em breve. Em particular, considero de extrema importância todo o esforço atual em torno da procura por sinais de vidas em atmosferas de exoplanetas. Primeiro porque é algo que pode ser escalonado para milhares de objetos. Segundo, porque se vamos investir tempo procurando por vida, é muito melhor fazê-lo em um alvo que tenha condições mais favoráveis. E em terceiro lugar, porque vida simples certamente é mais provável que a inteligente e sabemos que ela modifica o planeta de origem de várias formas detectáveis.
+
+O James Webb tem melhorado muito nosso conhecimento da química de atmosferas de exoplanetas. Ele tem condições de detectar sinais de vida. Mesmo assim, os europeus têm três equipamentos dedicados previstos para a próxima década. PLATO (2027) será um satélite projetado para descobrir exoplanetas. Outro satélite, ARIEL (2029), foi desenhado para estudar as atmosferas deles. Em solo, o ANDES (2030) será um instrumento do ELT (telescópio de 39,5 metros!) que fará espectros super precisos.
+
+Para quem achou que debater vida fora da Terra em um evento de inovação era esquisito, todo este cenário traçado deixa mais claro que o problema envolve sim tecnologia de ponta. Estou confiante de que as próximas décadas nos reservam grandes avanços na questão da vida fora da Terra.
+
+
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Drake, F. (1965). *The Radio Search for Intelligent Extraterrestrial Life*, em *Current Aspects of Exobiology*, G. Mamikunian & M. H. Briggs (eds.), Pergamon Press.
+
+- Hart, M. (1975). *An explanation for the absence of extraterrestrials on Earth*. QJRAS 16, 128. [ADS](https://ui.adsabs.harvard.edu/abs/1975QJRAS..16..128H)
+
+- Mayor, M. & Queloz, D. (1995). *A Jupiter-mass companion to a solar-type star*. Nature 378, 355. [ADS](https://ui.adsabs.harvard.edu/abs/1995Natur.378..355M)
+
+
+--- content/az/06.md ---
+---
+title: "O protagonista que atua nos bastidores"
+date: 2026-06-04
+draft: false
+tags: []
+categories: []
+description: "O campo magnético raramente aparece em manchetes, mas entre os fenômenos astrofísicos costuma ser o ator principal, dos planetas aos aglomerados de galáxias"
+---
+
+
+
+O campo magnético raramente aparece em manchetes de notícias de ciência. Em geral é citado apenas de passagem para falar de um fenômeno que chama mais a atenção das pessoas. No entanto, entre os fenômenos astrofísicos, ele costuma ser o ator principal que participa de efeitos desde escalas de planetas até aglomerados de galáxias.
+
+Entretanto, não somos capazes de ver diretamente um campo magnético. Podemos medir como ele interage com as partículas e, para nossa sorte, com a luz. É através da polarização da luz e do desdobramento das linhas espectrais que conseguimos identificar a presença de campos magnéticos e até medir sua intensidade e organização.
+
+A primeira medida de campo magnético foi feita em 1908 no famoso Observatório de Monte Wilson, por George Hale. Ele mediu o chamado Efeito Zeeman nas linhas espectrais do Sol, que havia sido descoberto apenas 12 anos antes por Pieter Zeeman. A emissão ou absorção de luz por um material acontece de forma levemente diferente quando este material está imerso num campo magnético. Já se desconfiava que o Sol pudesse ter um campo magnético por causa das imagens da coroa solar nos eclipses, mas não se conseguia provar. As medidas de Hale provaram que há campo magnético nas manchas solares.
+
+A Física começou a ter uma compreensão mais profunda do papel do magnetismo nos fenômenos astrofísicos com os trabalhos de Hannes Alfvén, na década de 1940. Ele criou a chamada magnetohidrodinâmica, que explica fenômenos magnéticos que existem em plasmas. Quando a energia é muito alta ou há radiação ionizante, elétrons e núcleos atômicos se separam, formando uma espécie de fluido de partículas eletricamente carregadas. Este fluido reage fortemente a campos magnéticos e elétricos, e também gera e carrega campos ao se movimentar. Mas como em grandes escalas o plasma é neutro, os fenômenos elétricos não são tão importantes nos fenômenos astrofísicos.
+
+O mesmo não ocorre com os campos magnéticos. A dinâmica do plasma consegue amplificar muitas vezes o campo e torná-lo relevante, por exemplo, em discos de acréscimo em torno de estrelas ou até mesmo buracos negros. Mas até em escalas maiores, como de galáxias, existe um meio interestelar que tem um campo magnético galáctico. Em galáxias espirais ele chega a ficar ordenado nos braços espirais.
+
+Hoje nós entendemos que o campo magnético é responsável até pela formação de novas estrelas. Quando uma nuvem de gás colapsa e forma um disco para formar uma estrela no centro, o material não pode simplesmente cair na direção da proto-estrela. Ele está girando e ao cair aumenta muito a velocidade de rotação. O processo para a uma certa distância quando as forças de gravidade e centrífuga se equilibram. É a turbulência do plasma do disco, gerada por fenômenos magnéticos, que leva parte desta rotação para as regiões externas, permitindo que o material enfim colapse até formar a estrela.
+
+Mas ainda há muita coisa que não entendemos. Por exemplo, existe um campo magnético primordial que permeia até mesmo as regiões vazias entre aglomerados de galáxias, em escalas de milhões de anos-luz? E, caso exista, como se formou? De qualquer modo, quando ouvir falar de campo magnético novamente, fique atento, pois ele costuma estar nos bastidores dos efeitos discutidos em primeiro plano.
+
+
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Hale, G. E. (1908). *On the Probable Existence of a Magnetic Field in Sun-Spots*. ApJ 28, 315. [ADS](https://ui.adsabs.harvard.edu/abs/1908ApJ....28..315H)
+
+- Durrer, R. & Neronov, A. (2013). *Cosmological magnetic fields. Their generation, evolution and observation*. A&A Rev. 21, 62. [ADS](https://ui.adsabs.harvard.edu/abs/2013A%26ARv..21...62D)
+
+- Tripathi, B. et al. (2026). *Large-scale dynamos driven by shear-flow-induced jets*. Nature 649, 848. [DOI](https://doi.org/10.1038/s41586-025-09912-0)
+
+--- content/az/07.md ---
+---
+title: "À caça das estrelas colossais"
+date: 2026-06-11
+draft: false
+tags: []
+categories: []
+description: "Existe um tamanho máximo para uma estrela? A resposta envolve desafios observacionais, incertezas de modelagem e uma física de formação que ainda não está resolvida"
+---
+
+
+
+Quando estudamos estrelas, aprendemos que existe um valor máximo para a massa delas, algo entre 100 a 150 vezes a massa do Sol (M☉). Mas na verdade não conhecemos este número, e pode ser que jamais sejamos capazes de fixar um valor. A razão envolve tanto desafios observacionais quanto uma compreensão mais profunda dos mecanismos de formação e estabilidade estelar.
+
+Vamos começar pela minha parte preferida, os obstáculos observacionais. Eu sempre gosto de iniciar pelos dados porque eles dão o veredicto final. Podemos ter a teoria mais maravilhosa do mundo nos dizendo que as estrelas pode ter no máximo 100 M☉. Se amanhã encontrarmos uma estrela de 200 M☉, tchau teoria!
+
+O primeiro problema observacional é medir a massa. A maneira mais precisa é usando as leis de Kepler e o período de um objeto em órbita da estrela. Pode ser outra estrela, ou até um planeta. Mas como em geral não vemos as duas (estão longe demais!), só a variação da luz, precisamos de um sistema eclipsante. Isso só acontece se a órbita estiver aproximadamente alinhada conosco. Há outras formas de medir massa, como pelas linhas espectrais, mas não são tão precisas e dependem de assumir hipóteses sobre a estrela. Assim, a busca por estrelas massivas conta com um fator sorte.
+
+Outro desafio é que estrelas massivas vivem uns 2 a 3 milhões de anos, milhares de vezes menos que o Sol. Logo, é mais raro encontrá-las por aí. O melhor lugar para procurar são aglomerados estelares jovens. Mas como o nome diz, as estrelas estão aglomeradas, muito próximas, terrível para distinguir uma da outra. Por exemplo, uma das recordistas é R136a1 que teve massa estimada em 300 M☉ em 2010 mas em 2022 foi corrigida para 196 M☉ com dados de alta resolução do Gemini. Havia contaminação de estrelas vizinhas nos dados. E ainda restam incertezas neste valor.
+
+Do ponto de vista teórico o desafio é definir o cenário de formação e estabilidade. Estrelas se formam por colapso de uma nuvem de gás. Quando a proto-estrela já é muito massiva, emite muita luz. No passado se acreditava que a pressão luminosa atrapalharia a queda, criando um limite de 40 M☉. Hoje sabemos que na verdade a matéria cai por um disco, permitindo a formação de objetos bem mais massivos.
+
+Mas as estrelas podem crescer de massa por colisões e fusões nos centros de aglomerados. Este mecanismo, em princípio, pode gerar estrelas imensas. Aliás, estrelas nos centros destes aglomerados também podem crescer capturando gás que cai sobre elas.
+
+Uma grande dificuldade teórica é que estrelas muito massivas, seja qual for a rota de formação, perdem dezenas de massas solares ao longo de sua vida na forma de ventos. A intensidade do processo depende da quantidade de metais na atmosfera, pois eles sentem maior pressão de radiação. Mas modelar este processo é extremamente complexo e há grandes incertezas. Aliás, este vento também cria armadilhas observacionais pois podemos estar medindo propriedades do vento ao invés da atmosfera da estrela e por isso errando nossas estimativas.
+
+Seja como for, está ficando cada vez mais claro que não há um único valor para a massa máxima de uma estrela. Depende dos mecanismos de formação, de estabilidade e até da constituição química da nuvem que deu origem à estrela. Além disso, neste regime extremo, a massa é um valor que varia.
+
+
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Figer, D. F. (2005). *An upper limit to the masses of stars*. Nature, 434, 192. [ADS](https://ui.adsabs.harvard.edu/abs/2005Natur.434..192F/abstract)
+
+- Crowther, P. A. et al. (2010). *The R136 star cluster hosts several stars whose individual masses greatly exceed the accepted 150 M☉ stellar mass limit*. MNRAS, 408, 731. [ADS](https://ui.adsabs.harvard.edu/abs/2010MNRAS.408..731C/abstract)
+
+- Kalari, V. M. et al. (2022). *Resolving the core of R136 in the optical*. ApJ, 935, 162. [ADS](https://ui.adsabs.harvard.edu/abs/2022ApJ...935..162K/abstract)
+
+--- content/az/08.md ---
+---
+title: "A tecnologia que desvenda os céus"
+date: 2026-06-18
+draft: false
+tags: []
+categories: []
+description: "Por trás de cada grande virada conceitual da astrofísica costuma haver um equipamento novo. O que o Nancy Grace Roman Space Telescope pode e não pode repetir dessa história."
+---
+
+Neste mês a NASA enviou o Nancy Grace Roman Space Telescope para os preparativos de lançamento pelo Falcon Heavy da SpaceX. Se tudo ocorrer bem, será lançado em agosto e logo fará companhia ao James Webb e ao Euclid no Ponto Lagrangeano L2 da Terra-Sol, a milhões de quilômetros daqui. É mais um equipamento extraordinário abrindo os céus para nós, membro legítimo de uma aristocracia espacial!
+
+Em geral falamos muito de grandes teorias, ideias que mudaram o mundo, mas colocamos pouca ênfase no papel que a tecnologia e os equipamentos desempenharam. Quem me acompanha já sabe que para mim tudo começa com a compreensão dos dados experimentais. Não é uma questão de gosto, é compromisso com a física, que é uma ciência experimental por princípio. Mas ouso ir além disso, também é uma questão de justiça com a história e as pessoas.
+
+O próprio nome do telescópio confirma isso, Nancy Grace Roman foi uma astrônoma americana, falecida em 2018, que desempenhou cargos de liderança na NASA. Esteve à frente, por exemplo, das articulações para viabilizar o Telescópio Espacial Hubble. Como o Roman cobre um nicho de ciência próximo do Hubble, a homenagem é muito bem-vinda.
+
+Muitos equipamentos entraram na história por confirmarem previsões teóricas importantes, como no caso das Ondas Gravitacionais cuja detecção precisou esperar quase um século até que tivéssemos tecnologia para construir o LIGO. Na época, quase ninguém duvidava que elas existissem, mas era preciso confirmar. Esse papel de mera verificação durou pouco: a própria primeira detecção, em 2015, já trouxe uma surpresa, dois buracos negros bem mais pesados do que os modelos previam. Tínhamos inaugurado um novo "sentido" para olhar o cosmos, e ele já começou a entregar fenômenos que ninguém havia previsto.
+
+Isso já aconteceu, por exemplo, quando Karl Jansky e outros pioneiros da radioastronomia começaram a apontar antenas de rádio para o céu. Foi como chegar a um novo continente. Descobrimos os quasares em 1963, a Radiação Cósmica de Fundo em 1965 e os pulsares em 1967. Não exagero se digo que a Astrofísica e a Cosmologia nunca mais foram as mesmas! E tudo por conta de novos equipamentos, novos dados, uma nova maneira de olhar o universo.
+
+Os exemplos se multiplicam, mas além de equipamentos poderosos, também temos técnicas que vêm para mudar a própria maneira de fazer pesquisa. Os famosos *surveys* em que um telescópio varre o céu coletando quantidades imensas de dados, como em uma pesca por arrasto, nos revelaram informações que só vêm à tona pela estatística. Amostras pequenas não nos ensinam o suficiente sobre a vida das galáxias, a agitada história da expansão do universo e sobre as chances reais de existirem outros planetas com potencial para sustentar vida fora da Terra.
+
+O Roman não será um telescópio revolucionário no sentido de abrir novos horizontes observacionais. Ele observa na mesma faixa do Hubble. Sua força está em ter um campo de visão cem vezes maior, que o torna uma ferramenta valiosa de coleta e curadoria de dados. Um trabalho paciente, necessário para ter uma visão do todo e de extrema importância.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Spergel, D. et al. (2015). *Wide-Field Infrared Survey Telescope-Astrophysics Focused Telescope Assets WFIRST-AFTA 2015 Report*. arXiv:1503.03757 (preprint). [arXiv](https://arxiv.org/abs/1503.03757)
+
+- Hewish, A., Bell, S. J. et al. (1968). *Observation of a Rapidly Pulsating Radio Source*. Nature, 217, 709. [ADS](https://ui.adsabs.harvard.edu/abs/1968Natur.217..709H/abstract)
+
+- Abbott, B. P. et al. (LIGO/Virgo) (2016). *Observation of Gravitational Waves from a Binary Black Hole Merger*. Phys. Rev. Lett., 116, 061102. [ADS](https://ui.adsabs.harvard.edu/abs/2016PhRvL.116f1102A/abstract)
 
 --- content/az/_index.md ---
 ---
@@ -2898,15 +3055,15 @@ git push
 
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |    27  
+  Pages            |    31  
   Paginator pages  |     0  
   Non-page files   |     0  
-  Static files     |     8  
+  Static files     |     9  
   Processed images |     0  
   Aliases          |     0  
   Cleaned          |     0  
 
-Total in 36 ms
+Total in 82 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
