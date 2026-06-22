@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O paradoxo que se dissolve · Monte Carlo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --noite:#040d29;
+  --superficie:#1a1422;
+  --elevada:#1C1C22;
+  --indigo:#6168B9;
+  --lavanda:#A7B0EB;
+  --coral:#FD8354;
+  --pessego:#F9BCAA;
+  --creme:#E8E0D0;
+  --creme-mudo:#A69E8E;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:var(--noite);
+  color:var(--creme);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  padding:0 0 48px;
+  -webkit-font-smoothing:antialiased;
+}
+
+.linha-indigo{height:1.5px;width:100%;background:var(--indigo)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 56px}
+
+header{padding:54px 0 30px}
+.label{
+  font-family:'Inter';font-weight:500;font-size:11px;text-transform:uppercase;
+  letter-spacing:3px;color:var(--indigo);
+}
+h1{
+  font-family:'Cormorant Garamond';font-style:italic;font-weight:500;
+  font-size:46px;color:var(--creme);line-height:1.1;margin-top:14px;
+}
+.gancho{
+  font-family:'Cormorant Garamond';font-weight:600;font-size:22px;
+  color:var(--pessego);margin-top:10px;max-width:760px;
+}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:8px}
+
+.card{
+  background:var(--superficie);border-radius:8px;padding:30px 32px;position:relative;overflow:hidden;
+}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--indigo)}
+
+.card-label{
+  font-family:'Inter';font-weight:500;font-size:11px;text-transform:uppercase;
+  letter-spacing:3px;color:var(--indigo);margin-bottom:22px;display:block;
+}
+
+/* nove fatores */
+.fatores{display:flex;align-items:flex-end;gap:10px;height:150px;margin-bottom:6px}
+.fbar{flex:1;background:var(--indigo);border-radius:4px 4px 0 0;height:50%;
+  transition:height .45s cubic-bezier(.2,.7,.2,1);min-height:3px}
+.fvals{display:flex;gap:10px;margin-bottom:24px}
+.fval{flex:1;text-align:center;font-size:11px;color:var(--creme-mudo);font-variant-numeric:tabular-nums}
+
+.meta{font-size:13px;color:var(--coral);font-variant-numeric:tabular-nums;line-height:1.7;min-height:46px}
+
+.resultado{margin-top:22px;padding-top:22px;border-top:1.5px solid rgba(97,104,185,.3)}
+.res-num{font-family:'Cormorant Garamond';font-style:italic;font-weight:500;font-size:60px;line-height:1}
+.res-num.viva{color:var(--lavanda)}
+.res-num.vazia{color:var(--coral)}
+.res-leg{font-size:13px;color:var(--creme-mudo);margin-top:6px}
+
+/* botoes */
+.controles{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+button{
+  font-family:'Inter';font-weight:500;font-size:13px;letter-spacing:.5px;
+  background:transparent;color:var(--creme);border:1.5px solid var(--indigo);
+  border-radius:4px;padding:11px 18px;cursor:pointer;transition:background .18s,color .18s;
+}
+button:hover{background:var(--indigo);color:var(--noite)}
+button.ghost{border-color:var(--creme-mudo);color:var(--creme-mudo)}
+button.ghost:hover{background:var(--creme-mudo);color:var(--noite)}
+
+/* readouts acumulados */
+.readout{margin-bottom:30px}
+.readout:last-child{margin-bottom:0}
+.read-num{font-family:'Cormorant Garamond';font-style:italic;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.read-num.big{font-size:78px}
+.read-num.med{font-size:54px}
+.read-num.vazias{color:var(--coral)}
+.read-num.media{color:var(--lavanda)}
+.read-num.total{color:var(--creme);font-size:34px}
+.read-leg{font-size:13px;color:var(--creme-mudo);margin-top:8px;max-width:420px;line-height:1.6}
+.read-leg b{color:var(--creme);font-weight:500}
+
+.sep{width:40px;height:1.5px;background:var(--indigo);margin:26px 0}
+
+.contraste{
+  font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-size:19px;
+  color:var(--creme);line-height:1.5;
+}
+.contraste b{color:var(--lavanda);font-weight:500;font-style:normal;
+  font-family:'Inter';font-size:14px}
+
+/* histograma */
+.hist-card{margin-top:28px}
+.hist{display:flex;align-items:flex-end;gap:18px;height:230px;margin:10px 0 0}
+.hcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.hbar{width:100%;background:var(--indigo);border-radius:4px 4px 0 0;height:0;
+  transition:height .3s ease;min-height:2px}
+.hbar.vaziabin{background:var(--coral)}
+.hpct{font-size:13px;color:var(--creme);margin-bottom:8px;font-variant-numeric:tabular-nums;height:18px}
+.hlab{font-size:12px;color:var(--creme-mudo);margin-top:12px;text-align:center;line-height:1.3}
+.hlab.vaziabin{color:var(--coral)}
+
+footer{margin-top:46px}
+.ref{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-size:17px;color:var(--coral)}
+.assina{font-family:'Inter';font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--indigo);margin-top:14px}
+
+@media (max-width:900px){
+  .wrap{padding:0 28px}
+  .grid{grid-template-columns:1fr}
+  h1{font-size:36px}
+  .read-num.big{font-size:60px}
+}
+</style>
+</head>
+<body>
+<div class="linha-indigo"></div>
+<div class="wrap">
+
+<header>
+  <span class="label">Paradoxo de Fermi · modelo de brinquedo</span>
+  <h1>Onde estão eles?</h1>
+  <p class="gancho">Nove fatores incertos multiplicados por estrela. A conta pontual prevê 100 civilizações. A incerteza honesta, sorteada aqui ao vivo, esvazia a galáxia uma em cada cinco vezes.</p>
+</header>
+
+<div class="grid">
+
+  <div class="card">
+    <span class="card-label">Uma galáxia por vez</span>
+    <div class="fatores" id="fatores"></div>
+    <div class="fvals" id="fvals"></div>
+    <div class="meta" id="meta">Cada barra é um fator sorteado em [0 , 0,2]. Clique para gerar a primeira galáxia.</div>
+    <div class="resultado">
+      <div class="res-num viva" id="resNum">—</div>
+      <div class="res-leg" id="resLeg">civilizações detectáveis nesta galáxia</div>
+    </div>
+    <div class="controles">
+      <button onclick="sortear()">Sortear 1</button>
+      <button onclick="rodar(1000)">Rodar 1 000</button>
+      <button onclick="rodar(100000)">Rodar 100 000</button>
+      <button class="ghost" onclick="zerar()">Zerar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="card-label">O que se acumula</span>
+
+    <div class="readout">
+      <div class="read-num big vazias" id="pctVazias">—</div>
+      <div class="read-leg">das galáxias saíram <b>vazias</b>. O valor estabiliza perto de 21% conforme você roda mais sorteios.</div>
+    </div>
+
+    <div class="readout">
+      <div class="read-num med media" id="mediaCivs">—</div>
+      <div class="read-leg">civilizações em <b>média</b> por galáxia. A média continua alta, mas vem de pouquíssimas galáxias enormes, não do caso comum.</div>
+    </div>
+
+    <div class="readout">
+      <div class="read-num total" id="totalGal">0</div>
+      <div class="read-leg">galáxias simuladas</div>
+    </div>
+
+    <div class="sep"></div>
+    <p class="contraste"><b>Estimativa pontual</b><br>cravava 100 civilizações em toda galáxia e 0% de vazias. Daí o falso paradoxo.</p>
+  </div>
+
+</div>
+
+<div class="card hist-card">
+  <span class="card-label">Distribuição que a conta pontual escondia</span>
+  <div class="hist" id="hist"></div>
+</div>
+
+<footer>
+  <div class="sep"></div>
+  <p class="ref">Sandberg, Drexler &amp; Ord, <em>Dissolving the Fermi Paradox</em>, 2018.</p>
+  <p class="assina">Prof. Alexandre Zabot</p>
+</footer>
+
+</div>
+
+<script>
+const STARS = 1e11;
+const NF = 9;
+
+let total = 0, vazias = 0, soma = 0;
+const bins = [0,0,0,0,0,0];
+const binLabels = ['Vazia','1–9','10–10²','10²–10³','10³–10⁴','10⁴–10⁵'];
+
+const fmtPt = n => n.toLocaleString('pt-BR');
+function expPt(x){
+  if(x===0) return '0';
+  const s = x.toExponential(1).replace('.',',').replace('e','\u202F×\u202F10').replace('+','');
+  return s.replace(/10(-?\d+)/, (m,e)=>'10'+toSup(e));
+}
+function toSup(e){
+  const map={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+  return [...e].map(c=>map[c]||c).join('');
+}
+
+function gauss(){
+  let u=0,v=0;
+  while(u===0)u=Math.random();
+  while(v===0)v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+}
+function poisson(l){
+  if(l<30){
+    const L=Math.exp(-l); let k=0,p=1;
+    do{k++;p*=Math.random();}while(p>L);
+    return k-1;
+  }
+  return Math.max(0,Math.round(l+Math.sqrt(l)*gauss()));
+}
+
+function drawGalaxy(){
+  let p=1; const fs=[];
+  for(let i=0;i<NF;i++){const f=Math.random()*0.2; fs.push(f); p*=f;}
+  const lambda=STARS*p;
+  const count=poisson(lambda);
+  return {fs,p,lambda,count};
+}
+
+function binOf(count){
+  if(count===0) return 0;
+  return Math.min(5, Math.floor(Math.log10(count))+1);
+}
+
+function accumulate(g){
+  total++; soma+=g.count;
+  if(g.count===0) vazias++;
+  bins[binOf(g.count)]++;
+}
+
+function buildStatic(){
+  const fat=document.getElementById('fatores');
+  const fv=document.getElementById('fvals');
+  for(let i=0;i<NF;i++){
+    const b=document.createElement('div'); b.className='fbar'; b.id='fb'+i; fat.appendChild(b);
+    const v=document.createElement('div'); v.className='fval'; v.id='fvv'+i; v.textContent='—'; fv.appendChild(v);
+  }
+  const h=document.getElementById('hist');
+  for(let i=0;i<6;i++){
+    const col=document.createElement('div'); col.className='hcol';
+    col.innerHTML='<div class="hpct" id="hp'+i+'"></div>'+
+      '<div class="hbar'+(i===0?' vaziabin':'')+'" id="hb'+i+'"></div>'+
+      '<div class="hlab'+(i===0?' vaziabin':'')+'">'+binLabels[i]+'</div>';
+    h.appendChild(col);
+  }
+}
+
+function renderGalaxy(g){
+  for(let i=0;i<NF;i++){
+    document.getElementById('fb'+i).style.height=(g.fs[i]/0.2*100)+'%';
+    document.getElementById('fvv'+i).textContent=g.fs[i].toFixed(2).replace('.',',');
+  }
+  document.getElementById('meta').innerHTML=
+    'produto p = '+expPt(g.p)+'  ·  esperado λ = '+
+    (g.lambda<10?g.lambda.toFixed(2).replace('.',','):expPt(g.lambda))+' civilizações';
+  const rn=document.getElementById('resNum');
+  const rl=document.getElementById('resLeg');
+  if(g.count===0){
+    rn.textContent='Vazia'; rn.className='res-num vazia';
+    rl.textContent='nenhuma civilização detectável nesta galáxia';
+  }else{
+    rn.textContent=fmtPt(g.count); rn.className='res-num viva';
+    rl.textContent='civilizações detectáveis nesta galáxia';
+  }
+}
+
+function renderStats(){
+  document.getElementById('totalGal').textContent=fmtPt(total);
+  if(total===0){
+    document.getElementById('pctVazias').textContent='—';
+    document.getElementById('mediaCivs').textContent='—';
+  }else{
+    document.getElementById('pctVazias').textContent=(vazias/total*100).toFixed(1).replace('.',',')+'%';
+    document.getElementById('mediaCivs').textContent='≈ '+fmtPt(Math.round(soma/total));
+  }
+  const max=Math.max(1,...bins);
+  for(let i=0;i<6;i++){
+    const frac=bins[i]/max;
+    document.getElementById('hb'+i).style.height=(frac*100)+'%';
+    document.getElementById('hp'+i).textContent= total? (bins[i]/total*100).toFixed(0)+'%':'';
+  }
+}
+
+function sortear(){
+  const g=drawGalaxy();
+  accumulate(g);
+  renderGalaxy(g);
+  renderStats();
+}
+
+function rodar(n){
+  let last=null;
+  for(let i=0;i<n;i++){const g=drawGalaxy(); accumulate(g); last=g;}
+  renderGalaxy(last);
+  renderStats();
+}
+
+function zerar(){
+  total=0; vazias=0; soma=0;
+  for(let i=0;i<6;i++) bins[i]=0;
+  for(let i=0;i<NF;i++){
+    document.getElementById('fb'+i).style.height='50%';
+    document.getElementById('fvv'+i).textContent='—';
+  }
+  document.getElementById('meta').innerHTML='Cada barra é um fator sorteado em [0 , 0,2]. Clique para gerar a primeira galáxia.';
+  document.getElementById('resNum').textContent='—';
+  document.getElementById('resNum').className='res-num viva';
+  document.getElementById('resLeg').textContent='civilizações detectáveis nesta galáxia';
+  renderStats();
+}
+
+buildStatic();
+renderStats();
+</script>
+</body>
+</html>
