@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-04c0081 novo boletim
+0c6f194 Adiciona link de inscrição no topo dos boletins az
 
 Branches:
 * main
@@ -207,6 +207,10 @@ DUMP DOS ARQUIVOS
     {{ if .Params.categories }}
       · {{ range .Params.categories }}{{ . }}{{ end }}
     {{ end }}
+  </div>
+
+  <div class="post-subscribe-link" style="margin-bottom: 2rem;">
+    <a href="/az/">Leia os outros textos e inscreva-se para receber por email, gratuitamente</a>
   </div>
 
   <div class="post-content">
@@ -3063,7 +3067,7 @@ git push
   Aliases          |     0  
   Cleaned          |     0  
 
-Total in 82 ms
+Total in 52 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
