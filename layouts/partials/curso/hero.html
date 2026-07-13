@@ -1,0 +1,11 @@
+<header class="hero">
+  <div class="estrelas" aria-hidden="true"></div>
+  <div class="wrap hero-conteudo">
+    {{ with .Params.tarja }}<p class="tarja">{{ . }}</p>{{ end }}
+    <h1>{{ .Title }}</h1>
+    <p class="hero-sub">{{ .Params.subtitulo }}</p>
+    <div class="hero-cta">
+      {{ partial "curso/cta.html" (dict "pagina" . "origem" "hero") }}
+    </div>
+  </div>
+</header>

@@ -1,0 +1,13 @@
+<section class="s-depoimentos">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="depoimentos">
+      {{ range .s.itens }}
+      <figure class="depoimento">
+        <blockquote>{{ .texto }}</blockquote>
+        <figcaption>{{ .nome }}{{ with .origem }} <span>· {{ . }}</span>{{ end }}</figcaption>
+      </figure>
+      {{ end }}
+    </div>
+  </div>
+</section>

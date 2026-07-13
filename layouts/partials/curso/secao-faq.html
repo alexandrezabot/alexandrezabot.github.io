@@ -1,0 +1,11 @@
+<section class="s-faq">
+  <div class="wrap estreito">
+    <h2>{{ .s.titulo }}</h2>
+    {{ range .s.itens }}
+    <details>
+      <summary>{{ .p }}</summary>
+      <p>{{ .r }}</p>
+    </details>
+    {{ end }}
+  </div>
+</section>

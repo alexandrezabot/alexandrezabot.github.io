@@ -1,0 +1,15 @@
+<section class="s-preco" id="inscricao">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="caixa-preco">
+      <p class="valor">{{ .pagina.Params.preco }}</p>
+      <p class="valor-det">{{ .pagina.Params.preco_detalhe }}</p>
+      <dl class="ficha">
+        {{ range .s.itens }}
+        <div><dt>{{ .rotulo }}</dt><dd>{{ .valor }}</dd></div>
+        {{ end }}
+      </dl>
+      {{ partial "curso/cta.html" (dict "pagina" .pagina "origem" "preco") }}
+    </div>
+  </div>
+</section>

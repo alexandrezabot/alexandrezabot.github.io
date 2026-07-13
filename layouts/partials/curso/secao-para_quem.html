@@ -1,0 +1,16 @@
+<section class="s-paraquem">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
+    <div class="colunas">
+      {{ range .s.itens }}
+      <div class="coluna {{ .sinal }}">
+        <h3>{{ .titulo }}</h3>
+        <ul>
+          {{ range .lista }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

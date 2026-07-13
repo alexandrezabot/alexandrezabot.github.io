@@ -1,0 +1,27 @@
+{{ $foto := "" }}
+{{ with .s.foto }}{{ $foto = ($.pagina.Resources.GetMatch .) }}{{ end }}
+<section class="s-professor">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="prof-corpo">
+      {{ with $foto }}
+      <div class="prof-foto">
+        {{ $img := .Fill "480x600 Center" }}
+        <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.s.nome }}" loading="lazy">
+      </div>
+      {{ end }}
+      <div class="prof-texto">
+        <h3>{{ .s.nome }}</h3>
+        <div class="prosa">{{ .s.conteudo | markdownify }}</div>
+        {{ with .s.itens }}
+        <p class="livros-rot">Livros publicados</p>
+        <ul class="livros">
+          {{ range . }}
+          <li><strong>{{ .titulo }}</strong><span>{{ .descricao }}</span></li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>

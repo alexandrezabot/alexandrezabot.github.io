@@ -1,0 +1,6 @@
+<section class="s-texto">
+  <div class="wrap estreito">
+    {{ with .s.titulo }}<h2>{{ . }}</h2>{{ end }}
+    <div class="prosa">{{ .s.conteudo | markdownify }}</div>
+  </div>
+</section>
