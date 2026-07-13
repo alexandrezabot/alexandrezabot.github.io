@@ -1,0 +1,17 @@
+<section class="s-cronograma">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
+    <div class="cronograma-corpo">
+      <div class="prosa">{{ .s.conteudo | markdownify }}</div>
+      <ul class="grade">
+        {{ range .s.itens }}
+        <li{{ if .pausa }} class="pausa"{{ end }}>
+          <span class="grade-rot">{{ .rotulo }}</span>
+          <span class="grade-hora">{{ .horario }}</span>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>

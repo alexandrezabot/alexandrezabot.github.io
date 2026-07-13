@@ -1,0 +1,15 @@
+<section class="s-entregaveis">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
+    <div class="prosa estreito">{{ .s.conteudo | markdownify }}</div>
+    <div class="entregas">
+      {{ range .s.itens }}
+      <div class="entrega">
+        <h3>{{ .titulo }}</h3>
+        <p>{{ .descricao }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

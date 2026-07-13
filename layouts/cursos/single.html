@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{{ partial "curso/head.html" . }}
+<body>
+
+{{ partial "curso/hero.html" . }}
+
+<main>
+{{ range .Params.secoes }}
+  {{ $nome := printf "curso/secao-%s.html" .tipo }}
+  {{ if templates.Exists (printf "partials/%s" $nome) }}
+    {{ partial $nome (dict "s" . "pagina" $) }}
+  {{ else }}
+    {{ warnf "Seção sem partial: %s" .tipo }}
+  {{ end }}
+{{ end }}
+</main>
+
+{{ partial "curso/rodape.html" . }}
+{{ partial "curso/barra-fixa.html" . }}
+
+</body>
+</html>

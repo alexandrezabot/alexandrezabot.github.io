@@ -1,0 +1,14 @@
+<section class="s-programa">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="aulas">
+      {{ range .s.itens }}
+      <article class="aula">
+        <p class="aula-rotulo">{{ .rotulo }}</p>
+        <h3>{{ .titulo }}</h3>
+        <p class="aula-desc">{{ .descricao }}</p>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>

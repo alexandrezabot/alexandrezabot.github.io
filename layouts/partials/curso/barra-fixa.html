@@ -1,0 +1,9 @@
+{{ if not .Params.encerrada }}
+<div class="barra-fixa">
+  <div class="barra-info">
+    <strong>{{ .Params.preco }}</strong>
+    <span>{{ .Params.data_evento }}</span>
+  </div>
+  <button type="button" class="btn btn-peq" onclick="return irCheckout('barra')">{{ .Params.cta }}</button>
+</div>
+{{ end }}

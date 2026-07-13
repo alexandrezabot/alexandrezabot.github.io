@@ -1,0 +1,10 @@
+{{ with site.Params.aviso }}
+{{ if .ativo }}
+<a class="aviso-site" href="{{ .link }}">
+  <span class="aviso-rot">Inscrições abertas</span>
+  <span class="aviso-txt">{{ .texto }}</span>
+  {{ with .detalhe }}<span class="aviso-det">{{ . }}</span>{{ end }}
+  <span class="aviso-seta">→</span>
+</a>
+{{ end }}
+{{ end }}
