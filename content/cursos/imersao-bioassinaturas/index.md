@@ -158,7 +158,7 @@ titulo = "Sobre o professor"
 nome = "Prof. Dr. Alexandre Zabot"
 foto = "professor.jpg"
 conteudo = """
-Físico, doutor em Astrofísica, com mais de 20 anos de experiência em ensino e divulgação científica em Astronomia e Cosmologia. Professor universitário e fundador do projeto **Astrofísica para Todos**.
+Físico, doutor em Astrofísica, com mais de 25 anos de experiência em ensino e divulgação científica em Astronomia e Cosmologia. Professor universitário e fundador do projeto **Astrofísica para Todos**.
 
 Mais de **50 mil alunos** já passaram pelos cursos online, palestras e oficinas ao longo da carreira.
 """
@@ -169,7 +169,7 @@ descricao = "2023 · Finalista do Prêmio Jabuti Acadêmico 2024"
 
 [[secoes.itens]]
 titulo = "Astrofísica Moderna: Fenômenos e Conceitos, volume 1"
-descricao = "2025 · Indicado ao Prêmio Jabuti Acadêmico 2026"
+descricao = "2025 · Semifinalista do Prêmio Jabuti Acadêmico 2026"
 
 [[secoes]]
 tipo = "preco"
@@ -201,9 +201,5 @@ r = "Sim. Não há contas. O rigor está na lógica do argumento e na leitura da
 
 [[secoes.itens]]
 p = "Vou pegar a gravação depois. Preciso estar ao vivo?"
-r = "A gravação fica. Mas o Q&A ao vivo, com curadoria e resposta nominal, é daquele dia e não se repete. A astrobiologia de fronteira também é volátil: o recorte de 8 de agosto é o retrato de um momento específico da pesquisa."
-
-[[secoes.itens]]
-p = "R$ 75 é o preço real? Vai ter desconto?"
-r = "É o preço de sempre, escolhido para manter o acesso amplo. Inclui o ebook completo com bibliografia. Não há promoção, não há lote, não há contagem regressiva."
+r = "Não, você pode acompanhar apenas a gravação e tirar suas dúvidas depois no grupo de whats app dos alunos."
 +++
