@@ -3,7 +3,7 @@ INFORMAÇÕES DO SITE —
 ============================================================
 
 >>> SISTEMA
-Linux eddington 6.17.0-1025-oem #25-Ubuntu SMP PREEMPT_DYNAMIC Fri May 29 12:11:29 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+Linux eddington 6.17.0-1028-oem #28-Ubuntu SMP PREEMPT_DYNAMIC Thu Jun 25 08:39:20 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
 
 >>> VERSÕES
 Hugo: hugo v0.123.7+extended linux/amd64 BuildDate=2025-07-18T03:41:49Z VendorInfo=ubuntu:0.123.7-1ubuntu0.3
@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-0c6f194 Adiciona link de inscrição no topo dos boletins az
+ddd6554 Boletim 12
 
 Branches:
 * main
@@ -45,6 +45,7 @@ theme = "profzabot-custom"
 >>> ESTRUTURA DO SITE
 .
 ./archetypes
+./archetypes/curso.md
 ./archetypes/default.md
 ./assets
 ./atualiza
@@ -61,8 +62,18 @@ theme = "profzabot-custom"
 ./content/az/06.md
 ./content/az/07.md
 ./content/az/08.md
+./content/az/09.md
+./content/az/10.md
+./content/az/11.md
+./content/az/12.md
 ./content/az/_index.md
 ./content/contato.md
+./content/cursos
+./content/cursos/imersao-bioassinaturas
+./content/cursos/imersao-bioassinaturas/capa.jpg
+./content/cursos/imersao-bioassinaturas/index.md
+./content/cursos/imersao-bioassinaturas/professor.jpg
+./content/cursos/_index.md
 ./content/ensino.md
 ./content/_index.md
 ./content/mentoria
@@ -83,11 +94,35 @@ theme = "profzabot-custom"
 ./layouts
 ./layouts/az
 ./layouts/az/list.html
+./layouts/cursos
+./layouts/cursos/single.html
+./layouts/partials
+./layouts/partials/aviso.html
+./layouts/partials/curso
+./layouts/partials/curso/barra-fixa.html
+./layouts/partials/curso/cta.html
+./layouts/partials/curso/head.html
+./layouts/partials/curso/hero.html
+./layouts/partials/curso/rodape.html
+./layouts/partials/curso/secao-abertura.html
+./layouts/partials/curso/secao-cronograma.html
+./layouts/partials/curso/secao-depoimentos.html
+./layouts/partials/curso/secao-entregaveis.html
+./layouts/partials/curso/secao-faq.html
+./layouts/partials/curso/secao-para_quem.html
+./layouts/partials/curso/secao-preco.html
+./layouts/partials/curso/secao-professor.html
+./layouts/partials/curso/secao-programa.html
+./layouts/partials/curso/secao-texto.html
 ./layouts/shortcodes
 ./layouts/shortcodes/newsletter.html
 ./site_info.txt
 ./static
 ./static/CNAME
+./static/css
+./static/css/curso.css
+./static/fermi
+./static/fermi/index.html
 ./static/images
 ./static/images/ciencia-fe
 ./static/images/ciencia-fe/papa.jpg
@@ -122,6 +157,8 @@ theme = "profzabot-custom"
 
 >>> STATIC (arquivos)
 static/CNAME
+static/css/curso.css
+static/fermi/index.html
 static/images/ciencia-fe/papa.jpg
 static/images/ensino/aula-presencial.jpg
 static/images/ensino/floripa.jpg
@@ -589,6 +626,285 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
 </div>
 {{ end }}
 
+--- layouts/cursos/single.html ---
+<!DOCTYPE html>
+<html lang="pt-br">
+{{ partial "curso/head.html" . }}
+<body>
+
+{{ partial "curso/hero.html" . }}
+
+<main>
+{{ range .Params.secoes }}
+  {{ $nome := printf "curso/secao-%s.html" .tipo }}
+  {{ if templates.Exists (printf "partials/%s" $nome) }}
+    {{ partial $nome (dict "s" . "pagina" $) }}
+  {{ else }}
+    {{ warnf "Seção sem partial: %s" .tipo }}
+  {{ end }}
+{{ end }}
+</main>
+
+{{ partial "curso/rodape.html" . }}
+{{ partial "curso/barra-fixa.html" . }}
+
+</body>
+</html>
+
+--- layouts/partials/aviso.html ---
+{{ with site.Params.aviso }}
+{{ if .ativo }}
+<a class="aviso-site" href="{{ .link }}">
+  <span class="aviso-rot">Inscrições abertas</span>
+  <span class="aviso-txt">{{ .texto }}</span>
+  {{ with .detalhe }}<span class="aviso-det">{{ . }}</span>{{ end }}
+  <span class="aviso-seta">→</span>
+</a>
+{{ end }}
+{{ end }}
+
+--- layouts/partials/curso/barra-fixa.html ---
+{{ if not .Params.encerrada }}
+<div class="barra-fixa">
+  <div class="barra-info">
+    <strong>{{ .Params.preco }}</strong>
+    <span>{{ .Params.data_evento }}</span>
+  </div>
+  <button type="button" class="btn btn-peq" onclick="return irCheckout('barra')">{{ .Params.cta }}</button>
+</div>
+{{ end }}
+
+--- layouts/partials/curso/cta.html ---
+{{- $p := .pagina -}}
+{{- $origem := .origem | default "generico" -}}
+{{- if $p.Params.encerrada -}}
+  <div class="encerrada">
+    <p><strong>Esta edição já aconteceu.</strong> As inscrições estão encerradas e não há venda avulsa da gravação.</p>
+    <p>Uma nova imersão é aberta a cada trimestre. Para saber da próxima, acompanhe a
+      <a href="/az/">Astrofísica de A a Z</a>.</p>
+  </div>
+{{- else -}}
+  <button type="button" class="btn" onclick="return irCheckout('{{ $origem }}')">{{ $p.Params.cta }}</button>
+  {{ with $p.Params.cta_apoio }}<p class="cta-apoio">{{ . }}</p>{{ end }}
+{{- end -}}
+
+--- layouts/partials/curso/head.html ---
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Title }} | Prof. Alexandre Zabot</title>
+<meta name="description" content="{{ .Params.descricao }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ .Params.descricao }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with .Resources.GetMatch "capa*" }}<meta property="og:image" content="{{ .Permalink }}">{{ end }}
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ "css/curso.css" | relURL }}">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YY0YJ7HRDS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YY0YJ7HRDS');
+  function irCheckout(origem) {
+    gtag('event', 'begin_checkout', {
+      origem: origem,
+      curso: {{ .Title }}
+    });
+    window.location.href = {{ .Params.checkout }};
+    return false;
+  }
+</script>
+</head>
+
+--- layouts/partials/curso/hero.html ---
+<header class="hero">
+  <div class="estrelas" aria-hidden="true"></div>
+  <div class="wrap hero-conteudo">
+    {{ with .Params.tarja }}<p class="tarja">{{ . }}</p>{{ end }}
+    <h1>{{ .Title }}</h1>
+    <p class="hero-sub">{{ .Params.subtitulo }}</p>
+    <div class="hero-cta">
+      {{ partial "curso/cta.html" (dict "pagina" . "origem" "hero") }}
+    </div>
+  </div>
+</header>
+
+--- layouts/partials/curso/rodape.html ---
+<footer class="rodape">
+  <div class="wrap">
+    <p>Prof. Alexandre Zabot</p>
+    <p><a href="/">profzabot.com.br</a></p>
+  </div>
+</footer>
+
+--- layouts/partials/curso/secao-abertura.html ---
+<section class="s-abertura">
+  <div class="wrap estreito prosa">
+    {{ .s.conteudo | markdownify }}
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-cronograma.html ---
+<section class="s-cronograma">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
+    <div class="cronograma-corpo">
+      <div class="prosa">{{ .s.conteudo | markdownify }}</div>
+      <ul class="grade">
+        {{ range .s.itens }}
+        <li{{ if .pausa }} class="pausa"{{ end }}>
+          <span class="grade-rot">{{ .rotulo }}</span>
+          <span class="grade-hora">{{ .horario }}</span>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-depoimentos.html ---
+<section class="s-depoimentos">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="depoimentos">
+      {{ range .s.itens }}
+      <figure class="depoimento">
+        <blockquote>{{ .texto }}</blockquote>
+        <figcaption>{{ .nome }}{{ with .origem }} <span>· {{ . }}</span>{{ end }}</figcaption>
+      </figure>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-entregaveis.html ---
+<section class="s-entregaveis">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
+    <div class="prosa estreito">{{ .s.conteudo | markdownify }}</div>
+    <div class="entregas">
+      {{ range .s.itens }}
+      <div class="entrega">
+        <h3>{{ .titulo }}</h3>
+        <p>{{ .descricao }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-faq.html ---
+<section class="s-faq">
+  <div class="wrap estreito">
+    <h2>{{ .s.titulo }}</h2>
+    {{ range .s.itens }}
+    <details>
+      <summary>{{ .p }}</summary>
+      <p>{{ .r }}</p>
+    </details>
+    {{ end }}
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-para_quem.html ---
+<section class="s-paraquem">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
+    <div class="colunas">
+      {{ range .s.itens }}
+      <div class="coluna {{ .sinal }}">
+        <h3>{{ .titulo }}</h3>
+        <ul>
+          {{ range .lista }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-preco.html ---
+<section class="s-preco" id="inscricao">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="caixa-preco">
+      <p class="valor">{{ .pagina.Params.preco }}</p>
+      <p class="valor-det">{{ .pagina.Params.preco_detalhe }}</p>
+      <dl class="ficha">
+        {{ range .s.itens }}
+        <div><dt>{{ .rotulo }}</dt><dd>{{ .valor }}</dd></div>
+        {{ end }}
+      </dl>
+      {{ partial "curso/cta.html" (dict "pagina" .pagina "origem" "preco") }}
+    </div>
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-professor.html ---
+{{ $foto := "" }}
+{{ with .s.foto }}{{ $foto = ($.pagina.Resources.GetMatch .) }}{{ end }}
+<section class="s-professor">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="prof-corpo">
+      {{ with $foto }}
+      <div class="prof-foto">
+        {{ $img := .Fill "480x600 Center" }}
+        <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.s.nome }}" loading="lazy">
+      </div>
+      {{ end }}
+      <div class="prof-texto">
+        <h3>{{ .s.nome }}</h3>
+        <div class="prosa">{{ .s.conteudo | markdownify }}</div>
+        {{ with .s.itens }}
+        <p class="livros-rot">Livros publicados</p>
+        <ul class="livros">
+          {{ range . }}
+          <li><strong>{{ .titulo }}</strong><span>{{ .descricao }}</span></li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-programa.html ---
+<section class="s-programa">
+  <div class="wrap">
+    <h2>{{ .s.titulo }}</h2>
+    <div class="aulas">
+      {{ range .s.itens }}
+      <article class="aula">
+        <p class="aula-rotulo">{{ .rotulo }}</p>
+        <h3>{{ .titulo }}</h3>
+        <p class="aula-desc">{{ .descricao }}</p>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+--- layouts/partials/curso/secao-texto.html ---
+<section class="s-texto">
+  <div class="wrap estreito">
+    {{ with .s.titulo }}<h2>{{ . }}</h2>{{ end }}
+    <div class="prosa">{{ .s.conteudo | markdownify }}</div>
+  </div>
+</section>
+
 --- layouts/shortcodes/newsletter.html ---
 <div class="newsletter-embed">
   <iframe
@@ -1050,6 +1366,156 @@ O Roman não será um telescópio revolucionário no sentido de abrir novos hori
 
 - Abbott, B. P. et al. (LIGO/Virgo) (2016). *Observation of Gravitational Waves from a Binary Black Hole Merger*. Phys. Rev. Lett., 116, 061102. [ADS](https://ui.adsabs.harvard.edu/abs/2016PhRvL.116f1102A/abstract)
 
+--- content/az/09.md ---
+---
+title: "De onde vem nosso ouro?"
+date: 2026-06-25
+draft: false
+tags: []
+categories: []
+description: "Uma pergunta de aparência escolar, de onde vem o ouro?, esconde um problema de fronteira da astrofísica nuclear. O que um artigo recente, lendo rochas do fundo do Pacífico, acrescenta ao debate sobre onde se forjam os elementos mais pesados que o ferro."
+---
+
+Um artigo publicado na Nature Astronomy neste mês chamou muito minha atenção. Pesquisadores mediram quantos átomos de Ferro-60, Cúrio-247 e Plutônio-244 havia em rochas da crosta de ferro-manganês no fundo do oceano Pacífico. Os valores permitiram dizer que entre 100 milhões e 1 bilhão de anos atrás houve um evento que dispersou estes átomos pelo espaço. Também foi possível afirmar que há pelo menos 10 milhões de anos a Terra vem passando por esta nuvem. Os elementos entram na atmosfera, dissolvem-se no mar e acabam sedimentando no fundo, formando parte das rochas.
+
+O trabalho fica ainda mais interessante quando os autores descrevem que estas medidas ajudam a resolver um antigo enigma da Astrofísica: onde os elementos pesados são forjados? Desde a metade do século passado está claro que o Big Bang forjou praticamente apenas Hidrogênio e Hélio. Logo em seguida os astrofísicos descobriram que elementos até o Ferro são criados no interior das estrelas, por processos de fusão nuclear. No entanto, fundir elementos para além deste limite consome energia. Assim, a natureza os fabrica em outro lugar, e por outro processo.
+
+O caminho foi explicado no famoso artigo B²FH de 1957. O casal Burbidge, com Fowler e Hoyle, mostraram que quando átomos pesados absorvem nêutrons no núcleo, o equilíbrio energético é diminuído e o núcleo decai por um processo beta, emitindo um elétron e transformando o nêutron em próton. Assim, aumenta-se o número atômico. Se os nêutrons são capturados lentamente, gera-se uma cadeia de reação que termina no Bismuto. Se há muitos nêutrons no ambiente, a captura é rápida e podem ser gerados outros elementos, como Ouro e até os mais pesados, como Urânio.
+
+Em geral se diz que elementos pesados são forjados em supernovas. Mas isso é pouco preciso. Supernovas comuns não oferecem ambientes com nêutrons suficientes para a captura rápida. Já em 1974, Lattimer & Schramm mostraram que fusões de objetos compactos deviam ser a resposta.
+
+Em 2017 detectamos as ondas gravitacionais de uma fusão assim. Alguns dias depois da fusão é emitida grande quantidade de luz, numa explosão chamada de Kilonova. Watson e colaboradores analisaram o espectro desta emissão em 2019 e encontraram Estrôncio, provando que as fusões de estrelas de nêutrons são fontes de elementos gerados pela captura rápida de nêutrons.
+
+No entanto, ainda não estava claro se este era o único mecanismo. O artigo da semana passada trouxe luzes porque o Ferro-60 é gerado em estrelas massivas e ejetado por supernovas. A datação mostrou que foi depositado em dois picos, 2-3 e 7 milhões de anos atrás. Já o Plutônio-244 foi depositado continuamente, e gerado bem antes. No entanto, ainda é possível que supernovas raras e extremas possam gerar parte dos núcleos pesados por processos de captura rápida.
+
+O mais interessante deste debate é que técnicas muito distintas trabalham juntas para resolver um quebra cabeças de Astrofísica Nuclear. As respostas científicas se formam em camadas, assim como as rochas no fundo oceânico! E no fim, o mistério nos ajuda a conhecer melhor coisas do nosso dia a dia, como o ouro das nossas alianças.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Burbidge, E. M., Burbidge, G. R., Fowler, W. A. & Hoyle, F. (1957). *Synthesis of the Elements in Stars*. Reviews of Modern Physics, 29, 547 (B²FH). [ADS](https://ui.adsabs.harvard.edu/abs/1957RvMP...29..547B/abstract)
+
+- Watson, D. et al. (2019). *Identification of strontium in the merger of two neutron stars*. Nature, 574, 497. [ADS](https://ui.adsabs.harvard.edu/abs/2019Natur.574..497W/abstract)
+
+- Koll, D., Fichter, S., Hotchkis, M. A. C., …, Wallner, A. (2026). *The timing of the last r-process event near Earth from interstellar 60Fe, 244Pu and 247Cm deposition on Earth*. Nature Astronomy. [DOI](https://doi.org/10.1038/s41550-026-02841-6)
+
+--- content/az/10.md ---
+---
+title: "Falar é fácil!"
+date: 2026-07-02
+draft: false
+tags: []
+categories: []
+description: "A dinâmica orbital já explicava 3I/ATLAS na primeira semana de observação, sem precisar de massa, tamanho ou constituição. Ainda assim, falou-se em tecnologia alienígena. Uma correção sobre a cobertura do terceiro objeto interestelar, e uma lição de Sagan que continua atual."
+---
+
+Dos vários livros que li do Carl Sagan, "O mundo assombrado pelos demônios" é o que considero mais importante, porque como bom vinho, vai ficando melhor com a passagem do tempo. Não era para ser assim, infelizmente, porque se ele ainda é atual, significa que não aprendemos suas lições. O último caso que ilustra bem a lamentável ignorância científica da nossa sociedade foi a cobertura midiática do cometa 3I/Atlas.
+
+Ele foi o terceiro viajante interestelar que detectamos (2025), por isso a sigla "3I". Atlas é porque foi encontrado pelo projeto Atlas. Antes dele, vimos passar por aqui 1I/'Oumuamua (2017) e 2I/Borisov (2019). No caso de 3I/Atlas, houve uma forte repercussão na mídia de que seria um objeto tecnológico alienígena. O argumento foi defendido publicamente pelo astrônomo Avi Loeb, de Harvard. Ao que parece, ele não quis dar atenção à famosa máxima que Sagan defendia "Afirmações extraordinárias requerem evidências extraordinárias".
+
+3I/Atlas foi descoberto em 1/7/25 e reconhecido como objeto de fora do Sistema Solar em 2 de julho. O reconhecimento foi rápido por causa da sua órbita. Mesmo sem saber suas propriedades básicas como massa, tamanho e constituição, já era possível determinar que tinha 58 km/s de excesso de velocidade. Ela determina a velocidade que alcança no infinito, quando não sente mais a atração gravitacional do Sol. Os objetos do Sistema Solar estão ligados ao Sol e não alcançam números assim. Logo, vinha de fora. Outros fatores, como direção de movimento, revelaram que a origem era alguma estrela antiga do disco espesso da galáxia.
+
+Já na primeira semana a dinâmica orbital indicava que era um objeto facilmente explicável pelos nossos conhecimentos "padrão". Ficava ainda a determinar, quais seriam as propriedades físicas do objeto. Para isso era preciso mais tempo de telescópio e também esperar ele se aproximar mais do Sol. Mesmo assim, em 16 de julho o Prof Loeb depositou um artigo no arXiv defendendo que se tratava de tecnologia alienígena. O argumento pesava sobre anomalias no tamanho aparente, ausência de assinaturas cometárias e uma órbita alinhada à eclíptica que insinuaria algo traçado de propósito.
+
+Passaram-se meses, 3I/Atlas se aproximou do Sol, revelou sua cauda cometária, e pudemos observá-lo com vários telescópios. Agora mesmo, em junho, foram divulgados mais dados do James Webb, espectros no infravermelho médio que mostraram uma química incomum, mas de cometa interestelar.
+
+Citando Sagan novamente, "não existem questões proibidas na ciência". Mas tão importante quanto questionar, é não afirmar mais do que os dados e o conhecimento consolidado da comunidade permitem, especialmente quando se trata de algo tão controverso.
+
+Ao defender, à revelia dos dados, que se tratava de um artefato alienígena, o Prof Loeb não apenas deixou de seguir os bons critérios científicos. Ele permitiu que seu nome e a credibilidade da sua instituição, Harvard, fossem usados para disseminar informações falsas e causar mais perplexidade entre as pessoas que já desconfiam da ciência.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Seligman, D. Z. et al. (2025). *Discovery and Preliminary Characterization of a Third Interstellar Object: 3I/ATLAS*. ApJL. [ADS](https://ui.adsabs.harvard.edu/abs/2025arXiv250702757S/abstract)
+
+- Loeb, A., Hibberd, A. & Crowl, A. (2025). *Is the Interstellar Object 3I/ATLAS Alien Technology?* (preprint, não revisado por pares). [arXiv](https://arxiv.org/abs/2507.12213)
+
+- Belyakov, M. et al. (2026). *The Dust Mineralogy of Interstellar Comet 3I/ATLAS from JWST/MIRI Observations* (preprint). [arXiv](https://arxiv.org/abs/2606.27535)
+
+--- content/az/11.md ---
+---
+title: "Observatórios de Ondas Gravitacionais"
+date: 2026-07-09
+draft: false
+tags: []
+categories: []
+description: "Assim como a luz, as ondas gravitacionais têm um espectro, e cada faixa de frequência revela fenômenos diferentes. Do nanoHz sondado pelos pulsares ao miliHz que a futura LISA vai observar, o futuro da astrofísica de buracos negros não está num único observatório poderoso, mas em várias janelas espectrais abertas ao mesmo tempo."
+---
+
+A primeira observação de Ondas Gravitacionais (OG) abriu uma nova janela para o céu. Várias outras já tinham sido abertas ao longo do século XX: infravermelho, ultravioleta, rádio, raios-X e gama. Mas são todas ondas eletromagnéticas, e por isso mapeiam fenômenos diferentes dos que as OG podem mapear. Assim como existe o espectro eletromagnético, também existe um de ondas gravitacionais. E ele também nos revela fenômenos diferentes de acordo com a frequência da OG.
+
+Frequências na ordem do nHz (período da onda da ordem de anos a dezenas de anos) permite estudar o espiralar de buracos negros (BN) supermassivos no centro de galáxias. Já detectamos essas ondas indiretamente com o nanoGrav por meio do monitoramento de pulsares espalhados pela Via Láctea. Quando uma OG passa por eles, os tempos de chegada dos seus pulsos mudam um pouco. Um mapa de pulsares da nossa galáxia funciona como uma imensa antena de ondas gravitacionais. Não detectamos a fusão de um sistema isolado mas conseguimos identificar a existência de um fundo de OG, resultado das fusões de objetos por todo o universo.
+
+Indo para frequências maiores, em mHz (períodos de minutos a horas), captamos o sinal de pares massivos de BN (dez mil a dez milhões de vezes a massa do Sol). É um intervalo muito interessante porque permite verificar a teoria de crescimento hierárquico dos BN.
+
+Sabemos que estrelas massivas podem formar BNs com 5 a 65 massas solares. Conseguimos explicar BNs intermediários por fusão de BNs menores. Mas nem toda a idade do universo seria suficiente para formar um BN supermassivo com fusões de BNs estelares, é preciso acreção de gás e fusões. Entretanto, a teoria ainda não está fechada a ponto de explicarmos a distribuição de massas observadas. Há intervalos com poucos BNs observados e, mais importante, será que ela explica todos os BNs supermassivos ou há outro canal de formação?
+
+Para esta janela espectral estamos construindo o observatório espacial LISA. Serão três satélites separados por 2,5 milhões de km. Esta distância varia por questões orbitais, mas eles usam uma técnica de atraso de tempo interferométrico para conhecer a separação num dado instante com precisão de picômetros: cem vezes menor que o átomo de hidrogênio! A construção começou recentemente, capitaneada pela Europa, mas o início das operações ainda é incerto, devendo levar ainda 10 ou 15 anos.
+
+Neste tempo, podemos ter outros observatórios que atuarão em outras faixas espectrais das OG. Mas o financiamento e o projeto deles ainda não estão fechados, então ainda são especulações. Se conseguirmos dinheiro, o Telescópio Einstein será a terceira geração de observatórios, operando no subsolo com túneis de 10 km de extensão e detectando ondas na escala do Hz a kHz, “enxergando” fusões de estrelas de nêutrons e BN estelares a distâncias muito maiores do que o atual consórcio LIGO-VIRGO-KAGRA consegue.
+
+O que considero importante saber é que o futuro da astrofísica de buracos negros não passa pela construção de um único observatório poderoso para resolver todos os casos. Assim como na astrofísica “tradicional”, precisamos de várias janelas espectrais para poder olhar toda a diversidade de fenômenos com que o Universo nos brinda.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- LIGO–Virgo–KAGRA 2026, *GWTC-4.0: Updating the Gravitational-Wave Transient Catalog…*, ApJL. Publicado, revisado. [arXiv](https://arxiv.org/abs/2508.18082)
+
+- Amaro-Seoane et al. 2023, *Astrophysics with the Laser Interferometer Space Antenna*, Living Rev. Rel. 26, 2. [arXiv](https://arxiv.org/abs/2203.06016)
+
+- Abac et al. 2025, *The Science of the Einstein Telescope* (preprint). [arXiv](https://arxiv.org/abs/2503.12263)
+
+--- content/az/12.md ---
+---
+title: "Garimpando conhecimento"
+date: 2026-07-16
+draft: false
+tags: []
+categories: []
+description: "A ciência avança: as lições do passado podem até ser úteis, mas os dados antigos são ultrapassados porque nossos equipamentos modernos os tornaram obsoletos. Esta é a visão de muitos, e parece fazer sentido. No entanto, está errada por um motivo bem simples"
+---
+
+A ciência avança: as lições do passado podem até ser úteis, mas os dados antigos são ultrapassados porque nossos equipamentos modernos os tornaram obsoletos. Esta é a visão de muitos, e parece fazer sentido. No entanto, está errada por um motivo bem simples: ao analisar séries temporais, dados antigos podem fazer toda a diferença. Na Astrofísica isso é bem mais comum do que parece.  
+
+Há muito tempo se sabe que algumas das 1022 estrelas do Almagesto apresentam uma magnitude (medida de brilho) diferente da atual. θ-Eridani é a recordista: 2,7 mag mais brilhante no passado do que hoje! É muita coisa. Mesmo Piazzi tendo-a caracterizado como sistema binário em 1814 (hoje sabemos que é triplo!) não resolve o problema.  
+
+Recentemente Waisberg & Katz utilizaram medidas de brilho do sistema triplo θ-Eridani para propor que ele passou por uma fase de envelope comum. Segundo eles, há três medidas antigas independentes: Hiparco ~130 a.C, Ptolomeu no Almagesto em 137 d.C e al-Sufi (964 d.C), todas obtidas a olho nu!  
+
+O artigo ainda não foi revisado por pares. Se Waisberg & Katz estiverem corretos, uma estrela se expandiu quando deixou a sequência principal rumo à fase de subgigante e sua matéria formou um envelope comum ao par. O movimento das estrelas dentro do envelope transferiu energia para ele, que nos apareceu mais brilhante.  
+
+Naturalmente, não foram apenas os dados antigos que levaram os autores do artigo a essa conclusão. Tiveram peso muito grande a interferometria com VLTI (quatro telescópios auxiliares com 1,8 m de abertura cada um), espectroscopia no MPG (2,2 m) e CFHT (3,6 m), além de fotometria com o telescópio espacial TESS.  
+
+É muito impressionante, para qualquer um, que antigas observações a olho nu possam ser colocadas ao lado de dados obtidos com alguns dos mais avançados instrumentos astronômicos já construídos pela humanidade! Isso foi possível porque não temos apenas uma observação isolada, mas medidas consistentes entre si e que se encaixam em um modelo físico.  
+
+Como eu dizia, há outros casos na Astrofísica. René Hudec passou anos garimpando arquivos de placas fotográficas do acervo de Harvard atrás de dados de um sistema binário de Buracos Negros. Chegou a encontrar medidas de 1896. Junto com o conhecimento de hoje, identificou *flares* no sistema. Estima-se que tenhamos até 10 milhões de placas fotográficas guardadas pelo mundo. Muitas já foram digitalizadas. Obter dados relevantes delas é um desafio experimental e de sorte.  
+
+Em 2016 Stephenson et al usaram tabelas babilônicas, crônicas chinesas, registros árabes e publicações antigas europeias para compilar dados de eclipses e ocultações lunares de estrelas de 720 a.C a 2015. Estes dados foram essenciais para descobrir que o dia solar médio cresce a uma taxa de 1,8 ms por século. Nenhum instrumento moderno sozinho poderia recuperar este dado. Observações muito antigas, tão simples como “hoje houve um eclipse solar”, podem ajudar a reconstruir a história da rotação do nosso planeta!  
+
+Confesso que não sei se teria a paciência destes pesquisadores para me debruçar sobre registros antigos. É um verdadeiro trabalho de arqueologia científica. Mas posso imaginar a alegria de garimpar uma bela pepita de conhecimento e ser capaz de dar novas evidências a sua teoria.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Waisberg, I. & Katz, B. (2026). *The forgotten bright star: Theta Eridani as a millenary stellar transient observed by Hipparchus, Ptolemy and al-Sufi*. ADS: https://ui.adsabs.harvard.edu/abs/arXiv:2606.30748
+
+- Stephenson, F. R., Morrison, L. V. & Hohenkerk, C. Y. (2016). *Measurement of the Earth's rotation: 720 BC to AD 2015*. Proc. R. Soc. A 472, 20160404. ADS: https://ui.adsabs.harvard.edu/abs/2016RSPSA.47260404S
+
+- Kruesi, L. (2026). *How Modern and Antique Technologies Reveal a Dynamic Cosmos*. Quanta Magazine, 02/02/2026. https://www.quantamagazine.org/how-modern-and-antique-technologies-reveal-a-dynamic-cosmos-20260202/
+
+
+
 --- content/az/_index.md ---
 ---
 title: "Astrofísica de A a Z"
@@ -1086,6 +1552,221 @@ Parque Perini. Rua Dona Francisca, 8300
 Zona Industrial Norte · Joinville – SC – Brasil
 
 CEP: 89.219-600
+
+--- content/cursos/imersao-bioassinaturas/index.md ---
++++
+title = "A Era das Bioassinaturas"
+subtitulo = "A busca por vida fora da Terra, do método científico às descobertas dos últimos meses"
+descricao = "Imersão online de um dia com o Prof. Alexandre Zabot. Quatro aulas sobre a busca por vida no Universo, com rigor científico e sem matemática. 8 de agosto de 2026."
+tipo = "Imersão"
+tarja = "Imersão · 8 de agosto de 2026 · Sábado"
+data_evento = "Sábado, 8 de agosto de 2026, das 9h às 17h15"
+encerrada = false
+
+checkout = "https://pay.herospark.com/imersao-era-das-bioassinaturas-531755"
+cta = "Garantir minha vaga"
+cta_apoio = "As inscrições se encerram às 19h do dia 7 de agosto."
+preco = "R$ 75,00"
+preco_detalhe = "à vista · ou em até 12x no cartão"
+
+capa = ""
+
+[[secoes]]
+tipo = "abertura"
+conteudo = """
+Há telescópios apontados agora para atmosferas de planetas a dezenas de anos-luz, e um rover coletando rochas em Marte para trazer à Terra. Pela primeira vez a pergunta sobre vida fora daqui saiu da filosofia e virou trabalho de laboratório.
+
+**A era das bioassinaturas já começou.**
+
+A aposta de fundo desta imersão é que a vida provavelmente é abundante no Universo, sem estar debaixo de cada pedra. É uma hipótese de trabalho, não um dogma, e é a tensão entre essa abundância esperada e a ausência de qualquer detecção confirmada que torna o tema interessante. Encontrar vida, se ela existe, exige método antes de exigir sorte.
+
+São quatro aulas para percorrer esse método do começo ao fim, do contexto cósmico ao caso K2-18b debatido em tempo real na literatura. Rigor científico, sem matemática, com o tempo e a profundidade que uma aula avulsa nunca permite.
+"""
+
+[[secoes]]
+tipo = "programa"
+titulo = "O que você vai ver em cada bloco"
+
+[[secoes.itens]]
+rotulo = "Aula 1 · Manhã"
+titulo = "Vida no contexto cósmico e o método da busca"
+descricao = "A escala do problema em números: tamanho do universo observável, contagem de galáxias, estrelas e exoplanetas, e a janela temporal em que o cosmos ficou pronto para a vida. A equação de Drake e o que o tratamento estatístico de Sandberg, Drexler e Ord faz com o paradoxo de Fermi. Zona habitável, classes de bioassinatura, falsos positivos e a escala CoLD, que atravessa as quatro aulas como o critério para separar alegação de descoberta."
+
+[[secoes.itens]]
+rotulo = "Aula 2 · Manhã"
+titulo = "Marte e o Sistema Solar: a busca por evidência in situ"
+descricao = "Marte no passado e no presente, e a busca em três gerações de missões: Viking e a água, Curiosity e o carbono, Perseverance e as bioassinaturas. A amostra Sapphire Canyon como a candidata mais robusta em superfície marciana, a perfuração de dois metros do ExoMars Rosalind Franklin, e o que Vênus, os asteroides e a panspermia acrescentam. Fecha com as lições que a busca no Sistema Solar deixa para a busca em exoplanetas."
+
+[[secoes.itens]]
+rotulo = "Aula 3 · Tarde"
+titulo = "A saga dos exoplanetas: de Wolszczan a JWST"
+descricao = "Das primeiras detecções e o choque de 51 Pegasi b, passando pela velocidade radial e pelos trânsitos das eras Kepler e TESS, até a diversidade que forçou a teoria de formação a incorporar migração planetária. TRAPPIST-1 e o duplo obstáculo das anãs M, o que o James Webb já consegue e o que ainda não consegue medir em atmosferas rochosas, e os projetos que vêm: PLATO, ARIEL e o ANDES no ELT."
+
+[[secoes.itens]]
+rotulo = "Aula 4 · Tarde"
+titulo = "Mundos com oceanos: Sistema Solar e exoplanetas hycean"
+descricao = "Habitabilidade sem luz solar: Europa, Encélado e os oceanos sob gelo, com os fosfatos de Encélado completando os ingredientes químicos da vida. Mundos hycean como categoria de exoplaneta oceânico e o caso K2-18b em tempo real, o anúncio de DMS por Madhusudhan, a refutação de Luque, e a aplicação explícita da escala CoLD para mostrar por que o sinal ainda não sai do nível 1. O método que a imersão inteira construiu, aplicado ao vivo."
+
+[[secoes]]
+tipo = "cronograma"
+titulo = "Estrutura do dia"
+subtitulo = "Quatro blocos, aula e perguntas em cada um"
+conteudo = """
+Cada bloco tem cerca de 50 minutos de aula, um intervalo de 15 minutos em que organizo as perguntas recebidas pelo formulário, e 25 a 30 minutos de respostas, citando os alunos pelo nome. Tempo real para discutir, não uma janela simbólica no fim do dia.
+"""
+
+[[secoes.itens]]
+rotulo = "Bloco 1"
+horario = "9h00 — 10h30"
+
+[[secoes.itens]]
+rotulo = "Bloco 2"
+horario = "10h45 — 12h15"
+
+[[secoes.itens]]
+rotulo = "Almoço"
+horario = "12h15 — 14h00"
+pausa = true
+
+[[secoes.itens]]
+rotulo = "Bloco 3"
+horario = "14h00 — 15h30"
+
+[[secoes.itens]]
+rotulo = "Bloco 4"
+horario = "15h45 — 17h15"
+
+[[secoes]]
+tipo = "entregaveis"
+titulo = "Formato e acesso"
+subtitulo = "Online, ao vivo, no dia"
+conteudo = """
+A transmissão acontece ao vivo pelo YouTube, por link não listado enviado só aos inscritos. Depois do evento, a gravação completa fica disponível com acesso ilimitado na plataforma, junto com o restante do material. É a única forma de assistir. Não há venda avulsa da gravação depois do dia 8.
+"""
+
+[[secoes.itens]]
+titulo = "Gravação"
+descricao = "Acesso ilimitado à imersão completa dentro da plataforma."
+
+[[secoes.itens]]
+titulo = "Slides"
+descricao = "PDF com todos os slides usados nas quatro aulas."
+
+[[secoes.itens]]
+titulo = "Ebook"
+descricao = "Resumo das quatro aulas, exercícios comentados e referências bibliográficas completas."
+
+[[secoes.itens]]
+titulo = "Comunidade"
+descricao = "Grupo de alunos no WhatsApp, ativo entre edições."
+
+[[secoes]]
+tipo = "para_quem"
+titulo = "Para quem é"
+subtitulo = "Profundidade sem matemática"
+
+[[secoes.itens]]
+titulo = "Você vai se sentir em casa se"
+sinal = "sim"
+lista = [
+  "Já leu divulgação científica séria e sentiu que falta um degrau entre o livro introdutório e o paper técnico.",
+  "Quer entender os argumentos, não apenas memorizar conclusões.",
+  "Prefere uma aula densa e direta ao ponto em vez de metáforas repetidas.",
+  "Tem curiosidade intelectual madura e não se intimida com vocabulário específico."
+]
+
+[[secoes.itens]]
+titulo = "Talvez não seja para você se"
+sinal = "nao"
+lista = [
+  "Procura um vídeo introdutório de dez minutos respondendo \"existe vida em Marte\".",
+  "Quer uma resposta fechada, sim ou não, sobre se já encontramos vida lá fora — a astrobiologia séria não entrega isso hoje.",
+  "Espera equações, derivações e formalismo: aqui o rigor está na argumentação e no modo de avaliar evidência, não no cálculo."
+]
+
+[[secoes]]
+tipo = "depoimentos"
+titulo = "O que dizem alunos de imersões anteriores"
+
+[[secoes.itens]]
+texto = "Parabéns pelo profissionalismo, didática, capacidade de simplificação dos assuntos e conhecimento técnico. Ao trazer artigos científicos recentes, deixa claro que houve um esforço especial para a preparação do curso, não foi reaproveitamento de material antigo. O trabalho do professor Zabot faz com que eu me encante cada vez mais pela astrofísica, ramo da Ciência de que eu nem gostava tanto na época de faculdade."
+nome = "Adriana Braun"
+origem = "Imersão James Webb"
+
+[[secoes.itens]]
+texto = "Para alguém leigo como eu, o curso mostrou-se extremamente claro e acessível, embora em alguns momentos eu tenha tido dificuldade em acompanhar o conteúdo, o que pretendo sanar revendo as aulas. A meu ver, a maior virtude do Prof. Zabot é justamente essa capacidade de tornar o conhecimento compreensível e alcançar a todos."
+nome = "Laura Barreto"
+origem = "Imersão James Webb"
+
+[[secoes.itens]]
+texto = "Sou um médico de 82 anos, cirurgião aposentado, e faço todos os seus cursos, exceto o de relatividade com matemática. Pura curiosidade e o hábito de estudar, por toda uma vida."
+nome = "João Francisco Ferrari Duch"
+origem = "Imersão James Webb"
+
+[[secoes.itens]]
+texto = "Esta imersão foi uma inovação realizada com timing, excelente qualidade e diálogo. Perfeita."
+nome = "Breno Kuperman"
+origem = "Imersão James Webb"
+
+[[secoes]]
+tipo = "professor"
+titulo = "Sobre o professor"
+nome = "Prof. Dr. Alexandre Zabot"
+foto = "professor.jpg"
+conteudo = """
+Físico, doutor em Astrofísica, com mais de 25 anos de experiência em ensino e divulgação científica em Astronomia e Cosmologia. Professor universitário e fundador do projeto **Astrofísica para Todos**.
+
+Mais de **50 mil alunos** já passaram pelos cursos online, palestras e oficinas ao longo da carreira.
+"""
+
+[[secoes.itens]]
+titulo = "Introdução à Cosmologia Moderna: um curso de graduação"
+descricao = "2023 · Finalista do Prêmio Jabuti Acadêmico 2024"
+
+[[secoes.itens]]
+titulo = "Astrofísica Moderna: Fenômenos e Conceitos, volume 1"
+descricao = "2025 · Semifinalista do Prêmio Jabuti Acadêmico 2026"
+
+[[secoes]]
+tipo = "preco"
+titulo = "Inscrição"
+
+[[secoes.itens]]
+rotulo = "Data"
+valor = "sábado, 8 de agosto de 2026, das 9h às 17h15"
+
+[[secoes.itens]]
+rotulo = "Onde"
+valor = "YouTube ao vivo, com link exclusivo para inscritos"
+
+[[secoes.itens]]
+rotulo = "Garantia"
+valor = "7 dias para pedir reembolso, sem justificativa"
+
+[[secoes]]
+tipo = "faq"
+titulo = "Perguntas que costumam aparecer"
+
+[[secoes.itens]]
+p = "Já vejo vídeos sobre isso no YouTube. O que muda?"
+r = "Os vídeos dão a notícia; a imersão dá o critério. A diferença entre saber que o K2-18b foi manchete e entender por que a detecção não se sustentou. O conteúdo vem da literatura primária, não de outro vídeo."
+
+[[secoes.itens]]
+p = "Não sei matemática. Consigo acompanhar?"
+r = "Sim. Não há contas. O rigor está na lógica do argumento e na leitura das evidências. O nível foi calibrado para quem nunca fez um curso avançado, sem que isso custe profundidade."
+
+[[secoes.itens]]
+p = "Vou pegar a gravação depois. Preciso estar ao vivo?"
+r = "Não, você pode acompanhar apenas a gravação e tirar suas dúvidas depois no grupo de whats app dos alunos."
++++
+
+--- content/cursos/_index.md ---
++++
+title = "Cursos"
+[_build]
+  render = "never"
+  list = "never"
++++
 
 --- content/ensino.md ---
 ---
@@ -3059,15 +3740,15 @@ git push
 
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |    31  
+  Pages            |    36  
   Paginator pages  |     0  
-  Non-page files   |     0  
-  Static files     |     9  
-  Processed images |     0  
+  Non-page files   |     2  
+  Static files     |    11  
+  Processed images |     1  
   Aliases          |     0  
   Cleaned          |     0  
 
-Total in 52 ms
+Total in 101 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt

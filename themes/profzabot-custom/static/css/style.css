@@ -183,3 +183,54 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
   margin-top: 0.3rem;
   margin-bottom: 0;
 }
+
+/* Aviso temporário — divulgação de imersão */
+.aviso-site {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background-color: var(--pessego);
+  color: var(--noite);
+  border-top: 3px solid var(--indigo);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 0 0 2.5rem;
+  transition: transform 0.2s;
+}
+.aviso-site:hover { transform: translateY(-2px); }
+.aviso-rot {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--creme);
+  background-color: var(--indigo);
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.aviso-txt {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--noite);
+}
+.aviso-det {
+  font-size: 13px;
+  color: rgba(4, 13, 41, 0.7);
+}
+.aviso-seta {
+  margin-left: auto;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--indigo);
+  transition: transform 0.2s;
+}
+.aviso-site:hover .aviso-seta { transform: translateX(4px); }
+@media (max-width: 600px) {
+  .aviso-site { gap: 0.6rem; padding: 0.9rem 1.1rem; }
+  .aviso-seta { margin-left: 0; }
+}
