@@ -12,3 +12,9 @@ theme = "profzabot-custom"
   ogImage = "/images/sobre/eu.jpg"
   author = "Prof. Alexandre Zabot"
   ga_id = "G-YY0YJ7HRDS"
+
+[params.aviso]
+  ativo = true
+  link = "/cursos/imersao-bioassinaturas/"
+  texto = "Imersão · A Era das Bioassinaturas"
+  detalhe = "A busca por vida fora da Terra · sábado, 8 de agosto"
