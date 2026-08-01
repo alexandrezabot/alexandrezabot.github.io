@@ -1,3 +1,5 @@
-git add -A
-git commit -m "${1:-atualiza site}"
-git push
+rm -rf public \
+  && hugo --gc --minify \
+  && git add -A \
+  && git commit -m "${1:-atualiza site}" \
+  && git push

@@ -18,7 +18,7 @@ capa = ""
 [[secoes]]
 tipo = "abertura"
 conteudo = """
-Há telescópios apontados agora para atmosferas de planetas a dezenas de anos-luz, e um rover coletando rochas em Marte para trazer à Terra. Pela primeira vez a pergunta sobre vida fora daqui saiu da filosofia e virou trabalho de laboratório.
+Há telescópios apontados agora para atmosferas de planetas a dezenas de anos-luz, e um rover em Marte guardando amostras para o dia em que conseguirmos trazê-las. Pela primeira vez a pergunta sobre vida fora daqui saiu da filosofia e virou trabalho de laboratório.
 
 **A era das bioassinaturas já começou.**
 
@@ -85,7 +85,9 @@ tipo = "entregaveis"
 titulo = "Formato e acesso"
 subtitulo = "Online, ao vivo, no dia"
 conteudo = """
-A transmissão acontece ao vivo pelo YouTube, por link não listado enviado só aos inscritos. Depois do evento, a gravação completa fica disponível com acesso ilimitado na plataforma, junto com o restante do material. É a única forma de assistir. Não há venda avulsa da gravação depois do dia 8.
+A transmissão acontece ao vivo pelo YouTube, por link não listado enviado só aos inscritos. Depois do evento, a gravação completa fica disponível com acesso ilimitado na plataforma, junto com o restante do material. Inscrever-se é a única forma de ter acesso, no dia e depois dele, porque não há venda avulsa da gravação passado o dia 8.
+
+Minha equipe dá suporte por WhatsApp para qualquer dificuldade de acesso, pagamento ou senha, e fica online durante toda a transmissão respondendo em tempo real.
 """
 
 [[secoes.itens]]
@@ -103,6 +105,10 @@ descricao = "Resumo das quatro aulas, exercícios comentados e referências bibl
 [[secoes.itens]]
 titulo = "Comunidade"
 descricao = "Grupo de alunos no WhatsApp, ativo entre edições."
+
+[[secoes.itens]]
+titulo = "Certificado"
+descricao = "Certificado de 10 horas emitido pela plataforma, contando as aulas e o estudo do material complementar."
 
 [[secoes]]
 tipo = "para_quem"
@@ -124,8 +130,8 @@ titulo = "Talvez não seja para você se"
 sinal = "nao"
 lista = [
   "Procura um vídeo introdutório de dez minutos respondendo \"existe vida em Marte\".",
-  "Quer uma resposta fechada, sim ou não, sobre se já encontramos vida lá fora — a astrobiologia séria não entrega isso hoje.",
-  "Espera equações, derivações e formalismo: aqui o rigor está na argumentação e no modo de avaliar evidência, não no cálculo."
+  "Quer uma resposta fechada, sim ou não, sobre se já encontramos vida lá fora, e a astrobiologia séria não entrega isso hoje.",
+  "Espera equações, derivações e formalismo. Aqui o rigor está na argumentação e no modo de avaliar evidência, não no cálculo."
 ]
 
 [[secoes]]
@@ -169,7 +175,7 @@ descricao = "2023 · Finalista do Prêmio Jabuti Acadêmico 2024"
 
 [[secoes.itens]]
 titulo = "Astrofísica Moderna: Fenômenos e Conceitos, volume 1"
-descricao = "2025 · Semifinalista do Prêmio Jabuti Acadêmico 2026"
+descricao = "2025 · Finalista do Prêmio Jabuti Acadêmico 2026"
 
 [[secoes]]
 tipo = "preco"
@@ -200,6 +206,19 @@ p = "Não sei matemática. Consigo acompanhar?"
 r = "Sim. Não há contas. O rigor está na lógica do argumento e na leitura das evidências. O nível foi calibrado para quem nunca fez um curso avançado, sem que isso custe profundidade."
 
 [[secoes.itens]]
-p = "Vou pegar a gravação depois. Preciso estar ao vivo?"
-r = "Não, você pode acompanhar apenas a gravação e tirar suas dúvidas depois no grupo de whats app dos alunos."
+p = "Não posso estar ao vivo no dia 8. Ainda vale a pena?"
+r = "Vale. A transmissão é ao vivo, mas a gravação completa fica na plataforma com acesso ilimitado e sem data para sair do ar, junto com o PDF dos slides das quatro aulas e o ebook. Você assiste quando quiser e volta quantas vezes precisar. As dúvidas que aparecerem depois você leva ao grupo de alunos no WhatsApp, onde eu respondo diretamente, e o grupo segue ativo entre uma imersão e outra. O que não existe é comprar a gravação depois. Ela não é vendida avulsa."
+
+
+[[secoes.itens]]
+p = "Como faço perguntas durante a imersão?"
+r = "Por um formulário que fica aberto na aula. No intervalo de cada bloco eu organizo o que chegou e respondo nos 25 a 30 minutos seguintes, citando quem perguntou pelo nome. Quem assistir pela gravação leva as dúvidas ao grupo de alunos no WhatsApp, onde eu respondo, e o grupo continua ativo entre uma imersão e outra."
+
+[[secoes.itens]]
+p = "Como funciona o acesso depois que eu me inscrevo?"
+r = "A inscrição é feita pela Herospark, e é lá que fica tudo. Assim que você entra, a imersão aparece na sua área de aluno, e é por ali que chega o link da transmissão. Depois do dia 8 a gravação é publicada no mesmo lugar, junto com os slides, o ebook e o certificado. Se travar em alguma etapa, minha equipe atende por WhatsApp, inclusive ao vivo durante a imersão."
+
+[[secoes.itens]]
+p = "Recebo certificado?"
+r = "Sim, certificado de 10 horas, emitido pela plataforma e disponível na sua área de aluno. A carga horária considera as quatro aulas e o estudo do material complementar, com os exercícios comentados do ebook."
 +++
