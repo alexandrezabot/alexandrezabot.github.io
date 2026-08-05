@@ -167,7 +167,7 @@ subtitulo = "Em vídeo, gravados por eles mesmos"
 
 [[secoes.itens]]
 texto = "Fui pesquisador do IPT durante muitos anos e hoje estou aposentado. Tenho formação em física e em engenharia, com mestrado e doutorado, e sou professor de física. Recomendo a todos que tiverem oportunidade de fazer algum curso do professor Zabot. É um trabalho muito especial, com muita dedicação e de alto nível, inclusive nessa proposição dele de trabalhar sem envolver uma matemática mais sofisticada. Isso tem muito mérito, e ele conduz o trabalho com muita competência."
-nome = "Amilton"
+nome = "Amilton Almeida"
 origem = "Mentoria Cosmologia sem Matemática"
 video = "https://www.youtube.com/shorts/-tpFHmA3uq0"
 video_id = "-tpFHmA3uq0"
@@ -175,7 +175,7 @@ video_formato = "vertical"
 
 [[secoes.itens]]
 texto = "Gosto muito de uma palavra grega, mathematikoi, que designa aqueles que desejam aprender. Tem tudo a ver com a mentoria do professor Zabot, porque ele consegue juntar pessoas que querem aprender de verdade. É uma mentoria que foge do lugar comum da divulgação científica, que muitas vezes traz armadilhas, simplificações e comparações que acabam estragando o conceito. Ele consegue driblar todas essas armadilhas, com uma mentoria muito bem montada e muito didática."
-nome = "Paulo"
+nome = "Paulo Bedaque"
 origem = "Mentoria Cosmologia sem Matemática"
 video = "https://www.youtube.com/watch?v=InklRa2DGiE"
 video_id = "InklRa2DGiE"
@@ -190,8 +190,8 @@ video_id = "k95JRfX74NM"
 video_formato = "horizontal"
 
 [[secoes.itens]]
-texto = "Sou professor universitário na rede estadual de São Paulo há mais de 30 anos. Sem matemática não quer dizer, aqui, algo sem rigor científico ou sem profundidade. Você passa pelos temas mais relevantes da cosmologia embasados no que há de mais atual e consensual dentro da comunidade científica. O pulo do gato é o professor usar o próprio conhecimento e a didática para simplificar o acesso aos temas mais importantes sobre a origem do universo, recorrendo à história da ciência, a simulações, imagens, analogias e aos textos originais dos cientistas mais brilhantes dos séculos 19 e 20. O resultado é uma base sólida para compreender as descobertas mais instigantes desses últimos séculos."
-nome = "Helder Silva"
+texto = "Sou professor na rede estadual de São Paulo há mais de 30 anos. Sem matemática não quer dizer, aqui, algo sem rigor científico ou sem profundidade. Você passa pelos temas mais relevantes da cosmologia embasados no que há de mais atual e consensual dentro da comunidade científica. O pulo do gato é o professor usar o próprio conhecimento e a didática para simplificar o acesso aos temas mais importantes sobre a origem do universo, recorrendo à história da ciência, a simulações, imagens, analogias e aos textos originais dos cientistas mais brilhantes dos séculos 19 e 20. O resultado é uma base sólida para compreender as descobertas mais instigantes desses últimos séculos."
+nome = "Hélder Silva"
 origem = "Mentoria Cosmologia sem Matemática"
 video = "https://www.youtube.com/watch?v=4KEzd880Tgc"
 video_id = "4KEzd880Tgc"
@@ -250,7 +250,7 @@ r = "Não. A aula fica gravada na plataforma por tempo indeterminado e os slides
 
 [[secoes.itens]]
 p = "Dez semanas é muito. Não sei se termino."
-r = "Nos meus cursos gravados, a taxa de conclusão fica entre 8% e 11%. Nos formatos ao vivo, entre 23% e 42%. A diferença não é o conteúdo, é a hora marcada. O autodidata sozinho quase nunca termina, e é exatamente por isso que este curso é ao vivo e não uma sequência de vídeos que você assiste quando puder. Cada encontro também abre com cinco minutos de retomada, para quem perdeu a semana anterior não entrar perdido."
+r = "A taxa de conclusão dos meus cursos ao vivo é 5x maior do que nos cursos gravados! A diferença não é o conteúdo, é a hora marcada. O autodidata sozinho quase nunca termina, e é exatamente por isso que este curso é ao vivo e não uma sequência de vídeos que você assiste quando puder. Cada encontro também abre com cinco minutos de retomada, para quem perdeu a semana anterior não entrar perdido."
 
 [[secoes.itens]]
 p = "Tem matemática?"
@@ -258,11 +258,11 @@ r = "Não. Não há contas a fazer, nem exercício de cálculo, nem pré-requisi
 
 [[secoes.itens]]
 p = "Tenho base para acompanhar?"
-r = "O piso é concreto: você acompanha notícia de ciência e sabe o que é um fóton. Se \"a luz é feita de partículas chamadas fótons\" é uma frase que faz sentido para você, está dentro. Não é preciso ter estudado física formalmente. Boa parte da turma nunca estudou."
+r = "O piso é concreto: você acompanha notícia de ciência e sabe o que é um fóton? Se \"a luz é feita de partículas chamadas fótons\" é uma frase que faz sentido para você, está dentro. Não é preciso ter estudado física formalmente. Boa parte da turma nunca estudou."
 
 [[secoes.itens]]
 p = "Isso não está de graça nos seus cursos do Astrofísica para Todos?"
-r = "Não. Lá eu ensino as teorias, com todo o formalismo, curso por curso: quântica, partículas, cosmologia. Aqui eu conto a história que essas teorias permitem contar, numa estrutura de escavação que começa na cor de Betelgeuse a olho nu e desce dez camadas até o primeiro segundo. Nenhuma aula gratuita minha tem esse arco, porque um curso disciplinar não pode tê-lo. E se você já assistiu àqueles cursos, melhor: vai reconhecer os conceitos e ver para que serviam."
+r = "Não. Lá a abordagem é bem diferente, os cursos são muito mais focados e específicos: quântica, partículas, cosmologia. Aqui eu conto a história que essas teorias permitem contar, numa estrutura de escavação que começa na cor de Betelgeuse a olho nu e desce dez camadas até o primeiro segundo. Nenhuma aula gratuita minha tem esse arco, porque um curso disciplinar não pode tê-lo. E se você já assistiu àqueles cursos, melhor: vai reconhecer os conceitos e ver para que serviam."
 
 [[secoes.itens]]
 p = "Vou ter que aparecer na câmera e falar?"
@@ -270,11 +270,11 @@ r = "Não. Câmera é opcional, e muita gente participa a aula inteira com ela d
 
 [[secoes.itens]]
 p = "Numa turma de 40, a minha pergunta vai ser respondida?"
-r = "São dez horas de conversa ao longo do curso, uma por encontro. Na prática dá tempo de sobra, e as perguntas que não couberem na noite continuam no grupo da turma durante a semana. As 40 vagas existem justamente para que essa hora continue funcionando como conversa."
+r = "Sim! São dez horas de conversa ao longo do curso, uma por encontro. Na prática dá tempo de sobra, e as perguntas que não couberem na noite continuam no grupo da turma durante a semana. As 40 vagas existem justamente para que essa hora continue funcionando como conversa. Esta é a quarta vez que faço uma Mentoria, já tenho experiência em conduzir a discussão para que todos participem."
 
 [[secoes.itens]]
 p = "Já fiz a Imersão Universo Invisível. Vou ver matéria escura de novo?"
-r = "Em parte da aula 10, sim, e vale dizer isso de frente. A diferença é de função: na imersão a matéria escura era o assunto, com o estado da arte da caçada. Aqui ela é o capítulo que falta de uma contabilidade que a turma passou nove semanas montando, e o efeito de chegar nela por esse caminho é outro."
+r = "Em parte da aula 10, sim, mas não da mesma forma. A diferença é de função: na imersão a matéria escura era o assunto, com o estado da arte da caçada. Aqui ela é o capítulo que falta de uma contabilidade que a turma passou nove semanas montando, e o efeito de chegar nela por esse caminho é outro."
 
 [[secoes.itens]]
 p = "Já li seus livros. Vai ser repetido?"
