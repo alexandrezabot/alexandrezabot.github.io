@@ -1,0 +1,280 @@
++++
+title = "Mentoria História da Matéria"
+subtitulo = "A Física Quântica e as Partículas que construíram o Universo"
+descricao = "Dez encontros ao vivo com o Prof. Alexandre Zabot, às quintas-feiras, de 20 de agosto a 22 de outubro de 2026. Física quântica e física de partículas aplicadas à astrofísica, sem exigir matemática."
+tipo = "Mentoria"
+tarja = "Mentoria · 10 encontros ao vivo · início em 20 de agosto de 2026"
+data_evento = "Quintas-feiras, das 19h30 às 21h30, de 20 de agosto a 22 de outubro de 2026"
+encerrada = false
+
+checkout = "https://pay.herospark.com/mentoria-historia-da-materia-536123"
+cta = "Garantir minha vaga"
+cta_apoio = "As inscrições se encerram às 19h do dia 19 de agosto, véspera da primeira aula."
+preco = "R$ 897,00"
+preco_detalhe = "à vista · ou 12x de R$ 92,80 no cartão"
+
+capa = ""
+
+[[secoes]]
+tipo = "abertura"
+conteudo = """
+Esta mentoria é um curso de física quântica e de física de partículas aplicadas à astrofísica. Não é o tratado completo de nenhuma das duas. São os conceitos centrais de ambas, convocados na ordem em que a história da matéria exige que apareçam.
+
+Um exemplo do que isso significa na prática. Em 1952, Paul Merrill encontrou linhas de tecnécio no espectro de gigantes vermelhas. O tecnécio não tem isótopo estável, e o mais duradouro deles decai em alguns milhões de anos. Numa estrela de bilhões de anos, aquele átomo não pode ter vindo da nuvem que a formou. Só pode ter sido fabricado ali dentro, e há pouco tempo. Uma única medida feita da Terra prova que estrelas fabricam elementos químicos agora, enquanto você lê isto. Entender por que essa conclusão é obrigatória custa física nuclear, captura de nêutrons e um modelo do interior estelar.
+
+**É assim que cada uma das dez aulas começa: por um documento.** Uma medida real, um espectro, uma contagem de partículas, uma curva. O documento entra como enigma, a teoria é convocada para decifrá-lo, e no fim da noite ele está decifrado e aponta para o documento da semana seguinte.
+
+São dez. As cores de Órion a olho nu. As linhas de Fraunhofer no espectro do Sol. Os neutrinos solares do Borexino. O deutério nas nuvens de quasares. O espectro do FIRAS. O tecnécio de Merrill. Os onze neutrinos de 1987. O estrôncio da kilonova. A fotografia do pósitron. A curva de rotação de M31.
+
+A ordem não é a do universo, é a da descoberta. O curso começa na cor de Betelgeuse, que qualquer um enxerga do quintal, e desce dez camadas até o primeiro segundo, que é o clímax e não o portão de entrada.
+"""
+
+[[secoes]]
+tipo = "programa"
+titulo = "As dez aulas"
+
+[[secoes.itens]]
+rotulo = "Aula 1 · 20 de agosto"
+titulo = "A luz carrega a temperatura"
+descricao = "Toda matéria aquecida brilha segundo uma curva universal, e explicá-la custou a Planck a hipótese mais relutante da história da física: a energia vem em pacotes. A luz como onda, a catástrofe do ultravioleta, o quantum de Planck e o fóton de Einstein. Documento: as cores de Órion a olho nu, Betelgeuse vermelha e Rigel azul, traduzidas em temperaturas pela lei de Wien."
+
+[[secoes.itens]]
+rotulo = "Aula 2 · 27 de agosto"
+titulo = "O código de barras dos átomos"
+descricao = "O átomo quantizado de Bohr absorve e emite luz em linhas precisas, e é por isso que lemos a composição química de uma estrela sem sair da Terra. O átomo de Rutherford, as leis de Kirchhoff, os níveis de Bohr, as ondas de matéria de de Broglie e a dupla fenda. Documento: as linhas escuras de Fraunhofer no espectro solar, incluindo o hélio, o único elemento descoberto fora da Terra antes de ser encontrado aqui."
+
+[[secoes.itens]]
+rotulo = "Aula 3 · 3 de setembro"
+titulo = "O Sol não poderia brilhar"
+descricao = "Pela física clássica a fusão no núcleo solar é impossível, porque dois prótons não têm energia para vencer a repulsão elétrica entre eles. Ela acontece porque a função de onda permite atravessar a barreira em vez de escalá-la. O problema da energia solar de Eddington, o núcleo atômico e E=mc², tunelamento e a cadeia próton-próton. Documento: os neutrinos solares medidos pelo Borexino em 2018 e 2020, que são a única imagem direta do que acontece no centro do Sol."
+
+[[secoes.itens]]
+rotulo = "Aula 4 · 10 de setembro"
+titulo = "O forno primordial"
+descricao = "A mesma física de fusão da aula anterior, aplicada ao universo inteiro nos seus três primeiros minutos, fixa as abundâncias de hidrogênio, hélio e deutério que medimos hoje. Expansão, nêutrons livres em contagem regressiva e a janela em que os núcleos primordiais se formaram. Documento: o deutério medido em nuvens intocadas na linha de visada de quasares, com o problema do lítio como capítulo ainda aberto."
+
+[[secoes.itens]]
+rotulo = "Aula 5 · 17 de setembro"
+titulo = "A primeira luz"
+descricao = "Quando os núcleos primordiais capturaram elétrons e viraram átomos, o universo deixou de ser opaco e soltou a radiação que hoje chega de todas as direções. O plasma opaco, a recombinação, a previsão de Alpher e Gamow e a descoberta acidental de Penzias e Wilson. Documento: o espectro do FIRAS/COBE a 2,7255 K, o corpo negro mais perfeito conhecido na natureza, e a curva da aula 1 reaparecendo em escala cosmológica."
+
+[[secoes.itens]]
+rotulo = "Aula 6 · 24 de setembro"
+titulo = "A forja estelar"
+descricao = "Do carbono ao ferro, os elementos são cozidos em gerações sucessivas de estrelas, na síntese que B²FH transformou em programa de pesquisa em 1957. A estrela como equilíbrio, o processo triplo-alfa, a captura lenta de nêutrons e o beco sem saída do ferro. Documento: o tecnécio de Merrill, o mesmo exemplo que abre esta página, agora com a física necessária para explicá-lo."
+
+[[secoes.itens]]
+rotulo = "Aula 7 · 1º de outubro"
+titulo = "A morte que semeia"
+descricao = "O colapso do núcleo de ferro de uma estrela massiva libera em segundos, quase toda em neutrinos, a energia que espalha pelo espaço os elementos da vida. O colapso, a explosão invisível e a semeadura do meio interestelar. Documento: os onze neutrinos registrados pelo Kamiokande-II em 23 de fevereiro de 1987, horas antes de a supernova ser vista, a primeira vez que a humanidade observou uma estrela morrendo por dentro."
+
+[[secoes.itens]]
+rotulo = "Aula 8 · 8 de outubro"
+titulo = "Cadáveres quânticos e a origem do ouro"
+descricao = "O princípio de exclusão de Pauli sustenta anãs brancas e estrelas de nêutrons contra a gravidade, e a colisão desses cadáveres forja os elementos mais pesados da tabela periódica. Spin, férmions e bósons, o limite de Chandrasekhar, a matéria nuclear das estrelas de nêutrons e a captura rápida de nêutrons em GW170817. Documento: o estrôncio identificado no espectro da kilonova AT2017gfo."
+
+[[secoes.itens]]
+rotulo = "Aula 9 · 15 de outubro"
+titulo = "O porão da matéria: do pósitron ao primeiro segundo"
+descricao = "A antimatéria prevista por Dirac e fotografada por Anderson abre a porta do elenco completo, quarks, léptons e forças, e com ele o curso desce ao primeiro segundo, quando tudo o que existe congelou de um plasma em aniquilação. Documento: a fotografia do pósitron de Anderson, de 1932, com o plasma de quarks e glúons produzido no LHC como contraprova feita em laboratório."
+
+[[secoes.itens]]
+rotulo = "Aula 10 · 22 de outubro"
+titulo = "Os capítulos que faltam"
+descricao = "A contabilidade montada ao longo de nove semanas fecha com dois buracos. Por que sobrou uma parte em um bilhão de matéria sobre antimatéria, com as condições de Sakharov e a razão de a violação de CP conhecida não bastar. E o que são os quatro quintos da matéria que não estão em nenhuma das aulas anteriores, da evidência acumulada até os limites do LZ. Documento: a curva de rotação de M31 de Rubin e Ford, 1970. Fecha com a cronologia cósmica inteira, de ponta a ponta, uma única vez."
+
+[[secoes]]
+tipo = "cronograma"
+titulo = "Como é cada quinta-feira"
+subtitulo = "Uma hora de aula, uma hora de conversa"
+conteudo = """
+O encontro abre com cerca de cinco minutos retomando onde a história parou na semana anterior. Depois vem a aula, com slides, e em seguida uma hora inteira de conversa aberta, sem roteiro, em que você pergunta por voz ou pelo chat. Câmera é opcional, não há chamada nominal e ninguém é sabatinado.
+
+São vinte horas ao vivo no total, metade delas de conversa. É o único formato em que eu falo diretamente com quem está do outro lado; nas imersões as perguntas chegam por formulário.
+"""
+
+[[secoes.itens]]
+rotulo = "Aula"
+horario = "19h30 — 20h30"
+
+[[secoes.itens]]
+rotulo = "Conversa aberta"
+horario = "20h30 — 21h30"
+
+[[secoes]]
+tipo = "entregaveis"
+titulo = "Formato e acesso"
+subtitulo = "Ao vivo pelo Google Meet, com tudo gravado"
+conteudo = """
+A turma tem 40 vagas. O limite existe por uma razão prática: a hora de perguntas é ao vivo, e em turma grande ela deixa de funcionar e vira plateia.
+
+Quem falta a um encontro continua na turma. A aula fica gravada na plataforma por tempo indeterminado, os slides em PDF ficam disponíveis, e o grupo da turma no WhatsApp funciona a semana toda. O que não se recupera é a pergunta ao vivo daquela noite, e prefiro dizer isso a fingir que assistir gravado é a mesma coisa.
+"""
+
+[[secoes.itens]]
+titulo = "Gravação"
+descricao = "Todas as dez aulas gravadas na plataforma, por tempo indeterminado."
+
+[[secoes.itens]]
+titulo = "Slides"
+descricao = "PDF completo de cada aula, publicado na semana do encontro."
+
+[[secoes.itens]]
+titulo = "Ebook"
+descricao = "Resumo das dez aulas e referências bibliográficas, com os artigos originais de cada documento."
+
+[[secoes.itens]]
+titulo = "Exercícios"
+descricao = "Questões comentadas por aula, com gabarito."
+
+[[secoes.itens]]
+titulo = "Grupo da turma"
+descricao = "WhatsApp fechado, ativo durante as dez semanas, onde eu respondo."
+
+[[secoes.itens]]
+titulo = "Certificado"
+descricao = "Certificado de 30 horas emitido pela plataforma, com assinatura do professor."
+
+[[secoes]]
+tipo = "para_quem"
+titulo = "Para quem é"
+subtitulo = "Rigor conceitual sem matemática exigida"
+
+[[secoes.itens]]
+titulo = "Você vai se sentir em casa se"
+sinal = "sim"
+lista = [
+  "Acompanha notícia de ciência e sabe o que é um fóton. Esse é o piso, e ele basta.",
+  "Já leu divulgação científica séria e sentiu que falta um degrau entre o livro introdutório e o artigo técnico.",
+  "Quer entender por que os físicos acreditam no que acreditam, e não apenas o que eles concluíram.",
+  "Aguenta dez semanas com hora marcada, e desconfia que sozinho não terminaria.",
+  "Gosta de perguntar, e quer poder fazer isso ao vivo, sem intermediário."
+]
+
+[[secoes.itens]]
+titulo = "Talvez não seja para você se"
+sinal = "nao"
+lista = [
+  "Procura o formalismo completo de mecânica quântica ou de partículas. Ele existe, é gratuito, e está nos cursos do Astrofísica para Todos.",
+  "Quer um resumo rápido da origem do universo. Aqui são vinte horas, e a lentidão é proposital.",
+  "Espera derivações e problemas resolvidos. Aparece uma conta ou outra, sempre opcional, nunca como pré-requisito.",
+  "Não tem como comparecer a nenhuma das quintas-feiras. A gravação sustenta quem perde uma ou duas, não quem não vem nunca."
+]
+
+[[secoes]]
+tipo = "depoimentos"
+titulo = "Alunos de mentorias anteriores"
+
+[[secoes.itens]]
+texto = "Fui pesquisador do IPT durante muitos anos e hoje estou aposentado. Tenho formação em física e em engenharia, com mestrado e doutorado, e sou professor de física. Recomendo a todos que tiverem oportunidade de fazer algum curso do professor Zabot. É um trabalho muito especial, com muita dedicação e de alto nível, inclusive nessa proposição dele de trabalhar sem envolver uma matemática mais sofisticada. Isso tem muito mérito, e ele conduz o trabalho com muita competência."
+nome = "Amilton"
+origem = "Mentoria Cosmologia sem Matemática"
+video = "https://www.youtube.com/shorts/-tpFHmA3uq0"
+
+[[secoes.itens]]
+texto = "Gosto muito de uma palavra grega, mathematikoi, que designa aqueles que desejam aprender. Tem tudo a ver com a mentoria do professor Zabot, porque ele consegue juntar pessoas que querem aprender de verdade. É uma mentoria que foge do lugar comum da divulgação científica, que muitas vezes traz armadilhas, simplificações e comparações que acabam estragando o conceito. Ele consegue driblar todas essas armadilhas, com uma mentoria muito bem montada e muito didática."
+nome = "Paulo"
+origem = "Mentoria Cosmologia sem Matemática"
+video = "https://www.youtube.com/watch?v=InklRa2DGiE"
+
+[[secoes.itens]]
+texto = "Sou professora de língua portuguesa. Decidi fazer a mentoria por já conhecer o trabalho do professor e já ter feito outros cursos com ele, e sou extremamente grata pelo conhecimento compartilhado. Foi muito satisfatório ver o engajamento dos mentorandos com o professor, sempre solícito e flexível durante as aulas, atento às nossas dúvidas e pronto para respondê-las, indicando vídeos e livros para quem quisesse ir além. Superou todas as minhas expectativas."
+nome = "Bárbara Leal"
+origem = "Mentoria Cosmologia sem Matemática"
+video = "https://www.youtube.com/watch?v=k95JRfX74NM"
+
+[[secoes]]
+tipo = "professor"
+titulo = "Sobre o professor"
+nome = "Prof. Dr. Alexandre Zabot"
+foto = "professor.jpg"
+conteudo = """
+Físico, doutor em Astrofísica, com mais de 25 anos de experiência em ensino e divulgação científica em Astronomia e Cosmologia. Professor universitário e fundador do projeto **Astrofísica para Todos**.
+
+Mais de **50 mil alunos** já passaram pelos cursos online, palestras e oficinas ao longo da carreira.
+"""
+
+[[secoes.itens]]
+titulo = "Introdução à Cosmologia Moderna: um curso de graduação"
+descricao = "2023 · Finalista do Prêmio Jabuti Acadêmico 2024"
+
+[[secoes.itens]]
+titulo = "Astrofísica Moderna: Fenômenos e Conceitos, volume 1"
+descricao = "2025 · Finalista do Prêmio Jabuti Acadêmico 2026"
+
+[[secoes]]
+tipo = "preco"
+titulo = "Inscrição"
+
+[[secoes.itens]]
+rotulo = "Datas"
+valor = "dez quintas-feiras, de 20 de agosto a 22 de outubro de 2026, das 19h30 às 21h30"
+
+[[secoes.itens]]
+rotulo = "Onde"
+valor = "Google Meet, com link exclusivo enviado aos inscritos"
+
+[[secoes.itens]]
+rotulo = "Turma"
+valor = "40 vagas"
+
+[[secoes.itens]]
+rotulo = "Inscrições"
+valor = "até as 19h de 19 de agosto, véspera da primeira aula"
+
+[[secoes.itens]]
+rotulo = "Garantia"
+valor = "7 dias para pedir reembolso, sem justificativa"
+
+[[secoes]]
+tipo = "faq"
+titulo = "Perguntas que costumam aparecer"
+
+[[secoes.itens]]
+p = "Quinta-feira às 19h30 é ruim para mim, ou vou viajar em setembro. Perco o curso?"
+r = "Não. A aula fica gravada na plataforma por tempo indeterminado, os slides ficam em PDF e o grupo da turma no WhatsApp funciona a semana toda, então quem falta continua acompanhando o fio da história. O que não se recupera é a pergunta ao vivo daquela noite. Se você já sabe que não vai poder vir a nenhuma das dez, o produto está sendo comprado pela metade."
+
+[[secoes.itens]]
+p = "Dez semanas é muito. Não sei se termino."
+r = "Nos meus cursos gravados, a taxa de conclusão fica entre 8% e 11%. Nos formatos ao vivo, entre 23% e 42%. A diferença não é o conteúdo, é a hora marcada. O autodidata sozinho quase nunca termina, e é exatamente por isso que este curso é ao vivo e não uma sequência de vídeos que você assiste quando puder. Cada encontro também abre com cinco minutos de retomada, para quem perdeu a semana anterior não entrar perdido."
+
+[[secoes.itens]]
+p = "Tem matemática?"
+r = "Não é exigida, e não há pré-requisito de cálculo nem de álgebra. Mas seria desonesto prometer zero fórmula e depois mostrar uma exponencial de decaimento na aula 4. Aparece uma conta aqui e ali, sempre no papel de ilustração, sempre opcional, e nenhuma delas é necessária para entender o argumento. O rigor está em não aceitar analogia no lugar de mecanismo."
+
+[[secoes.itens]]
+p = "Tenho base para acompanhar?"
+r = "O piso é concreto: você acompanha notícia de ciência e sabe o que é um fóton. Se \"a luz é feita de partículas chamadas fótons\" é uma frase que faz sentido para você, está dentro. Não é preciso ter estudado física formalmente. Boa parte da turma nunca estudou."
+
+[[secoes.itens]]
+p = "Isso não está de graça nos seus cursos do Astrofísica para Todos?"
+r = "Não. Lá eu ensino as teorias, com todo o formalismo, curso por curso: quântica, partículas, cosmologia. Aqui eu conto a história que essas teorias permitem contar, numa estrutura de escavação que começa na cor de Betelgeuse a olho nu e desce dez camadas até o primeiro segundo. Nenhuma aula gratuita minha tem esse arco, porque um curso disciplinar não pode tê-lo. E se você já assistiu àqueles cursos, melhor: vai reconhecer os conceitos e ver para que serviam."
+
+[[secoes.itens]]
+p = "Vou ter que aparecer na câmera e falar?"
+r = "Não. Câmera é opcional, e muita gente participa a aula inteira com ela desligada. Pergunta pode ser feita por voz ou escrita no chat, e eu leio o chat. Não há chamada nominal, prova, nem sabatina."
+
+[[secoes.itens]]
+p = "Numa turma de 40, a minha pergunta vai ser respondida?"
+r = "São dez horas de conversa ao longo do curso, uma por encontro. Na prática dá tempo de sobra, e as perguntas que não couberem na noite continuam no grupo da turma durante a semana. As 40 vagas existem justamente para que essa hora continue funcionando como conversa."
+
+[[secoes.itens]]
+p = "Já fiz a Imersão Universo Invisível. Vou ver matéria escura de novo?"
+r = "Em parte da aula 10, sim, e vale dizer isso de frente. A diferença é de função: na imersão a matéria escura era o assunto, com o estado da arte da caçada. Aqui ela é o capítulo que falta de uma contabilidade que a turma passou nove semanas montando, e o efeito de chegar nela por esse caminho é outro."
+
+[[secoes.itens]]
+p = "Já li seus livros. Vai ser repetido?"
+r = "Astrofísica Moderna cobre gravitação, luz, espectros, Sistema Solar e exoplanetas. Física quântica e física de partículas ficam de fora, e são o corpo desta mentoria. A sobreposição real está em parte das aulas 1 e 2, que são o ponto de partida do arco."
+
+[[secoes.itens]]
+p = "As imersões custam R$ 75. Por que esta custa R$ 897?"
+r = "São produtos diferentes. A imersão é um dia sobre o que está acontecendo agora em um tema; a mentoria são vinte horas ao vivo construindo a base, o que dá cerca de R$ 45 por hora de aula com o professor presente, mais slides, ebook, exercícios e grupo. Quem só faz imersão acaba sem chão para entender a notícia seguinte, e é esse chão que estou vendendo aqui."
+
+[[secoes.itens]]
+p = "Nunca fiz um curso pago com você. Como sei se gosto?"
+r = "Assista a uma aula minha antes de decidir. Há centenas de horas gratuitas no meu canal, com o mesmo jeito de dar aula que você vai encontrar aqui, e nenhum argumento meu vale mais do que meia hora vendo se o formato serve para você. Além disso, a plataforma garante 7 dias para pedir reembolso sem justificativa."
+
+[[secoes.itens]]
+p = "Como funciona o acesso depois que eu me inscrevo?"
+r = "A inscrição é feita pela HeroSpark, e é lá que fica tudo. Assim que você entra, a mentoria aparece na sua área de aluno, com o link do Google Meet e o convite para o grupo da turma. A cada semana são publicados no mesmo lugar a gravação da aula e o PDF dos slides. Ao final do curso ficam disponíveis o ebook, os exercícios e o certificado de 30 horas."
++++
