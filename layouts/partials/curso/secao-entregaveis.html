@@ -3,7 +3,11 @@
     <h2>{{ .s.titulo }}</h2>
     {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
     <div class="prosa estreito">{{ .s.conteudo | markdownify }}</div>
-    <div class="entregas">
+    {{ $n := len .s.itens }}
+    {{ $cols := 4 }}
+    {{ if eq $n 6 }}{{ $cols = 3 }}{{ end }}
+    {{ if lt $n 4 }}{{ $cols = $n }}{{ end }}
+    <div class="entregas" style="--cols: {{ $cols }};">
       {{ range .s.itens }}
       <div class="entrega">
         <h3>{{ .titulo }}</h3>
