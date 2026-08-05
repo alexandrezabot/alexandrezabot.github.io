@@ -189,6 +189,14 @@ video = "https://www.youtube.com/watch?v=k95JRfX74NM"
 video_id = "k95JRfX74NM"
 video_formato = "horizontal"
 
+[[secoes.itens]]
+texto = "Sou professor universitário na rede estadual de São Paulo há mais de 30 anos. Sem matemática não quer dizer, aqui, algo sem rigor científico ou sem profundidade. Você passa pelos temas mais relevantes da cosmologia embasados no que há de mais atual e consensual dentro da comunidade científica. O pulo do gato é o professor usar o próprio conhecimento e a didática para simplificar o acesso aos temas mais importantes sobre a origem do universo, recorrendo à história da ciência, a simulações, imagens, analogias e aos textos originais dos cientistas mais brilhantes dos séculos 19 e 20. O resultado é uma base sólida para compreender as descobertas mais instigantes desses últimos séculos."
+nome = "Helder Silva"
+origem = "Mentoria Cosmologia sem Matemática"
+video = "https://www.youtube.com/watch?v=4KEzd880Tgc"
+video_id = "4KEzd880Tgc"
+video_formato = "horizontal"
+
 [[secoes]]
 tipo = "professor"
 titulo = "Sobre o professor"
