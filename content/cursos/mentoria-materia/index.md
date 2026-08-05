@@ -22,11 +22,9 @@ Esta mentoria é um curso de física quântica e de física de partículas aplic
 
 Um exemplo do que isso significa na prática. Em 1952, Paul Merrill encontrou linhas de tecnécio no espectro de gigantes vermelhas. O tecnécio não tem isótopo estável, e o mais duradouro deles decai em alguns milhões de anos. Numa estrela de bilhões de anos, aquele átomo não pode ter vindo da nuvem que a formou. Só pode ter sido fabricado ali dentro, e há pouco tempo. Uma única medida feita da Terra prova que estrelas fabricam elementos químicos agora, enquanto você lê isto. Entender por que essa conclusão é obrigatória custa física nuclear, captura de nêutrons e um modelo do interior estelar.
 
-**É assim que cada uma das dez aulas começa: por um documento.** Uma medida real, um espectro, uma contagem de partículas, uma curva. O documento entra como enigma, a teoria é convocada para decifrá-lo, e no fim da noite ele está decifrado e aponta para o documento da semana seguinte.
+**É assim que cada uma das dez aulas começa: por um documento.** Uma medida feita hoje, um espectro, uma contagem de partículas, uma curva, que só pode ser explicada por um episódio do passado. O documento entra como enigma, a teoria é convocada para decifrá-lo, e no fim da noite ele está decifrado e aponta para o documento da semana seguinte.
 
 São dez. As cores de Órion a olho nu. As linhas de Fraunhofer no espectro do Sol. Os neutrinos solares do Borexino. O deutério nas nuvens de quasares. O espectro do FIRAS. O tecnécio de Merrill. Os onze neutrinos de 1987. O estrôncio da kilonova. A fotografia do pósitron. A curva de rotação de M31.
-
-A ordem não é a do universo, é a da descoberta. O curso começa na cor de Betelgeuse, que qualquer um enxerga do quintal, e desce dez camadas até o primeiro segundo, que é o clímax e não o portão de entrada.
 """
 
 [[secoes]]
@@ -90,6 +88,8 @@ subtitulo = "Uma hora de aula, uma hora de conversa"
 conteudo = """
 O encontro abre com cerca de cinco minutos retomando onde a história parou na semana anterior. Depois vem a aula, com slides, e em seguida uma hora inteira de conversa aberta, sem roteiro, em que você pergunta por voz ou pelo chat. Câmera é opcional, não há chamada nominal e ninguém é sabatinado.
 
+A quinta-feira não encerra o assunto. A turma tem um grupo fechado no WhatsApp onde a conversa continua durante a semana, e eu respondo por lá. Boa parte das melhores perguntas nasce dois dias depois da aula, quando a coisa assenta.
+
 São vinte horas ao vivo no total, metade delas de conversa. É o único formato em que eu falo diretamente com quem está do outro lado; nas imersões as perguntas chegam por formulário.
 """
 
@@ -108,7 +108,7 @@ subtitulo = "Ao vivo pelo Google Meet, com tudo gravado"
 conteudo = """
 A turma tem 40 vagas. O limite existe por uma razão prática: a hora de perguntas é ao vivo, e em turma grande ela deixa de funcionar e vira plateia.
 
-Quem falta a um encontro continua na turma. A aula fica gravada na plataforma por tempo indeterminado, os slides em PDF ficam disponíveis, e o grupo da turma no WhatsApp funciona a semana toda. O que não se recupera é a pergunta ao vivo daquela noite, e prefiro dizer isso a fingir que assistir gravado é a mesma coisa.
+Quem não puder estar numa quinta-feira assiste à gravação, que fica na plataforma por tempo indeterminado, lê os slides em PDF e leva a pergunta ao grupo da turma, onde eu respondo durante a semana. É um jeito legítimo de fazer o curso, e sempre há gente fazendo assim.
 """
 
 [[secoes.itens]]
@@ -138,7 +138,7 @@ descricao = "Certificado de 30 horas emitido pela plataforma, com assinatura do 
 [[secoes]]
 tipo = "para_quem"
 titulo = "Para quem é"
-subtitulo = "Rigor conceitual sem matemática exigida"
+subtitulo = "Rigor conceitual, sem matemática"
 
 [[secoes.itens]]
 titulo = "Você vai se sentir em casa se"
@@ -147,7 +147,7 @@ lista = [
   "Acompanha notícia de ciência e sabe o que é um fóton. Esse é o piso, e ele basta.",
   "Já leu divulgação científica séria e sentiu que falta um degrau entre o livro introdutório e o artigo técnico.",
   "Quer entender por que os físicos acreditam no que acreditam, e não apenas o que eles concluíram.",
-  "Aguenta dez semanas com hora marcada, e desconfia que sozinho não terminaria.",
+  "Prefere hora marcada e uma turma, porque sozinho o assunto sempre fica para depois.",
   "Gosta de perguntar, e quer poder fazer isso ao vivo, sem intermediário."
 ]
 
@@ -155,33 +155,39 @@ lista = [
 titulo = "Talvez não seja para você se"
 sinal = "nao"
 lista = [
-  "Procura o formalismo completo de mecânica quântica ou de partículas. Ele existe, é gratuito, e está nos cursos do Astrofísica para Todos.",
+  "Procura o formalismo completo de mecânica quântica ou de física de partículas, com derivações e problemas resolvidos.",
   "Quer um resumo rápido da origem do universo. Aqui são vinte horas, e a lentidão é proposital.",
-  "Espera derivações e problemas resolvidos. Aparece uma conta ou outra, sempre opcional, nunca como pré-requisito.",
-  "Não tem como comparecer a nenhuma das quintas-feiras. A gravação sustenta quem perde uma ou duas, não quem não vem nunca."
+  "Espera respostas fechadas onde a física ainda discute. O lítio primordial, a bariogênese e a matéria escura entram como problemas abertos, e é assim que serão apresentados."
 ]
 
 [[secoes]]
 tipo = "depoimentos"
 titulo = "Alunos de mentorias anteriores"
+subtitulo = "Em vídeo, gravados por eles mesmos"
 
 [[secoes.itens]]
 texto = "Fui pesquisador do IPT durante muitos anos e hoje estou aposentado. Tenho formação em física e em engenharia, com mestrado e doutorado, e sou professor de física. Recomendo a todos que tiverem oportunidade de fazer algum curso do professor Zabot. É um trabalho muito especial, com muita dedicação e de alto nível, inclusive nessa proposição dele de trabalhar sem envolver uma matemática mais sofisticada. Isso tem muito mérito, e ele conduz o trabalho com muita competência."
 nome = "Amilton"
 origem = "Mentoria Cosmologia sem Matemática"
 video = "https://www.youtube.com/shorts/-tpFHmA3uq0"
+video_id = "-tpFHmA3uq0"
+video_formato = "vertical"
 
 [[secoes.itens]]
 texto = "Gosto muito de uma palavra grega, mathematikoi, que designa aqueles que desejam aprender. Tem tudo a ver com a mentoria do professor Zabot, porque ele consegue juntar pessoas que querem aprender de verdade. É uma mentoria que foge do lugar comum da divulgação científica, que muitas vezes traz armadilhas, simplificações e comparações que acabam estragando o conceito. Ele consegue driblar todas essas armadilhas, com uma mentoria muito bem montada e muito didática."
 nome = "Paulo"
 origem = "Mentoria Cosmologia sem Matemática"
 video = "https://www.youtube.com/watch?v=InklRa2DGiE"
+video_id = "InklRa2DGiE"
+video_formato = "horizontal"
 
 [[secoes.itens]]
 texto = "Sou professora de língua portuguesa. Decidi fazer a mentoria por já conhecer o trabalho do professor e já ter feito outros cursos com ele, e sou extremamente grata pelo conhecimento compartilhado. Foi muito satisfatório ver o engajamento dos mentorandos com o professor, sempre solícito e flexível durante as aulas, atento às nossas dúvidas e pronto para respondê-las, indicando vídeos e livros para quem quisesse ir além. Superou todas as minhas expectativas."
 nome = "Bárbara Leal"
 origem = "Mentoria Cosmologia sem Matemática"
 video = "https://www.youtube.com/watch?v=k95JRfX74NM"
+video_id = "k95JRfX74NM"
+video_formato = "horizontal"
 
 [[secoes]]
 tipo = "professor"
@@ -232,7 +238,7 @@ titulo = "Perguntas que costumam aparecer"
 
 [[secoes.itens]]
 p = "Quinta-feira às 19h30 é ruim para mim, ou vou viajar em setembro. Perco o curso?"
-r = "Não. A aula fica gravada na plataforma por tempo indeterminado, os slides ficam em PDF e o grupo da turma no WhatsApp funciona a semana toda, então quem falta continua acompanhando o fio da história. O que não se recupera é a pergunta ao vivo daquela noite. Se você já sabe que não vai poder vir a nenhuma das dez, o produto está sendo comprado pela metade."
+r = "Não. A aula fica gravada na plataforma por tempo indeterminado e os slides ficam em PDF, então você assiste no dia seguinte ou na volta da viagem, sem perder o fio da história. E o grupo da turma no WhatsApp funciona a semana toda: a pergunta que você faria ao vivo você escreve lá, e eu respondo. Quem faz o curso assim participa igual."
 
 [[secoes.itens]]
 p = "Dez semanas é muito. Não sei se termino."
@@ -240,7 +246,7 @@ r = "Nos meus cursos gravados, a taxa de conclusão fica entre 8% e 11%. Nos for
 
 [[secoes.itens]]
 p = "Tem matemática?"
-r = "Não é exigida, e não há pré-requisito de cálculo nem de álgebra. Mas seria desonesto prometer zero fórmula e depois mostrar uma exponencial de decaimento na aula 4. Aparece uma conta aqui e ali, sempre no papel de ilustração, sempre opcional, e nenhuma delas é necessária para entender o argumento. O rigor está em não aceitar analogia no lugar de mecanismo."
+r = "Não. Não há contas a fazer, nem exercício de cálculo, nem pré-requisito de álgebra. Uma fórmula ou outra aparece citada quando ela própria faz parte da história, como o E=mc² na aula 3, mas ninguém precisa usá-la para acompanhar o argumento. O rigor está em não aceitar analogia no lugar de mecanismo, e isso não depende de conta nenhuma."
 
 [[secoes.itens]]
 p = "Tenho base para acompanhar?"
