@@ -208,7 +208,7 @@ section h2 + .colunas, section h2 + .prof-corpo { margin-top: 40px; }
 .s-entregaveis h2 { color: #fff; }
 .s-entregaveis .sub { color: var(--coral); }
 .s-entregaveis .prosa p { color: #b9c0d8; }
-.entregas { display: grid; gap: 1px; grid-template-columns: repeat(4, 1fr); margin-top: 48px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
+.entregas { display: grid; gap: 1px; grid-template-columns: repeat(var(--cols, 4), 1fr); margin-top: 48px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
 .entrega { background: var(--noite); padding: 30px 26px; }
 .entrega h3 { font-size: 1.3rem; color: var(--indigo-claro); margin-bottom: 10px; }
 .entrega p { font-size: 0.9rem; color: #9aa3c0; line-height: 1.6; }
@@ -351,3 +351,36 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
   .entregas { grid-template-columns: 1fr; }
   .barra-info strong { font-size: 0.95rem; }
 }
+
+/* --- Fachada de vídeo em depoimentos --- */
+.depo-video-facade {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: var(--superficie, #1a1422);
+}
+.depo-video-facade.formato-horizontal,
+.depo-video-iframe.formato-horizontal { aspect-ratio: 16 / 9; }
+.depo-video-facade.formato-vertical,
+.depo-video-iframe.formato-vertical {
+  aspect-ratio: 9 / 16;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.depo-video-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.depo-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--coral, #FD8354);
+  color: var(--noite, #040d29);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; line-height: 1;
+}
+.depo-video-iframe { width: 100%; border: none; display: block; margin-bottom: 1rem; border-radius: 8px; }
+.depo-video-link { display: inline-block; font-size: 0.85rem; margin-bottom: 0.75rem; }
+
+/* --- Acordeão do FAQ --- */
+.s-faq summary { cursor: pointer; }

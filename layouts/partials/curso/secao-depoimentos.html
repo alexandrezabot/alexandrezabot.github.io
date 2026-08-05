@@ -1,13 +1,47 @@
 <section class="s-depoimentos">
   <div class="wrap">
     <h2>{{ .s.titulo }}</h2>
+    {{ with .s.subtitulo }}<p class="sub">{{ . }}</p>{{ end }}
     <div class="depoimentos">
       {{ range .s.itens }}
-      <figure class="depoimento">
-        <blockquote>{{ .texto }}</blockquote>
-        <figcaption>{{ .nome }}{{ with .origem }} <span>· {{ . }}</span>{{ end }}</figcaption>
+      {{ $it := . }}
+      <figure class="depoimento{{ if $it.video_id }} com-video{{ end }}">
+        {{ if $it.video_id }}
+        <div class="depo-video-facade formato-{{ $it.video_formato | default "horizontal" }}"
+             data-video-id="{{ $it.video_id }}"
+             data-title="{{ $it.nome }}"
+             role="button" tabindex="0"
+             aria-label="Assistir depoimento de {{ $it.nome }}">
+          <img src="https://i.ytimg.com/vi/{{ $it.video_id }}/hqdefault.jpg" alt="Depoimento em vídeo de {{ $it.nome }}" loading="lazy">
+          <span class="depo-play" aria-hidden="true">▶</span>
+        </div>
+        {{ with $it.video }}<a class="depo-video-link" href="{{ . }}" target="_blank" rel="noopener">Assistir no YouTube</a>{{ end }}
+        {{ end }}
+        <blockquote>{{ $it.texto }}</blockquote>
+        <figcaption>{{ $it.nome }}{{ with $it.origem }} <span>· {{ . }}</span>{{ end }}</figcaption>
       </figure>
       {{ end }}
     </div>
   </div>
 </section>
+
+<script>
+document.querySelectorAll('.depo-video-facade').forEach(function (el) {
+  function tocar() {
+    var id = el.dataset.videoId;
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1';
+    iframe.title = el.dataset.title || '';
+    iframe.loading = 'lazy';
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.setAttribute('frameborder', '0');
+    iframe.className = 'depo-video-iframe ' + (el.classList.contains('formato-vertical') ? 'formato-vertical' : 'formato-horizontal');
+    el.replaceWith(iframe);
+  }
+  el.addEventListener('click', tocar);
+  el.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tocar(); }
+  });
+});
+</script>

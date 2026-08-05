@@ -50,6 +50,9 @@ echo
 echo ">>> CONFIGURAÇÃO HUGO"
 dump_file "hugo.toml"
 
+echo ">>> CSS DO PROJETO"
+find static/css -name "*.css" 2>/dev/null | sort | dump_tree
+
 echo ">>> ESTRUTURA DO SITE"
 find . \
     -not -path './.git*' \
