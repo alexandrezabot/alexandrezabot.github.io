@@ -15,6 +15,6 @@ theme = "profzabot-custom"
 
 [params.aviso]
   ativo = true
-  link = "/cursos/imersao-bioassinaturas/"
-  texto = "Imersão · A Era das Bioassinaturas"
-  detalhe = "A busca por vida fora da Terra · sábado, 8 de agosto"
+  link = "/cursos/mentoria-materia/"
+  texto = "Mentoria · Matéria"
+  detalhe = "Inscrições até 19 de agosto"
