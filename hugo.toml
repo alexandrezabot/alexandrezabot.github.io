@@ -14,7 +14,7 @@ theme = "profzabot-custom"
   ga_id = "G-YY0YJ7HRDS"
 
 [params.aviso]
-  ativo = true
+  ativo = false
   link = "/cursos/mentoria-materia/"
   texto = "Mentoria · Matéria"
   detalhe = "Inscrições até 19 de agosto"
