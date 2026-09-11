@@ -3,7 +3,7 @@ INFORMAÇÕES DO SITE —
 ============================================================
 
 >>> SISTEMA
-Linux eddington 6.17.0-1030-oem #30-Ubuntu SMP PREEMPT_DYNAMIC Thu Jul 16 15:01:53 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+Linux eddington 7.0.0-31-generic #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 10 09:38:02 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
 
 >>> VERSÕES
 Hugo: hugo v0.123.7+extended linux/amd64 BuildDate=2025-07-18T03:41:49Z VendorInfo=ubuntu:0.123.7-1ubuntu0.3
@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-6d0be11 artigo novo
+3b18d6d novo artigo
 
 Branches:
 * main
@@ -43,10 +43,10 @@ theme = "profzabot-custom"
   ga_id = "G-YY0YJ7HRDS"
 
 [params.aviso]
-  ativo = true
-  link = "/cursos/imersao-bioassinaturas/"
-  texto = "Imersão · A Era das Bioassinaturas"
-  detalhe = "A busca por vida fora da Terra · sábado, 8 de agosto"
+  ativo = false
+  link = "/cursos/mentoria-materia/"
+  texto = "Mentoria · Matéria"
+  detalhe = "Inscrições até 19 de agosto"
 
 >>> CSS DO PROJETO
 --- static/css/curso.css ---
@@ -464,6 +464,11 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 ./content/az/13.md
 ./content/az/14.md
 ./content/az/15.md
+./content/az/16.md
+./content/az/17.md
+./content/az/18.md
+./content/az/19.md
+./content/az/20.md
 ./content/az/_index.md
 ./content/contato.md
 ./content/cursos
@@ -2121,6 +2126,187 @@ Na minha opinião, a mais interessante foi a medição de Nitrogênio na galáxi
 - Baade, W. (1944). *The Resolution of Messier 32, NGC 205, and the Central Region of the Andromeda Nebula*. ApJ, 100, 137. [ADS](https://ui.adsabs.harvard.edu/abs/1944ApJ...100..137B)
 - Bromm, V. & Larson, R. (2004). *The First Stars*. ARA&A, 42, 79. [ADS](https://ui.adsabs.harvard.edu/abs/2004ARA%26A..42...79B)
 - Nandal, D. & Loeb, A. (2026). *Supermassive Stars Match the Spectral Signatures of JWST's Little Red Dots*. ApJ, 998(1), 124. [arXiv](https://arxiv.org/abs/2507.12618)
+
+--- content/az/16.md ---
+---
+title: "Dois minutos e muitas perguntas"
+date: 2026-08-13
+draft: false
+tags: []
+categories: []
+description: "Ontem a Lua cobriu o Sol sobre a Islândia e a Espanha por pouco mais de dois minutos. Shadia Habbal, da Universidade do Havaí, montou cinco locais de (...)"
+---
+
+Ontem a Lua cobriu o Sol sobre a Islândia e a Espanha por pouco mais de dois minutos. Shadia Habbal, da Universidade do Havaí, montou cinco locais de observação espalhados pelos dois países só para não perder tudo por causa de uma nuvem. Foi sua vigésima expedição desde 1995! Inevitável surgir a pergunta: ainda vale a pena atravessar o mundo por dois minutos de eclipse?
+
+Em 1868, num eclipse na Índia, apareceu no espectro solar uma linha amarela que não correspondia a nenhum elemento conhecido. Batizaram o suposto elemento de hélio, sem nunca o ter visto na Terra. No ano seguinte, no eclipse americano, Young e Harkness observaram na coroa uma linha verde igualmente órfã. Batizaram o dono dela de corônio. A técnica e a proposta eram as mesmas. A diferença é que Ramsay isolou hélio em Londres em 1895 mas o corônio nunca apareceu.
+
+Gosto de contar as duas histórias juntas porque, no momento em que foram propostas, as duas hipóteses eram igualmente boas. Mas só uma estava certa, e tudo bem, nada mais científico do que ter uma hipótese falsificada!
+
+O corônio não foi o único elemento “assassinado”. Em 1927 Bowen acabou com o nebúlio, elemento igualmente inventado para explicar linhas de nebulosas. Ele mostrou que eram transições proibidas de oxigênio e nitrogênio ionizados. Proibida não quer dizer impossível, quer dizer tão lenta que só se completa num gás rarefeito com poucas colisões. Em 1939 Grotrian apontou a pista e Edlén identificou as linhas coronais como ferro e níquel em estados altíssimos de ionização. Corônio nada mais era que ferro desprovido de treze dos seus vinte e seis elétrons.
+
+Arrancar treze elétrons exige colisões violentas, portanto a coroa estaria acima de um milhão de kelvins, contra 5.500 na superfície. Mas que afirmação audaciosa! Por isso, Grotrian falou em desequilíbrio, não em temperatura. Edlén chegou a 250 mil K por outro método, mas no texto dele a temperatura alta é quase comentário de passagem. Quem afirmou com todas as letras que a coroa está aquecida a temperatura extremamente alta foi Alfvén, em 1941, num periódico sueco pouco lido, com seis argumentos. Perguntar quem descobriu não nos levaria a lugar nenhum. Os observacionais tinham o dado e desconfiaram da implicação, o teórico tinha os cálculos, mas não os dados. A comunidade só aceitou esta temperatura quando Edlén identificou outras quinze linhas que respondem por mais de 97% da emissão coronal.
+
+O problema era a termodinâmica, calor não flui do frio para o quente. Como esquentar tanto a coroa com uma fotosfera fria por baixo? A saída é que temperatura mede energia cinética média por partícula, não energia total, e a coroa é tão rarefeita que aquecê-la custa pouco. Não é calor que sobe, é energia magnética que sobe e vira calor lá em cima.
+
+Nos anos 1930 Lyot inventou o coronógrafo para fabricar eclipses artificiais, mas não aposentou as missões de eclipse. O ocultador não enxerga bem a faixa colada à superfície, justo onde o aquecimento acontece, e essa lacuna só se fechou em dezembro de 2024, com dois satélites voando a 150 metros um do outro. Mesmo assim, Habbal e Boe mediram ferro ionizado até seis raios solares no eclipse australiano de 2023, alcance que nenhum coronógrafo é capaz.
+
+Curiosamente, o instrumento de Lyot, que não obteve todo êxito esperado no problema para o qual nasceu, é hoje a técnica que usamos para obter imagens de exoplanetas.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Grotrian, W. (1939). *Zur Frage der Deutung der Linien im Spektrum der Sonnenkorona*. Naturwissenschaften, 27, 214. [DOI](https://doi.org/10.1007/BF01488890)
+
+- Russell, A. J. B. (2018). *Commentary: Discovery of the Sun's million-degree hot corona*. Frontiers in Astronomy and Space Sciences, 5, 9. [DOI](https://doi.org/10.3389/fspas.2018.00009)
+
+- Boe, B. et al. (2026). *The 2023 Australian Total Solar Eclipse: Line Emission of Fe XIV, Fe X, and Fe XI out to 6 Solar Radii*. The Astrophysical Journal, 997, 171. [DOI](https://doi.org/10.3847/1538-4357/ae2658)
+
+--- content/az/17.md ---
+---
+title: "A vaca"
+date: 2026-08-20
+draft: false
+tags: []
+categories: []
+description: "Quando um objeto novo aparece no céu e ninguém sabe o que ele é, recebe um nome provisório. Foi o que aconteceu em 2018, quando o ATLAS flagrou um ponto novo e o catalogou como AT2018cow (...)"
+---
+
+
+Quando um objeto novo aparece no céu e ninguém sabe o que ele é, recebe um nome provisório. Foi o que aconteceu em 2018, quando o ATLAS flagrou um ponto novo e o catalogou como AT2018cow. A sigla AT vem de *astronomical transient* (transiente astronômico), seguida do ano e de um código de letras atribuído por ordem de chegada. Os primeiros vinte e seis objetos de cada ano levam uma letra, os seiscentos e setenta e seis seguintes levam duas, e depois disso vão três. O de número 2441 calhou de receber "cow", vaca em inglês. Ele também atende por ATLAS18qqn e ZTF18abcfcoo, ficou o nome que por acaso formava palavra: virou "a Vaca", e a piada pegou. Cada objeto do mesmo tipo descoberto depois ganhou apelido de bicho inspirado nas letras que lhe couberam. Temos o Coala, o Camelo, o Tentilhão e o Whippet, que é uma raça de cão.
+
+Inicialmente os astrônomos acharam ser uma variável cataclísmica, coisa corriqueira. Dois dias depois chegou o espectro, sem uma única linha, e a coisa complicou. Ela havia subido mais de quatro magnitudes em pouco mais de um dia, ficou mais quente que 15 mil K por semanas, sem esfriar. Emitia raios X fortes e variáveis, mas também rádio, e nunca mostrou as linhas que denunciam a composição de qualquer explosão estelar. Sumiu em semanas, quando uma supernova leva meses. Os outros animais do bestiário repetiram esses sintomas.
+
+Comecemos pelo que isso proíbe. Uma supernova comum brilha porque o Níquel radioativo forjado na explosão decai e aquece os destroços. É uma lâmpada de combustível limitado, e o combustível é matéria. Para explicar o brilho de pico do Whippet assim seriam necessárias pelo menos 300 massas solares de Níquel. A matéria total lançada por ele não chega a um décimo de massa solar, 3 mil vezes menor. Não é um ajuste fino que salva o modelo, é uma impossibilidade aritmética que não depende de teoria nenhuma.
+
+Pouca matéria, muita energia e uma fonte ligada por meses apontam para o mesmo lado. Tem de haver algo no centro sendo alimentado, e não um estoque queimando. O segundo indício é mais bonito. Numa explosão os destroços se afastam e esfriam, e a superfície que emite luz cresce. Aqui a temperatura quase não muda e a superfície emissora encolhe, comportamento não de matéria se espalhando, mas de um vento que fica mais rarefeito. Até o espectro liso ganha sentido. Havia matéria densa em volta (o rádio prova isso), só que os raios X do centro a mantinham tão ionizada que nada absorvia nem emitia.
+
+Sobram poucas saídas, e duas me parecem as melhores. A primeira é uma estrela despedaçada pela gravidade de um buraco negro de massa intermediária. Explica a temperatura que não cai, o espectro liso e a fonte que segue ligada, mas tem problemas. O rádio mostra muito gás já espalhado ao redor antes do evento, e um buraco negro solitário não teria por que tê-lo posto ali. A segunda é a fusão de uma estrela massiva com um buraco negro que já era seu companheiro. Aí o gás se explica, porque um sistema desses perde muita massa antes do fim, e explica também as raras linhas tardias de Hidrogênio e Hélio. O problema é que esse modelo ainda não faz previsões específicas o bastante para ser testado.
+
+Acho esses casos muito interessantes. Quando os quasares apareceram nos anos 1960, ninguém entendia aquela fonte minúscula, potente e com desvio para o vermelho absurdo, e a briga levou anos. A Astrofísica anda assim, empurrada por uma anomalia teimosa que não cabe em caixa nenhuma. E a vaca é bastante rara! Em sete anos o ZTF achou apenas três delas no Universo próximo, entre 0,001% e 0,01% da taxa de supernovas de colapso de núcleo. Cada uma é especial e tenho certeza que nos ensinará algo surpreendente.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Perley, D. A. et al. (2019). *The fast, luminous ultraviolet transient AT2018cow: extreme supernova, or disruption of a star by an intermediate-mass black hole?* MNRAS, 484, 1031. [DOI](https://doi.org/10.1093/mnras/sty3420)
+
+- Metzger, B. D. (2022). *Luminous Fast Blue Optical Transients and Type Ibn/Icn SNe from Wolf-Rayet/Black Hole Mergers*. ApJ, 932, 84. [DOI](https://doi.org/10.3847/1538-4357/ac6d59)
+
+- Perley, D. A. et al. (2026). *AT 2024wpp: an extremely luminous fast ultraviolet transient powered by accretion onto a black hole*. MNRAS, 549. [DOI](https://doi.org/10.1093/mnras/stag678)
+
+--- content/az/18.md ---
+---
+title: "A estrela certa no lugar certo"
+date: 2026-08-27
+draft: false
+tags: []
+categories: []
+description: "Semana passada a colaboração GRAVITY+ anunciou a descoberta de S301, uma estrela que orbita o buraco negro do centro da Via Láctea a 25 mil km/s (...)"
+---
+
+Semana passada a colaboração GRAVITY+ anunciou a descoberta de S301, uma estrela que orbita o buraco negro do centro da Via Láctea a 25 mil km/s, 8,3% da velocidade da luz (c). Muito se falou sobre o recorde de velocidade, mas o ponto interessante é outro.
+
+Uma teoria nunca é comprovada de uma só vez. A Relatividade Geral vem sendo testada em camadas cada vez mais profundas, e um dos critérios é a razão entre a velocidade do objeto e a velocidade da luz (β=v/c). Em geral, cada nova camada exige um objeto que se mova mais rápido, não apenas mais anos de observação.
+
+Mercúrio orbita o Sol a 47 km/s (0,016% de c). Sua órbita avança 43 segundos de arco por século, e a explicação desse número foi o primeiro triunfo de Einstein, em novembro de 1915. Depois Eddington mediu o desvio da luz das estrelas em 1919, o dobro do valor que a própria gravitação newtoniana já previa. Pound e Rebka mediram o desvio para o vermelho em 1959, numa torre de 22 metros em Harvard. Três resultados célebres porque contrariavam a previsão newtoniana. Mas todos estavam no mesmo degrau.
+
+Numa órbita, velocidade e profundidade no poço gravitacional são a mesma informação, porque β² é da ordem de GM/rc². As correções à gravitação de Newton começam nessa potência, β², e são cegas para a rotação, tanto que a precessão de Mercúrio seria idêntica se o Sol girasse ao contrário. Só na potência seguinte, β³, aparece um termo que troca de sinal quando se inverte o giro. Medir ordem ímpar permite medir rotação.
+
+A estrela S2 permitiu aumentar o nível de precisão do teste. Ela chega a 7,6 mil km/s, 2,5% de c, e a GRAVITY detectou nela o desvio para o vermelho em 2018 e a precessão da órbita em 2020, doze minutos de arco numa única passagem. No pericentro, as linhas espectrais se deslocavam milhares de km/s por Doppler comum, que Newton também prevê, e a assinatura da Relatividade era uma sobra de cerca de 200 km/s. O efeito de precessão é cerca de sete mil vezes maior que em Mercúrio.
+
+O degrau seguinte precisa medir efeitos de rotação do Buraco Negro, mas aqui a teoria demorou. Schwarzschild resolveu o caso do corpo esférico e parado em semanas, ainda em 1916. Objetos em rotação esperaram até setembro de 1963, com Roy Kerr. Quase meio século. O giro de um buraco negro arrasta a própria geometria espaço-temporal. Lense e Thirring previram esse arrasto em 1918, mas ele só foi medido em 2011, pelo Gravity Probe B, em torno da Terra. O efeito do giro cai com o cubo da distância, e por isso observar S2 por mais quarenta anos não resolveria. Foi preciso descobrir uma estrela mais próxima de Sagitário A*, S301 se aproxima dez vezes mais que S2.
+
+O que me chama a atenção é que a teoria estava pronta desde 1963, aguardamos mais de 60 anos para poder começar o teste de agora. O centro da Galáxia está atrás de poeira que apaga a luz visível, e S301 é cem vezes mais fraca que S2. No infravermelho, um telescópio isolado de 8 metros separa objetos a 57 milissegundos de arco, e a órbita inteira de S301 cabe em 83. Só combinando os quatro telescópios do VLT como interferômetro se chega a 1,7 milissegundo. Interferometria no óptico é muito mais difícil que no rádio, porque os caminhos da luz vindos de cada telescópio precisam ser igualados a uma fração de micrômetro ao longo de centenas de metros, com a atmosfera embaralhando tudo.
+
+Sessenta anos entre a solução de Kerr e a estrela que permite testá-la mostram um modo como muitas vezes a Astrofísica evolui. A teoria pronta espera o instrumento, e ele espera o objeto.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Abd El Dayem, K. et al., GRAVITY+ Collaboration (2026). *Discovery of a star sensitive to the spin of Sagittarius A\**. Nature. [DOI](https://doi.org/10.1038/s41586-026-10894-w)
+- Kerr, R. P. (1963). *Gravitational Field of a Spinning Mass as an Example of Algebraically Special Metrics*. Phys. Rev. Lett. 11, 237. [ADS](https://ui.adsabs.harvard.edu/abs/1963PhRvL..11..237K)
+- GRAVITY Collaboration (2020). *Detection of the Schwarzschild precession in the orbit of the star S2 near the Galactic Centre massive black hole*. Astron. Astrophys. 636, L5. [ADS](https://ui.adsabs.harvard.edu/abs/2020A%26A...636L...5G)
+
+--- content/az/19.md ---
+---
+title: "Autoridade sem autoritarismos"
+date: 2026-09-03
+draft: false
+tags: []
+categories: []
+description: "Hoje conhecemos a fração de hélio que o Sol tinha ao nascer com três casas decimais de precisão. Há um século, ninguém sabia nem a ordem de grandeza (...)"
+---
+
+Hoje conhecemos a fração de hélio que o Sol tinha ao nascer com uma precisão de três casas decimais. Há um século ninguém sabia nem mesmo a ordem de grandeza. Cecilia Payne tentou estimar e teve seu trabalho contestado por Henry Russell.
+
+Para entender a disputa é preciso saber quem era Russell. Ouvimos muito seu nome por causa do Diagrama de Hertzsprung-Russell. Em 1925, ano da disputa, era o astrônomo mais influente dos Estados Unidos. Aos 48 anos estava no auge da carreira e defendia há tempos que o Sol tinha composição parecida com a da crosta terrestre. Não era apenas teimosia, ele comparara as linhas do espectro solar com o que se conhecia dos minerais na Terra e encontrara uma boa correspondência. O erro estava escondido num detalhe que ninguém tinha como enxergar ainda.
+
+Foi então que apareceu Cecilia Payne com uma abordagem nova. Tinha 24 anos e fazia doutorado em Harvard. Pegou uma equação recém-publicada pelo físico indiano Meghnad Saha, que descrevia como os átomos de um gás quente perdem elétrons, e reinterpretou os espectros das estrelas com ela. A conclusão foi que o Sol é feito quase inteiramente de hidrogênio e hélio, com todo o resto somando praticamente nada.
+
+Aqui está o ponto que a versão popular costuma simplificar demais. O método dela dependia de uma cadeia inteira de hipóteses ainda frágeis para a época. A equação de Saha era nova, pouco testada em atmosferas estelares, e faltavam ferramentas de análise que só apareceriam na década seguinte. Payne não estava apresentando uma medida, estava apresentando uma interpretação apoiada num andaime que balançava.
+
+Russell leu o trabalho e respondeu que aquilo era claramente impossível. Vale destacar algo aqui. Ele não reprovou a tese nem impediu a publicação, apenas disse que discordava e pediu prudência. Payne cedeu e escreveu na versão final que os valores obtidos para hidrogênio e hélio quase certamente não eram reais. Meio século depois registrou que não devia ter cedido à autoridade quando acreditava estar certa. Mas ao meu ver, naquele contexto a cautela era a resposta cientificamente correta. A maioria das afirmações radicais em Física está errada. É necessário que haja contestações, sem elas na maior parte do tempo iríamos por um beco sem saída.
+
+Quatro anos depois Russell refez o problema por um caminho independente, com dados diferentes e outra técnica. Chegou à mesma conclusão de Payne e a citou como a determinação anterior mais importante do assunto. Pouco depois Strömgren mostrou que uma fração alta de hidrogênio também resolvia problemas nos modelos de interior estelar, um território que não compartilhava nem os dados nem os pressupostos da espectroscopia.
+
+Considero esta uma lição de extrema importância. Na Física não provamos teoremas, acumulamos evidências. Uma ideia não é aceita quando alguém é convencido por um argumento bonito, é aceita quando chegamos à mesma conclusão por rotas independentes.
+
+Por isso penso que Russell merece ser julgado com justiça. Na ciência não importa se a autoridade erra, mas se ela muda de ideia quando os dados assim exigem. Ele fez isso, dando crédito publicamente a Payne.
+
+Dez anos depois, no mesmo ramo, Arthur Eddington fez o oposto. Diante do cálculo de Chandrasekhar sobre o limite de massa das anãs brancas, ridicularizou o resultado em pleno encontro da Royal Astronomical Society, em 1935, e nunca voltou atrás. Estava errado, e o problema do colapso estelar ficou praticamente parado por décadas. A diferença entre os dois casos não está na dúvida inicial, está no que veio depois.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Merrill, P. W. (1926). Resenha de *Stellar Atmospheres* (Cecilia H. Payne). Publications of the Astronomical Society of the Pacific, 38, 33. [ADS](https://ui.adsabs.harvard.edu/abs/1926PASP...38...33M)
+- Russell, H. N. (1929). On the Composition of the Sun's Atmosphere. The Astrophysical Journal, 70, 11. [ADS](https://ui.adsabs.harvard.edu/abs/1929ApJ....70...11R/abstract)
+- Buldgen, G., Kunitomo, M., Noels, A. et al. (2026). A data-driven estimate of the protosolar helium mass fraction. Astronomy & Astrophysics, 708, A147. [DOI](https://doi.org/10.1051/0004-6361/202658971)
+
+--- content/az/20.md ---
+---
+title: "Por que ninguém decide o destino da Terra?"
+date: 2026-09-10
+draft: false
+tags: []
+categories: []
+description: "Sempre que falo sobre evolução estelar, aparece a questão: o Sol vai engolir a Terra? A resposta padrão é sim (...)"
+---
+
+Sempre que falo sobre evolução estelar, aparece a questão: o Sol vai engolir a Terra? A resposta padrão é sim. No entanto, a história é mais complicada e, portanto, mais interessante que isso.
+
+Um cálculo simples mostra que quando o hidrogênio do centro acabar, o Sol vai inchar tornando-se uma estrela gigante e ficará maior do que a órbita atual da Terra. Isso resolveria a questão se a órbita ficasse parada, mas ela não fica. O Sol perde massa continuamente por vento estelar, e menos massa significa menos gravidade, então a órbita se abre. Ao mesmo tempo, a gravidade da Terra levanta uma protuberância no Sol, como a Lua faz nos nossos oceanos. Arrastada pelo interior fervente da estrela, essa protuberância freia a Terra e puxa a órbita para dentro. Um efeito empurra para fora e o outro puxa para dentro. Complicado é determinar quem ganha.
+
+Em 1993 Sackmann e colaboradores calcularam só o vento, e a Terra escapava. Em 2001 Rybicki e Denis puseram as marés na conta, e a Terra era engolida. Em 2008 Schröder e Smith fizeram o cálculo mais cuidadoso até então, determinando o engolfamento daqui a 7,6 bilhões de anos e estimaram que um planeta precisaria estar hoje a pelo menos 1,15 UA para escapar. Mas em 2023 Lanza e colaboradores mostraram que o resultado é probabilístico, depende de flutuações aleatórias no envelope da gigante. Em 2026 Esseldeurs, Mathis e Decin refinaram a física das marés e a Terra voltou a sobreviver. Ou seja, foram quatro viradas de lado em 30 anos. O que mudou em cada uma foram parâmetros de simulação.
+
+Mercúrio e Vênus são engolidos em todos os modelos, sem discussão. Marte sobrevive em todos. Só a Terra fica nessa incerteza. O envelope de uma gigante ferve, e cada bolha de gás leva um certo tempo para dar a volta. A maré varre esse gás no ritmo da órbita do planeta. Se a maré é lenta comparada à fervura, o gás responde e o atrito é máximo. Se é rápida demais, o gás não acompanha e o atrito quase some. A órbita da Terra cai bem em cima da fronteira entre os dois regimes, justo onde os modelos discordam por um fator de dez. A 0,7 ou a 1,5 UA a resposta seria a mesma em qualquer modelo.
+
+A parte mais incerta é a perda de massa na fase final da estrela. Tentamos ver o futuro do Sol olhando para a estrela L2 Puppis, que nasceu com quase a mesma massa. Mas duas medidas por técnicas distintas, uma pela poeira e outra pelo monóxido de carbono, diferem por quase cem vezes. E mesmo uma medida perfeita não encerraria o assunto, porque uma estrela de massa solar não é o Sol. Composição, rotação e magnetismo mudam a evolução final. Não existe uma estrela gêmea do Sol, só parecida.
+
+Costumo repetir que sem dados a Física não passa de conversa fiada, e continuo achando isso. Mas aqui os dados sozinhos não fecham a questão. A morte de uma estrela como o Sol é hoje o trecho mais incerto da evolução estelar, e não podemos resolver apenas apontando telescópios. Precisamos de teoria e simulação melhores, feitas junto. A Terra, por acaso, mora bem no ponto onde essa ignorância aparece.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Schröder, K.-P. & Smith, R. C. (2008). *Distant future of the Sun and Earth revisited*. MNRAS, 386, 155. [arXiv](https://arxiv.org/abs/0801.4031)
+
+- Lanza, A. F., Lebreton, Y. & Sallard, C. (2023). *Residual eccentricity of an Earth-like planet orbiting a red giant Sun*. A&A, 674, A176. [DOI](https://doi.org/10.1051/0004-6361/202345860)
+
+- Esseldeurs, M., Mathis, S. & Decin, L. (2026). *The fate of Earth during the Sun's giant phases*. A&A, 710, L26. [DOI](https://doi.org/10.1051/0004-6361/202660576)
 
 --- content/az/_index.md ---
 ---
@@ -4663,7 +4849,7 @@ rm -rf public \
 
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |    40  
+  Pages            |    45  
   Paginator pages  |     0  
   Non-page files   |     4  
   Static files     |    11  
@@ -4671,7 +4857,7 @@ rm -rf public \
   Aliases          |     0  
   Cleaned          |     0  
 
-Total in 58 ms
+Total in 80 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
