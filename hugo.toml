@@ -3,6 +3,7 @@ languageCode = "pt-br"
 defaultContentLanguage = "pt-br"
 title = "Prof. Zabot"
 theme = "profzabot-custom"
+capitalizeListTitles = false
 
 [outputs]
   home = ["HTML"]
@@ -18,3 +19,11 @@ theme = "profzabot-custom"
   link = "/cursos/mentoria-materia/"
   texto = "Mentoria · Matéria"
   detalhe = "Inscrições até 19 de agosto"
+
+[taxonomies]
+  tema = "temas"
+  conceito = "conceitos"
+
+[permalinks.term]
+  temas = "/az/tema/:slug/"
+  conceitos = "/az/conceito/:slug/"

@@ -1,0 +1,13 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<div class="linha-indigo"></div>
+<div class="temas-grade">
+  {{ range .Data.Terms.Alphabetical }}
+    <a class="tema-caixa" href="{{ .Page.RelPermalink }}">
+      <span class="tema-nome">{{ .Page.Title }}</span>
+      <span class="tema-conta">{{ .Count }}</span>
+    </a>
+  {{ end }}
+</div>
+<div class="voltar-link"><a href="/az/">← Todos os textos</a></div>
+{{ end }}

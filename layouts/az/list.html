@@ -2,25 +2,56 @@
 <h1>{{ .Title }}</h1>
 <div class="linha-indigo"></div>
 
-{{ .Content }}
+<div class="coluna-prosa">{{ .Content }}</div>
 
+{{ $destaques := where .RegularPages "Params.destaque" "!=" nil }}
+{{ with $destaques }}
+  <h2>Por onde começar</h2>
+  <div class="destaques">
+    {{ range .ByParam "destaque" }}
+      <a class="destaque" href="{{ .RelPermalink }}">
+        <span class="destaque-titulo">{{ .Title }}</span>
+        <p>{{ .Params.description }}</p>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}
+
+{{ with site.Taxonomies.temas }}
+  <h2>Temas</h2>
+  <div class="temas-grade">
+    {{ range .Alphabetical }}
+      <a class="tema-caixa" href="{{ .Page.RelPermalink }}">
+        <span class="tema-nome">{{ .Page.Title }}</span>
+        <span class="tema-conta">{{ .Count }}</span>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}
+
+<h2>Últimas edições</h2>
 <div class="posts-grid">
-  {{ range .Pages.ByDate.Reverse }}
+  {{ range first 8 .RegularPages.ByDate.Reverse }}
     <article class="post-card">
-      <a href="{{ .Permalink }}" style="text-decoration: none; color: inherit;">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
         <div class="post-card-title">{{ .Title }}</div>
       </a>
       <div class="post-meta">{{ .Date | time.Format ":date_long" }}</div>
       <p>{{ .Params.description }}</p>
-      <div class="post-tags">
-        {{ range .Params.tags }}
-          <span class="tag">{{ . }}</span>
+      <div class="chips">
+        {{ range .GetTerms "temas" }}
+          <a class="chip" href="{{ .RelPermalink }}">{{ .Title }}</a>
         {{ end }}
       </div>
       <div style="margin-top: 1rem;">
-        <a href="{{ .Permalink }}">Ler mais →</a>
+        <a href="{{ .RelPermalink }}">Ler mais →</a>
       </div>
     </article>
   {{ end }}
 </div>
+
+<p style="margin-top: 2rem;">
+  <a href="/az/arquivo/">Todas as {{ len .RegularPages }} edições</a> ·
+  <a href="/az/indice/">Índice A a Z de conceitos</a>
+</p>
 {{ end }}

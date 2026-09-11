@@ -1,0 +1,19 @@
+{{ $mapa := dict }}
+{{ range site.Taxonomies.conceitos.Alphabetical }}
+  {{ $letra := upper (substr .Page.Title 0 1) }}
+  {{ $lista := index $mapa $letra | default slice }}
+  {{ $mapa = merge $mapa (dict $letra ($lista | append .)) }}
+{{ end }}
+<div class="indice-az">
+  {{ range $letra, $itens := $mapa }}
+    <section class="indice-bloco">
+      <h3 class="indice-letra">{{ $letra }}</h3>
+      <ul>
+        {{ range $itens }}
+          <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+            {{ if gt .Count 1 }}<span class="indice-contagem">{{ .Count }}</span>{{ end }}</li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+</div>
