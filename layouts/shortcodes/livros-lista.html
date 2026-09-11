@@ -1,0 +1,24 @@
+<div class="livros-grid">
+{{ range (.Page.Pages.ByParam "ano").Reverse }}
+  {{ $p := . }}
+  <article class="livro-card">
+    <a class="livro-card-capa" href="{{ $p.RelPermalink }}">
+      {{ with $p.Resources.GetMatch "capa.jpg" }}
+        {{ $img := .Fill "620x420 Center webp q85" }}
+        <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}"
+             alt="Capa de {{ $p.Title }}" loading="lazy">
+      {{ end }}
+    </a>
+    <div class="livro-card-txt">
+      {{ with $p.Params.premio }}<span class="livro-selo">{{ . }}</span>{{ end }}
+      <h3 class="livro-card-titulo"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
+      {{ with $p.Params.subtitulo }}<p class="livro-card-sub">{{ . }}</p>{{ end }}
+      <p class="livro-card-resumo">{{ $p.Params.resumo }}</p>
+      <p class="livro-card-botoes">
+        <a class="btn btn-primario" href="{{ $p.RelPermalink }}">Ver detalhes</a>
+        {{ with $p.Params.links.curso }}<a class="btn" href="{{ . }}">{{ $p.Params.curso_nome }}</a>{{ end }}
+      </p>
+    </div>
+  </article>
+{{ end }}
+</div>

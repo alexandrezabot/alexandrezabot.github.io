@@ -1,0 +1,86 @@
+{{ define "main" }}
+{{ $capa := .Resources.GetMatch "capa.jpg" }}
+<div class="linha-indigo"></div>
+
+<div class="livro-hero">
+  <div class="livro-hero-capa">
+    {{ with $capa }}
+      {{ $img := .Resize "760x webp q88" }}
+      <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}"
+           alt="Capa de {{ $.Title }}">
+    {{ end }}
+  </div>
+  <div class="livro-hero-txt">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.subtitulo }}<p class="livro-sub">{{ . }}</p>{{ end }}
+    <p class="livro-autores">{{ delimit .Params.autores ", " " e " }}</p>
+    {{ with .Params.premio }}<p class="livro-selo-grande">{{ . }}</p>{{ end }}
+    <p class="livro-ctas">
+      {{ with .Params.links.compra }}<a class="btn btn-primario" href="{{ . }}">Comprar</a>{{ end }}
+      {{ with .Params.links.amostra }}<a class="btn" href="{{ . }}">Baixar amostra</a>{{ end }}
+      {{ with .Params.links.sumario }}<a class="btn" href="{{ . }}">Ver o sumário</a>{{ end }}
+    </p>
+  </div>
+</div>
+
+<div class="post-content">
+  {{ .Content }}
+</div>
+
+<h2>Ficha técnica</h2>
+<table class="livro-ficha"><tbody>
+  <tr><td>Título</td><td>{{ .Params.titulo_completo | default .Title }}</td></tr>
+  <tr><td>Autores</td><td>{{ delimit .Params.autores ", " " e " }}</td></tr>
+  <tr><td>Editora</td><td><a href="{{ .Params.editora_url }}">{{ .Params.editora }}</a></td></tr>
+  <tr><td>Ano</td><td>{{ .Params.ano }}</td></tr>
+  <tr><td>ISBN</td><td>{{ .Params.isbn }}</td></tr>
+  <tr><td>Idioma</td><td>{{ .Params.idioma }}</td></tr>
+  <tr><td>Formato</td><td>{{ .Params.formato }}</td></tr>
+  <tr><td>Páginas</td><td>{{ .Params.paginas }}</td></tr>
+</tbody></table>
+
+{{ if or .Params.links.erratas (or .Params.links.figuras .Params.links.curso) }}
+<h2>Material complementar</h2>
+<ul class="livro-extra">
+  {{ with .Params.links.erratas }}<li><a href="{{ . }}">Erratas</a></li>{{ end }}
+  {{ with .Params.links.figuras }}<li><a href="{{ . }}">Figuras coloridas e vídeos</a></li>{{ end }}
+  {{ with .Params.links.curso }}<li><a href="{{ . }}">{{ $.Params.curso_nome }}</a></li>{{ end }}
+</ul>
+{{ end }}
+
+<div class="voltar-link"><a href="/livros/">&larr; Todos os livros</a></div>
+
+{{ $autores := slice }}
+{{ range .Params.autores }}{{ $autores = $autores | append (dict "@type" "Person" "name" .) }}{{ end }}
+{{ $ld := dict
+  "@context" "https://schema.org"
+  "@type" "Book"
+  "name" (.Params.titulo_completo | default .Title)
+  "author" $autores
+  "inLanguage" "pt-BR"
+  "isbn" .Params.isbn
+  "numberOfPages" .Params.paginas
+  "datePublished" (printf "%v" .Params.ano)
+  "publisher" (dict "@type" "Organization" "name" .Params.editora)
+  "url" .Permalink
+  "description" .Params.resumo
+}}
+{{ with $capa }}{{ $ld = merge $ld (dict "image" (.Fit "1200x1200 webp q85").Permalink) }}{{ end }}
+{{ with .Params.premio }}{{ $ld = merge $ld (dict "award" .) }}{{ end }}
+{{ with .Params.bookFormat }}{{ $ld = merge $ld (dict "bookFormat" .) }}{{ end }}
+{{ with .Params.links.compra }}{{ $ld = merge $ld (dict "offers" (dict "@type" "Offer" "url" . "availability" "https://schema.org/InStock")) }}{{ end }}
+<script type="application/ld+json">{{ $ld | jsonify | safeHTML }}</script>
+
+<script>
+  document.querySelectorAll('.livro-ctas a, .livro-extra a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (window.gtag) {
+        gtag('event', 'livro_clique', {
+          livro: {{ .Title | jsonify }},
+          destino: a.textContent.trim()
+        });
+      }
+    });
+  });
+</script>
+{{ end }}
