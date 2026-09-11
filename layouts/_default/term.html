@@ -1,0 +1,31 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<div class="linha-indigo"></div>
+
+<p style="color: var(--creme-mudo); font-size: 14px;">
+  {{ len .Pages }} {{ cond (eq (len .Pages) 1) "edição" "edições" }} do
+  <a href="/az/">Astrofísica de A a Z</a>.
+</p>
+
+<div class="posts-grid">
+  {{ range .Pages.ByDate.Reverse }}
+    <article class="post-card">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
+        <div class="post-card-title">{{ .Title }}</div>
+      </a>
+      <div class="post-meta">{{ .Date | time.Format ":date_long" }}</div>
+      <p>{{ .Params.description }}</p>
+      <div class="chips">
+        {{ range .GetTerms "temas" }}
+          <a class="chip" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ end }}
+      </div>
+    </article>
+  {{ end }}
+</div>
+
+<div class="voltar-link">
+  <a href="/az/">← Todos os textos</a> ·
+  <a href="/az/indice/">Índice A a Z</a>
+</div>
+{{ end }}

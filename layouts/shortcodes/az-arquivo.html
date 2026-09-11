@@ -1,0 +1,13 @@
+{{ $az := site.GetPage "/az" }}
+{{ range ($az.RegularPages.GroupByDate "2006") }}
+  <h2 class="arquivo-ano">{{ .Key }}</h2>
+  <ul class="arquivo-lista">
+    {{ range .Pages }}
+      <li class="arquivo-item">
+        <span class="arquivo-num">#{{ path.BaseName .File.TranslationBaseName }}</span>
+        <span class="arquivo-data">{{ .Date | time.Format "2 Jan 2006" }}</span>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+    {{ end }}
+  </ul>
+{{ end }}

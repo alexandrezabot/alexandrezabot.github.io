@@ -46,6 +46,12 @@ echo
 echo "Branches:"
 git branch -a
 echo
+echo "Submódulos:"
+git submodule status 2>/dev/null || echo "(nenhum)"
+echo
+echo "Alterações não commitadas:"
+git status --short
+echo
 
 echo ">>> CONFIGURAÇÃO HUGO"
 dump_file "hugo.toml"
@@ -71,6 +77,15 @@ dump_file ".github/workflows/deploy.yml"
 
 echo ">>> CNAME"
 dump_file "static/CNAME"
+
+echo ">>> ROBOTS.TXT"
+dump_file "static/robots.txt"
+
+echo ">>> GITIGNORE"
+dump_file ".gitignore"
+
+echo ">>> ARCHETYPES"
+find archetypes -name "*.md" 2>/dev/null | sort | dump_tree
 
 echo "============================================================"
 echo "DUMP DOS ARQUIVOS"
