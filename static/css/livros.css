@@ -1,0 +1,115 @@
+/* ============================================================
+   livros.css — seção /livros/
+   Paleta: Noite #040d29 · Índigo #6168B9 · Coral #FD8354
+   ============================================================ */
+
+.livros-grid { display: grid; gap: 2rem; margin: 2.5rem 0 3rem; }
+
+.livro-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1.8rem;
+  align-items: center;
+  background-color: var(--superficie);
+  border-top: 2px solid var(--indigo);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 0.2s;
+}
+.livro-card:hover { background-color: var(--elevada); }
+.livro-card-capa { display: block; }
+.livro-card-capa img { width: 100%; height: auto; display: block; }
+.livro-card-txt { padding: 1.6rem 1.6rem 1.6rem 0; }
+.livro-card-titulo {
+  font-size: 1.8rem;
+  margin: 0.2rem 0 0.2rem;
+}
+.livro-card-titulo a { color: var(--creme); }
+.livro-card-titulo a:hover { color: var(--indigo); }
+.livro-card-sub { color: var(--creme-mudo); font-size: 14px; margin-bottom: 0.8rem; }
+.livro-card-resumo { font-size: 14px; margin-bottom: 1.2rem; }
+.livro-card-botoes { margin: 0; }
+
+.livro-selo {
+  display: inline-block;
+  background-color: rgba(253, 131, 84, 0.15);
+  color: var(--coral);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+}
+
+.livro-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin: 1rem 0 2.5rem;
+}
+.livro-hero h1 { margin: 0 0 0.3rem; }
+.livro-hero-capa img {
+  width: 100%; height: auto; display: block;
+  border-radius: 8px;
+  border-top: 2px solid var(--indigo);
+}
+.livro-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--creme-mudo);
+  margin-bottom: 0.6rem;
+}
+.livro-autores { font-size: 14px; color: var(--creme); margin-bottom: 1rem; }
+.livro-selo-grande {
+  display: inline-block;
+  background-color: rgba(253, 131, 84, 0.15);
+  color: var(--coral);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  margin-bottom: 1.4rem;
+}
+.livro-ctas { margin: 0; }
+
+.btn {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  padding: 0.65rem 1.2rem;
+  border: 2px solid var(--indigo);
+  border-radius: 6px;
+  color: var(--creme);
+  margin: 0.3rem 0.6rem 0.3rem 0;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn:hover { background-color: var(--indigo); color: var(--creme); }
+.btn-primario {
+  background-color: var(--coral);
+  border-color: var(--coral);
+  color: var(--noite);
+}
+.btn-primario:hover {
+  background-color: var(--pessego);
+  border-color: var(--pessego);
+  color: var(--noite);
+}
+
+.livro-ficha { width: 100%; border-collapse: collapse; font-size: 14px; margin: 1rem 0 2.5rem; }
+.livro-ficha td { padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--indigo-fraco); }
+.livro-ficha td:first-child { color: var(--creme-mudo); white-space: nowrap; width: 30%; }
+
+.livro-extra { list-style: none; padding-left: 0; margin: 1rem 0 2rem; }
+.livro-extra li { padding: 0.5rem 0; border-bottom: 1px solid var(--indigo-fraco); }
+
+@media (max-width: 760px) {
+  .livro-card { grid-template-columns: 1fr; gap: 0; }
+  .livro-card-txt { padding: 1.4rem; }
+  .livro-hero { grid-template-columns: 1fr; gap: 1.5rem; }
+}

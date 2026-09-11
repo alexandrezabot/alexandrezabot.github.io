@@ -10,6 +10,8 @@ Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astr
 
 **[Ensino de astrofísica](/ensino).** Projeto "Astrofísica para Todos" pela UFSC, com cursos abertos no YouTube. Imersões e Mentorias em turmas fechadas, com inscrição.
 
+**[Livros](/livros).** *Astrofísica Moderna: Fenômenos e Conceitos* e *Introdução à Cosmologia Moderna*, ambos finalistas do Prêmio Jabuti Acadêmico.
+
 **[Astrofísica de A a Z](/az).** Boletim semanal por email sobre o que acontece na astrofísica e na cosmologia. Minha visão do que é mais relevante na área.
 
 **[Sobre mim](/sobre).** Formação, livros publicados e valores pessoais que orientam este trabalho.
