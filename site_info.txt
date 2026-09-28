@@ -3,7 +3,7 @@ INFORMAÇÕES DO SITE —
 ============================================================
 
 >>> SISTEMA
-Linux eddington 7.0.0-31-generic #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 10 09:38:02 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+Linux eddington 7.0.0-34-generic #34~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 15:38:29 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
 
 >>> VERSÕES
 Hugo: hugo v0.123.7+extended linux/amd64 BuildDate=2025-07-18T03:41:49Z VendorInfo=ubuntu:0.123.7-1ubuntu0.3
@@ -18,12 +18,18 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-3b18d6d novo artigo
+ab702ba artigo novo
 
 Branches:
 * main
   remotes/origin/gh-pages
   remotes/origin/main
+
+Submódulos:
+
+Alterações não commitadas:
+ M site_info.txt
+?? content/az/22.md
 
 >>> CONFIGURAÇÃO HUGO
 --- hugo.toml ---
@@ -32,6 +38,7 @@ languageCode = "pt-br"
 defaultContentLanguage = "pt-br"
 title = "Prof. Zabot"
 theme = "profzabot-custom"
+capitalizeListTitles = false
 
 [outputs]
   home = ["HTML"]
@@ -47,6 +54,14 @@ theme = "profzabot-custom"
   link = "/cursos/mentoria-materia/"
   texto = "Mentoria · Matéria"
   detalhe = "Inscrições até 19 de agosto"
+
+[taxonomies]
+  tema = "temas"
+  conceito = "conceitos"
+
+[permalinks.term]
+  temas = "/az/tema/:slug/"
+  conceitos = "/az/conceito/:slug/"
 
 >>> CSS DO PROJETO
 --- static/css/curso.css ---
@@ -437,6 +452,250 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 /* --- Acordeão do FAQ --- */
 .s-faq summary { cursor: pointer; }
 
+--- static/css/livros.css ---
+/* ============================================================
+   livros.css — seção /livros/
+   Paleta: Noite #040d29 · Índigo #6168B9 · Coral #FD8354
+   ============================================================ */
+
+.livros-grid { display: grid; gap: 2rem; margin: 2.5rem 0 3rem; }
+
+.livro-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1.8rem;
+  align-items: center;
+  background-color: var(--superficie);
+  border-top: 2px solid var(--indigo);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 0.2s;
+}
+.livro-card:hover { background-color: var(--elevada); }
+.livro-card-capa { display: block; }
+.livro-card-capa img { width: 100%; height: auto; display: block; }
+.livro-card-txt { padding: 1.6rem 1.6rem 1.6rem 0; }
+.livro-card-titulo {
+  font-size: 1.8rem;
+  margin: 0.2rem 0 0.2rem;
+}
+.livro-card-titulo a { color: var(--creme); }
+.livro-card-titulo a:hover { color: var(--indigo); }
+.livro-card-sub { color: var(--creme-mudo); font-size: 14px; margin-bottom: 0.8rem; }
+.livro-card-resumo { font-size: 14px; margin-bottom: 1.2rem; }
+.livro-card-botoes { margin: 0; }
+
+.livro-selo {
+  display: inline-block;
+  background-color: rgba(253, 131, 84, 0.15);
+  color: var(--coral);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+}
+
+.livro-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin: 1rem 0 2.5rem;
+}
+.livro-hero h1 { margin: 0 0 0.3rem; }
+.livro-hero-capa img {
+  width: 100%; height: auto; display: block;
+  border-radius: 8px;
+  border-top: 2px solid var(--indigo);
+}
+.livro-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--creme-mudo);
+  margin-bottom: 0.6rem;
+}
+.livro-autores { font-size: 14px; color: var(--creme); margin-bottom: 1rem; }
+.livro-selo-grande {
+  display: inline-block;
+  background-color: rgba(253, 131, 84, 0.15);
+  color: var(--coral);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  margin-bottom: 1.4rem;
+}
+.livro-ctas { margin: 0; }
+
+.btn {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  padding: 0.65rem 1.2rem;
+  border: 2px solid var(--indigo);
+  border-radius: 6px;
+  color: var(--creme);
+  margin: 0.3rem 0.6rem 0.3rem 0;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn:hover { background-color: var(--indigo); color: var(--creme); }
+.btn-primario {
+  background-color: var(--coral);
+  border-color: var(--coral);
+  color: var(--noite);
+}
+.btn-primario:hover {
+  background-color: var(--pessego);
+  border-color: var(--pessego);
+  color: var(--noite);
+}
+
+.livro-ficha { width: 100%; border-collapse: collapse; font-size: 14px; margin: 1rem 0 2.5rem; }
+.livro-ficha td { padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--indigo-fraco); }
+.livro-ficha td:first-child { color: var(--creme-mudo); white-space: nowrap; width: 30%; }
+
+.livro-extra { list-style: none; padding-left: 0; margin: 1rem 0 2rem; }
+.livro-extra li { padding: 0.5rem 0; border-bottom: 1px solid var(--indigo-fraco); }
+
+@media (max-width: 760px) {
+  .livro-card { grid-template-columns: 1fr; gap: 0; }
+  .livro-card-txt { padding: 1.4rem; }
+  .livro-hero { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+--- static/css/site.css ---
+/* ============================================================
+   site.css — ajustes globais de largura e tipografia
+   carregado depois do style.css do tema
+   ============================================================ */
+
+:root {
+  --largura-padrao: 1100px;   /* header, main e footer */
+  --largura-prosa: 760px;     /* coluna de leitura dos textos */
+}
+
+.container { max-width: var(--largura-padrao); }
+
+body { font-size: 16px; }
+
+.coluna-prosa { max-width: var(--largura-prosa); margin: 0 auto; }
+.post-content { line-height: 1.75; }
+
+/* ---------- chips de tema e conceito ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.8rem 0; }
+.chip {
+  display: inline-block;
+  background-color: rgba(97, 104, 185, 0.15);
+  color: var(--lavanda);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.2s;
+}
+a.chip:hover { background-color: var(--indigo); color: var(--creme); }
+.chip-conceito { text-transform: none; letter-spacing: 0.3px; font-size: 12px; }
+
+/* ---------- destaques ---------- */
+.destaques {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem;
+  margin: 1.5rem 0 3rem;
+}
+.destaque {
+  background-color: var(--superficie);
+  border-left: 2px solid var(--coral);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  transition: background-color 0.2s;
+}
+.destaque:hover { background-color: var(--elevada); }
+.destaque-titulo {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.45rem;
+  color: var(--creme);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.destaque:hover .destaque-titulo { color: var(--pessego); }
+.destaque p { font-size: 13px; color: var(--creme-mudo); margin: 0; }
+
+/* ---------- grade de temas ---------- */
+.temas-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.9rem;
+  margin: 1.5rem 0 3rem;
+}
+.tema-caixa {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.6rem;
+  background-color: var(--superficie);
+  border-top: 2px solid var(--indigo);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  color: var(--creme);
+  transition: background-color 0.2s;
+}
+.tema-caixa:hover { background-color: var(--elevada); color: var(--lavanda); }
+.tema-nome { font-size: 14px; }
+.tema-conta { font-size: 12px; color: var(--coral); }
+
+/* ---------- índice A a Z ---------- */
+.indice-az { column-width: 250px; column-gap: 2.2rem; margin: 2rem 0 3rem; }
+.indice-bloco { break-inside: avoid; page-break-inside: avoid; margin-bottom: 1.6rem; }
+.indice-letra {
+  font-size: 1.6rem;
+  margin: 0 0 0.4rem;
+  color: var(--coral);
+  border-bottom: 1px solid var(--indigo-fraco);
+}
+.indice-bloco ul { list-style: none; padding: 0; margin: 0; }
+.indice-bloco li { font-size: 14px; padding: 0.18rem 0; }
+.indice-contagem { color: var(--creme-mudo); font-size: 11px; }
+
+/* ---------- arquivo por ano ---------- */
+.arquivo-ano { font-size: 1.8rem; margin: 2.2rem 0 0.6rem; color: var(--coral); }
+.arquivo-lista { list-style: none; padding: 0; margin: 0; }
+.arquivo-item {
+  display: grid;
+  grid-template-columns: 3.2rem 6.5rem 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid var(--indigo-fraco);
+}
+.arquivo-num { color: var(--creme-mudo); font-size: 12px; }
+.arquivo-data { color: var(--creme-mudo); font-size: 12px; }
+@media (max-width: 560px) {
+  .arquivo-item { grid-template-columns: 3.2rem 1fr; }
+  .arquivo-data { display: none; }
+}
+
+/* ---------- navegação entre edições ---------- */
+.edicao-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--indigo-fraco);
+  font-size: 13px;
+}
+.edicao-nav a { display: block; max-width: 45%; }
+.edicao-nav .proxima { text-align: right; margin-left: auto; }
+
 >>> ESTRUTURA DO SITE
 .
 ./archetypes
@@ -469,7 +728,11 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 ./content/az/18.md
 ./content/az/19.md
 ./content/az/20.md
+./content/az/21.md
+./content/az/22.md
+./content/az-arquivo.md
 ./content/az/_index.md
+./content/az-indice.md
 ./content/contato.md
 ./content/cursos
 ./content/cursos/imersao-bioassinaturas
@@ -483,6 +746,14 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 ./content/cursos/mentoria-materia/professor.jpg
 ./content/ensino.md
 ./content/_index.md
+./content/livros
+./content/livros/a1
+./content/livros/a1/capa.jpg
+./content/livros/a1/index.md
+./content/livros/cm
+./content/livros/cm/capa.jpg
+./content/livros/cm/index.md
+./content/livros/_index.md
 ./content/mentoria
 ./content/mentoria/01.md
 ./content/mentoria/02.md
@@ -501,10 +772,17 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 ./layouts
 ./layouts/az
 ./layouts/az/list.html
+./layouts/az/single.html
 ./layouts/cursos
 ./layouts/cursos/single.html
 ./layouts/_default
+./layouts/_default/baseof.html
 ./layouts/_default/home.html
+./layouts/_default/taxonomy.html
+./layouts/_default/term.html
+./layouts/livros
+./layouts/livros/list.html
+./layouts/livros/single.html
 ./layouts/partials
 ./layouts/partials/aviso.html
 ./layouts/partials/curso
@@ -523,13 +801,19 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 ./layouts/partials/curso/secao-professor.html
 ./layouts/partials/curso/secao-programa.html
 ./layouts/partials/curso/secao-texto.html
+./layouts/partials/header.html
 ./layouts/shortcodes
+./layouts/shortcodes/az-arquivo.html
+./layouts/shortcodes/az-indice.html
+./layouts/shortcodes/livros-lista.html
 ./layouts/shortcodes/newsletter.html
 ./site_info.txt
 ./static
 ./static/CNAME
 ./static/css
 ./static/css/curso.css
+./static/css/livros.css
+./static/css/site.css
 ./static/fermi
 ./static/fermi/index.html
 ./static/images
@@ -539,9 +823,15 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 ./static/images/ensino/aula-presencial.jpg
 ./static/images/ensino/floripa.jpg
 ./static/images/ensino/mcti.jpg
+./static/images/livros
+./static/images/livros/jabuti-2024.jpg
+./static/images/livros/livros.jpg
 ./static/images/sobre
 ./static/images/sobre/eu.jpg
 ./static/images/sobre/familia.jpg
+./static/livros
+./static/livros/sumario-astrofisica-moderna.pdf
+./static/livros/sumario-cosmologia-moderna.pdf
 ./static/robots.txt
 ./themes
 ./themes/profzabot-custom
@@ -567,13 +857,19 @@ details p { padding: 0 40px 24px 0; color: var(--tinta-2); font-size: 0.98rem; }
 >>> STATIC (arquivos)
 static/CNAME
 static/css/curso.css
+static/css/livros.css
+static/css/site.css
 static/fermi/index.html
 static/images/ciencia-fe/papa.jpg
 static/images/ensino/aula-presencial.jpg
 static/images/ensino/floripa.jpg
 static/images/ensino/mcti.jpg
+static/images/livros/jabuti-2024.jpg
+static/images/livros/livros.jpg
 static/images/sobre/eu.jpg
 static/images/sobre/familia.jpg
+static/livros/sumario-astrofisica-moderna.pdf
+static/livros/sumario-cosmologia-moderna.pdf
 static/robots.txt
 
 >>> GITHUB ACTIONS
@@ -610,6 +906,73 @@ jobs:
 >>> CNAME
 --- static/CNAME ---
 www.profzabot.com.br
+
+>>> ROBOTS.TXT
+--- static/robots.txt ---
+User-agent: *
+Disallow: /mentoria/
+Disallow: /artigos/
+
+User-agent: *
+Allow: /
+
+>>> GITIGNORE
+--- .gitignore ---
+/public/
+/resources/
+*.swp
+*.swo
+.DS_Store
+
+>>> ARCHETYPES
+--- archetypes/curso.md ---
++++
+title = ""
+subtitulo = ""
+descricao = ""
+tipo = "Imersão"
+tarja = ""
+data_evento = ""
+encerrada = false
+
+checkout = ""
+cta = "Garantir minha vaga"
+cta_apoio = ""
+preco = ""
+preco_detalhe = ""
+
+# Seções na ordem em que aparecem na página.
+# Tipos disponíveis: abertura, texto, programa, cronograma,
+# entregaveis, para_quem, depoimentos, professor, preco, faq
+# Remova, reordene ou repita à vontade.
+
+[[secoes]]
+tipo = "abertura"
+conteudo = """
+Parágrafo de abertura em markdown.
+"""
+
+[[secoes]]
+tipo = "programa"
+titulo = "O que você vai ver"
+[[secoes.itens]]
+rotulo = "Aula 1"
+titulo = ""
+descricao = ""
+
+[[secoes]]
+tipo = "preco"
+titulo = "Inscrição"
+[[secoes.itens]]
+rotulo = "Data"
+valor = ""
+
+--- archetypes/default.md ---
++++
+title = '{{ replace .File.ContentBaseName "-" " " | title }}'
+date = {{ .Date }}
+draft = true
++++
 
 ============================================================
 DUMP DOS ARQUIVOS
@@ -1063,27 +1426,103 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
 <h1>{{ .Title }}</h1>
 <div class="linha-indigo"></div>
 
-{{ .Content }}
+<div class="coluna-prosa">{{ .Content }}</div>
 
+{{ $destaques := where .RegularPages "Params.destaque" "!=" nil }}
+{{ with $destaques }}
+  <h2>Por onde começar</h2>
+  <div class="destaques">
+    {{ range .ByParam "destaque" }}
+      <a class="destaque" href="{{ .RelPermalink }}">
+        <span class="destaque-titulo">{{ .Title }}</span>
+        <p>{{ .Params.description }}</p>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}
+
+{{ with site.Taxonomies.temas }}
+  <h2>Temas</h2>
+  <div class="temas-grade">
+    {{ range .Alphabetical }}
+      <a class="tema-caixa" href="{{ .Page.RelPermalink }}">
+        <span class="tema-nome">{{ .Page.Title }}</span>
+        <span class="tema-conta">{{ .Count }}</span>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}
+
+<h2>Últimas edições</h2>
 <div class="posts-grid">
-  {{ range .Pages.ByDate.Reverse }}
+  {{ range first 8 .RegularPages.ByDate.Reverse }}
     <article class="post-card">
-      <a href="{{ .Permalink }}" style="text-decoration: none; color: inherit;">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
         <div class="post-card-title">{{ .Title }}</div>
       </a>
       <div class="post-meta">{{ .Date | time.Format ":date_long" }}</div>
       <p>{{ .Params.description }}</p>
-      <div class="post-tags">
-        {{ range .Params.tags }}
-          <span class="tag">{{ . }}</span>
+      <div class="chips">
+        {{ range .GetTerms "temas" }}
+          <a class="chip" href="{{ .RelPermalink }}">{{ .Title }}</a>
         {{ end }}
       </div>
       <div style="margin-top: 1rem;">
-        <a href="{{ .Permalink }}">Ler mais →</a>
+        <a href="{{ .RelPermalink }}">Ler mais →</a>
       </div>
     </article>
   {{ end }}
 </div>
+
+<p style="margin-top: 2rem;">
+  <a href="/az/arquivo/">Todas as {{ len .RegularPages }} edições</a> ·
+  <a href="/az/indice/">Índice A a Z de conceitos</a>
+</p>
+{{ end }}
+
+--- layouts/az/single.html ---
+{{ define "main" }}
+<article class="coluna-prosa">
+  <div class="linha-indigo"></div>
+  <h1>{{ .Title }}</h1>
+  <div class="post-meta" style="margin-bottom: 1.2rem;">
+    {{ .Date | time.Format ":date_long" }} · Edição #{{ .File.TranslationBaseName }}
+  </div>
+
+  <div class="chips">
+    {{ range .GetTerms "temas" }}
+      <a class="chip" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ end }}
+  </div>
+
+  <div class="post-subscribe-link" style="margin-bottom: 2rem;">
+    <a href="/az/">Leia os outros textos e inscreva-se para receber por email, gratuitamente</a>
+  </div>
+
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+
+  {{ with .GetTerms "conceitos" }}
+    <div class="separador"></div>
+    <p style="font-size: 12px; color: var(--creme-mudo); text-transform: uppercase; letter-spacing: 1px;">Neste texto</p>
+    <div class="chips">
+      {{ range . }}
+        <a class="chip chip-conceito" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ end }}
+    </div>
+  {{ end }}
+
+  <div class="edicao-nav">
+    {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ end }}
+    {{ with .NextInSection }}<a class="proxima" href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}
+  </div>
+
+  <div class="voltar-link">
+    <a href="/az/">← Todos os textos</a> ·
+    <a href="/az/indice/">Índice A a Z</a>
+  </div>
+</article>
 {{ end }}
 
 --- layouts/cursos/single.html ---
@@ -1111,12 +1550,225 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
 </body>
 </html>
 
+--- layouts/_default/baseof.html ---
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {{ $title := cond .IsHome (printf "%s — Astrofísica e Cosmologia" .Site.Title) (printf "%s | %s" .Title .Site.Title) }}
+  {{ $description := cond (ne .Description "") .Description .Site.Params.description }}
+  {{ $image := .Site.Params.ogImage | absURL }}
+  {{ with .Resources.GetMatch "capa.jpg" }}
+    {{ $image = (.Fit "1200x630 webp q85").Permalink }}
+  {{ end }}
+
+  <title>{{ $title }}</title>
+  <meta name="description" content="{{ $description }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:description" content="{{ $description }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="{{ $image }}">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ $title }}">
+  <meta name="twitter:description" content="{{ $description }}">
+  <meta name="twitter:image" content="{{ $image }}">
+
+  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
+  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/site.css">
+{{ if eq .Section "livros" }}<link rel="stylesheet" href="{{ .Site.BaseURL }}css/livros.css">{{ end }}
+{{ if not .Site.IsServer }}
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.ga_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "{{ .Site.Params.ga_id }}");
+</script>
+{{ end }}
+</head>
+<body>
+  {{ partial "header.html" . }}
+
+  <main class="container">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+
+  <script>
+    document.querySelectorAll('a').forEach(link => {
+      if (link.hostname && link.hostname !== window.location.hostname && !link.href.startsWith('#')) {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  </script>
+</body>
+</html>
+
 --- layouts/_default/home.html ---
 {{ define "main" }}
 {{ partial "aviso.html" . }}
 <div class="post-content">
   {{ .Content }}
 </div>
+{{ end }}
+
+--- layouts/_default/taxonomy.html ---
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<div class="linha-indigo"></div>
+<div class="temas-grade">
+  {{ range .Data.Terms.Alphabetical }}
+    <a class="tema-caixa" href="{{ .Page.RelPermalink }}">
+      <span class="tema-nome">{{ .Page.Title }}</span>
+      <span class="tema-conta">{{ .Count }}</span>
+    </a>
+  {{ end }}
+</div>
+<div class="voltar-link"><a href="/az/">← Todos os textos</a></div>
+{{ end }}
+
+--- layouts/_default/term.html ---
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<div class="linha-indigo"></div>
+
+<p style="color: var(--creme-mudo); font-size: 14px;">
+  {{ len .Pages }} {{ cond (eq (len .Pages) 1) "edição" "edições" }} do
+  <a href="/az/">Astrofísica de A a Z</a>.
+</p>
+
+<div class="posts-grid">
+  {{ range .Pages.ByDate.Reverse }}
+    <article class="post-card">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">
+        <div class="post-card-title">{{ .Title }}</div>
+      </a>
+      <div class="post-meta">{{ .Date | time.Format ":date_long" }}</div>
+      <p>{{ .Params.description }}</p>
+      <div class="chips">
+        {{ range .GetTerms "temas" }}
+          <a class="chip" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ end }}
+      </div>
+    </article>
+  {{ end }}
+</div>
+
+<div class="voltar-link">
+  <a href="/az/">← Todos os textos</a> ·
+  <a href="/az/indice/">Índice A a Z</a>
+</div>
+{{ end }}
+
+--- layouts/livros/list.html ---
+{{ define "main" }}
+<div class="linha-indigo"></div>
+<h1>{{ .Title }}</h1>
+<div class="post-content">
+  {{ .Content }}
+</div>
+{{ end }}
+
+--- layouts/livros/single.html ---
+{{ define "main" }}
+{{ $capa := .Resources.GetMatch "capa.jpg" }}
+<div class="linha-indigo"></div>
+
+<div class="livro-hero">
+  <div class="livro-hero-capa">
+    {{ with $capa }}
+      {{ $img := .Resize "760x webp q88" }}
+      <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}"
+           alt="Capa de {{ $.Title }}">
+    {{ end }}
+  </div>
+  <div class="livro-hero-txt">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.subtitulo }}<p class="livro-sub">{{ . }}</p>{{ end }}
+    <p class="livro-autores">{{ delimit .Params.autores ", " " e " }}</p>
+    {{ with .Params.premio }}<p class="livro-selo-grande">{{ . }}</p>{{ end }}
+    <p class="livro-ctas">
+      {{ with .Params.links.compra }}<a class="btn btn-primario" href="{{ . }}">Comprar</a>{{ end }}
+      {{ with .Params.links.amostra }}<a class="btn" href="{{ . }}">Baixar amostra</a>{{ end }}
+      {{ with .Params.links.sumario }}<a class="btn" href="{{ . }}">Ver o sumário</a>{{ end }}
+    </p>
+  </div>
+</div>
+
+<div class="post-content">
+  {{ .Content }}
+</div>
+
+<h2>Ficha técnica</h2>
+<table class="livro-ficha"><tbody>
+  <tr><td>Título</td><td>{{ .Params.titulo_completo | default .Title }}</td></tr>
+  <tr><td>Autores</td><td>{{ delimit .Params.autores ", " " e " }}</td></tr>
+  <tr><td>Editora</td><td><a href="{{ .Params.editora_url }}">{{ .Params.editora }}</a></td></tr>
+  <tr><td>Ano</td><td>{{ .Params.ano }}</td></tr>
+  <tr><td>ISBN</td><td>{{ .Params.isbn }}</td></tr>
+  <tr><td>Idioma</td><td>{{ .Params.idioma }}</td></tr>
+  <tr><td>Formato</td><td>{{ .Params.formato }}</td></tr>
+  <tr><td>Páginas</td><td>{{ .Params.paginas }}</td></tr>
+</tbody></table>
+
+{{ if or .Params.links.erratas (or .Params.links.figuras .Params.links.curso) }}
+<h2>Material complementar</h2>
+<ul class="livro-extra">
+  {{ with .Params.links.erratas }}<li><a href="{{ . }}">Erratas</a></li>{{ end }}
+  {{ with .Params.links.figuras }}<li><a href="{{ . }}">Figuras coloridas e vídeos</a></li>{{ end }}
+  {{ with .Params.links.curso }}<li><a href="{{ . }}">{{ $.Params.curso_nome }}</a></li>{{ end }}
+</ul>
+{{ end }}
+
+<div class="voltar-link"><a href="/livros/">&larr; Todos os livros</a></div>
+
+{{ $autores := slice }}
+{{ range .Params.autores }}{{ $autores = $autores | append (dict "@type" "Person" "name" .) }}{{ end }}
+{{ $ld := dict
+  "@context" "https://schema.org"
+  "@type" "Book"
+  "name" (.Params.titulo_completo | default .Title)
+  "author" $autores
+  "inLanguage" "pt-BR"
+  "isbn" .Params.isbn
+  "numberOfPages" .Params.paginas
+  "datePublished" (printf "%v" .Params.ano)
+  "publisher" (dict "@type" "Organization" "name" .Params.editora)
+  "url" .Permalink
+  "description" .Params.resumo
+}}
+{{ with $capa }}{{ $ld = merge $ld (dict "image" (.Fit "1200x1200 webp q85").Permalink) }}{{ end }}
+{{ with .Params.premio }}{{ $ld = merge $ld (dict "award" .) }}{{ end }}
+{{ with .Params.bookFormat }}{{ $ld = merge $ld (dict "bookFormat" .) }}{{ end }}
+{{ with .Params.links.compra }}{{ $ld = merge $ld (dict "offers" (dict "@type" "Offer" "url" . "availability" "https://schema.org/InStock")) }}{{ end }}
+<script type="application/ld+json">{{ $ld | jsonify | safeHTML }}</script>
+
+<script>
+  document.querySelectorAll('.livro-ctas a, .livro-extra a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (window.gtag) {
+        gtag('event', 'livro_clique', {
+          livro: {{ .Title | jsonify }},
+          destino: a.textContent.trim()
+        });
+      }
+    });
+  });
+</script>
 {{ end }}
 
 --- layouts/partials/aviso.html ---
@@ -1412,6 +2064,82 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
   </div>
 </section>
 
+--- layouts/partials/header.html ---
+<header class="container">
+  <h1>{{ .Site.Title }}</h1>
+  <p class="tagline">Doutor em Astrofísica · Professor da UFSC</p>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/ensino">Ensino</a>
+    <a href="/livros">Livros</a>
+    <a href="/az">Astrofísica de A a Z</a>
+    <a href="/sobre">Sobre</a>
+    <a href="/contato">Contato</a>
+  </nav>
+</header>
+
+--- layouts/shortcodes/az-arquivo.html ---
+{{ $az := site.GetPage "/az" }}
+{{ range ($az.RegularPages.GroupByDate "2006") }}
+  <h2 class="arquivo-ano">{{ .Key }}</h2>
+  <ul class="arquivo-lista">
+    {{ range .Pages }}
+      <li class="arquivo-item">
+        <span class="arquivo-num">#{{ path.BaseName .File.TranslationBaseName }}</span>
+        <span class="arquivo-data">{{ .Date | time.Format "2 Jan 2006" }}</span>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+    {{ end }}
+  </ul>
+{{ end }}
+
+--- layouts/shortcodes/az-indice.html ---
+{{ $mapa := dict }}
+{{ range site.Taxonomies.conceitos.Alphabetical }}
+  {{ $letra := upper (substr .Page.Title 0 1) }}
+  {{ $lista := index $mapa $letra | default slice }}
+  {{ $mapa = merge $mapa (dict $letra ($lista | append .)) }}
+{{ end }}
+<div class="indice-az">
+  {{ range $letra, $itens := $mapa }}
+    <section class="indice-bloco">
+      <h3 class="indice-letra">{{ $letra }}</h3>
+      <ul>
+        {{ range $itens }}
+          <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+            {{ if gt .Count 1 }}<span class="indice-contagem">{{ .Count }}</span>{{ end }}</li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+</div>
+
+--- layouts/shortcodes/livros-lista.html ---
+<div class="livros-grid">
+{{ range (.Page.Pages.ByParam "ano").Reverse }}
+  {{ $p := . }}
+  <article class="livro-card">
+    <a class="livro-card-capa" href="{{ $p.RelPermalink }}">
+      {{ with $p.Resources.GetMatch "capa.jpg" }}
+        {{ $img := .Fill "620x420 Center webp q85" }}
+        <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}"
+             alt="Capa de {{ $p.Title }}" loading="lazy">
+      {{ end }}
+    </a>
+    <div class="livro-card-txt">
+      {{ with $p.Params.premio }}<span class="livro-selo">{{ . }}</span>{{ end }}
+      <h3 class="livro-card-titulo"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
+      {{ with $p.Params.subtitulo }}<p class="livro-card-sub">{{ . }}</p>{{ end }}
+      <p class="livro-card-resumo">{{ $p.Params.resumo }}</p>
+      <p class="livro-card-botoes">
+        <a class="btn btn-primario" href="{{ $p.RelPermalink }}">Ver detalhes</a>
+        {{ with $p.Params.links.curso }}<a class="btn" href="{{ . }}">{{ $p.Params.curso_nome }}</a>{{ end }}
+      </p>
+    </div>
+  </article>
+{{ end }}
+</div>
+
 --- layouts/shortcodes/newsletter.html ---
 <div class="newsletter-embed">
   <iframe
@@ -1560,9 +2288,10 @@ A estrutura do problema permite que o debate persista por décadas. Esse não é
 title: "Vera Rubin e a revolução que se aproxima"
 date: 2026-04-30
 draft: false
-tags: []
-categories: []
 description: "No último dia 26 de março recebemos o primeiro pacote de dados do Observatório Vera Rubin (...)"
+temas: ["Instrumentos e observatórios", "Cosmologia"]
+conceitos: ["survey", "Observatório Vera Rubin", "Sloan", "matéria escura", "energia escura", "lente gravitacional"]
+destaque: 6
 ---
 
 No último dia 26 de março recebemos o primeiro pacote de dados do Observatório Vera Rubin. Foi uma festa que já era esperada há anos. Todas nossas expectativas foram atendidas. Terminada a fase de primeiros ajustes, nos preparamos para um período de coleta de dados realmente relevantes para a Astrofísica. A empolgação dos cientistas é enorme, porque muito maior é a capacidade deste telescópio de impactar para sempre o que conhecemos sobre o Universo.
@@ -1596,9 +2325,9 @@ Hoje a Cosmologia é a área mais vibrante da Física, porque concentra todas as
 title: "Estamos testemunhando uma Revolução?"
 date: 2026-05-07
 draft: false
-tags: []
-categories: []
 description: "Tanto a Matéria Escura quanto a Energia Escura foram propostas há quase um século (...) e ainda não fazemos ideia do que são. "
+temas: ["História e Filosofia da Ciência", "Cosmologia"]
+conceitos: ["Thomas Kuhn", "paradigma", "matéria escura", "energia escura", "tensão de Hubble", "WIMP", "DESI"]
 ---
 
 
@@ -1638,9 +2367,10 @@ Sim, todos queremos novas ideias. O que não está claro é quando estaremos pro
 title: "O legado de um visionário"
 date: 2026-05-14
 draft: false
-tags: []
-categories: []
 description: "A história da ciência está cheia de pessoas geniais que deram passos importantes na sua época. Mas apenas um punhado delas carrega a glória de estabelecer ideias que perduram no tempo."
+temas: ["História e Filosofia da Ciência", "Cosmologia"]
+conceitos: ["Fritz Zwicky", "lente gravitacional", "matéria escura", "estrela de nêutrons", "teorema do virial", "aglomerado de Coma", "raios cósmicos"]
+destaque: 7
 ---
 
 
@@ -1680,9 +2410,9 @@ Isso explica por que houve um hiato de quarenta anos entre a descoberta da Maté
 title: "O caso Betelgeuse"
 date: 2026-05-21
 draft: false
-tags: []
-categories: []
 description: "Betelgeuse é uma estrela de cor vermelha, brilhante e visível a olho nu na constelação de Órion. Há registros de que vários povos antigos a identificaram como uma estrela de brilho variável."
+temas: ["Estrelas"]
+conceitos: ["Betelgeuse", "supergigante vermelha", "sistema binário", "curva de luz", "AAVSO", "pulsação radial"]
 ---
 
 
@@ -1721,9 +2451,9 @@ O caso Betelgeuse tornou-se o arquétipo do trabalho em Astrofísica. Não houve
 title: "Podemos resolver o Paradoxo de Fermi?"
 date: 2026-05-28
 draft: false
-tags: []
-categories: []
 description: "Nós sempre nos perguntamos se havia vida fora da Terra, mas foi apenas neste último século que esta pergunta ganhou contornos científicos"
+temas: ["Vida no Universo"]
+conceitos: ["paradoxo de Fermi", "equação de Drake", "exoplaneta", "Didier Queloz", "atmosfera de exoplaneta"]
 ---
 
 
@@ -1760,9 +2490,9 @@ Para quem achou que debater vida fora da Terra em um evento de inovação era es
 title: "O protagonista que atua nos bastidores"
 date: 2026-06-04
 draft: false
-tags: []
-categories: []
 description: "O campo magnético raramente aparece em manchetes, mas entre os fenômenos astrofísicos costuma ser o ator principal, dos planetas aos aglomerados de galáxias"
+temas: ["Galáxias e meio interestelar", "Estrelas"]
+conceitos: ["campo magnético", "efeito Zeeman", "magnetohidrodinâmica", "Hannes Alfvén", "plasma", "disco de acréscimo", "meio interestelar", "polarização"]
 ---
 
 
@@ -1800,9 +2530,10 @@ Mas ainda há muita coisa que não entendemos. Por exemplo, existe um campo magn
 title: "À caça das estrelas colossais"
 date: 2026-06-11
 draft: false
-tags: []
-categories: []
 description: "Existe um tamanho máximo para uma estrela? A resposta envolve desafios observacionais, incertezas de modelagem e uma física de formação que ainda não está resolvida"
+temas: ["Estrelas"]
+conceitos: ["limite de massa estelar", "R136a1", "aglomerado estelar jovem", "binária eclipsante", "pressão de radiação", "formação estelar"]
+destaque: 5
 ---
 
 
@@ -1842,9 +2573,9 @@ Seja como for, está ficando cada vez mais claro que não há um único valor pa
 title: "A tecnologia que desvenda os céus"
 date: 2026-06-18
 draft: false
-tags: []
-categories: []
 description: "Por trás de cada grande virada conceitual da astrofísica costuma haver um equipamento novo. O que o Nancy Grace Roman Space Telescope pode e não pode repetir dessa história."
+temas: ["Instrumentos e observatórios", "História e Filosofia da Ciência"]
+conceitos: ["Nancy Grace Roman", "ponto de Lagrange L2", "LIGO", "onda gravitacional", "radioastronomia", "Karl Jansky", "quasar", "pulsar", "radiação cósmica de fundo"]
 ---
 
 Neste mês a NASA enviou o Nancy Grace Roman Space Telescope para os preparativos de lançamento pelo Falcon Heavy da SpaceX. Se tudo ocorrer bem, será lançado em agosto e logo fará companhia ao James Webb e ao Euclid no Ponto Lagrangeano L2 da Terra-Sol, a milhões de quilômetros daqui. É mais um equipamento extraordinário abrindo os céus para nós, membro legítimo de uma aristocracia espacial!
@@ -1878,9 +2609,9 @@ O Roman não será um telescópio revolucionário no sentido de abrir novos hori
 title: "De onde vem nosso ouro?"
 date: 2026-06-25
 draft: false
-tags: []
-categories: []
 description: "Uma pergunta de aparência escolar, de onde vem o ouro?, esconde um problema de fronteira da astrofísica nuclear. O que um artigo recente, lendo rochas do fundo do Pacífico, acrescenta ao debate sobre onde se forjam os elementos mais pesados que o ferro."
+temas: ["Estrelas", "Buracos negros e objetos compactos"]
+conceitos: ["nucleossíntese", "processo r", "B2FH", "kilonova", "fusão de estrelas de nêutrons", "Ferro-60"]
 ---
 
 Um artigo publicado na Nature Astronomy neste mês chamou muito minha atenção. Pesquisadores mediram quantos átomos de Ferro-60, Cúrio-247 e Plutônio-244 havia em rochas da crosta de ferro-manganês no fundo do oceano Pacífico. Os valores permitiram dizer que entre 100 milhões e 1 bilhão de anos atrás houve um evento que dispersou estes átomos pelo espaço. Também foi possível afirmar que há pelo menos 10 milhões de anos a Terra vem passando por esta nuvem. Os elementos entram na atmosfera, dissolvem-se no mar e acabam sedimentando no fundo, formando parte das rochas.
@@ -1914,9 +2645,10 @@ O mais interessante deste debate é que técnicas muito distintas trabalham junt
 title: "Falar é fácil!"
 date: 2026-07-02
 draft: false
-tags: []
-categories: []
 description: "A dinâmica orbital já explicava 3I/ATLAS na primeira semana de observação, sem precisar de massa, tamanho ou constituição. Ainda assim, falou-se em tecnologia alienígena. Uma correção sobre a cobertura do terceiro objeto interestelar, e uma lição de Sagan que continua atual."
+temas: ["História e Filosofia da Ciência", "Sol e Sistema Solar"]
+conceitos: ["3I ATLAS", "objeto interestelar", "Oumuamua", "Borisov", "Carl Sagan", "Avi Loeb"]
+destaque: 4
 ---
 
 Dos vários livros que li do Carl Sagan, "O mundo assombrado pelos demônios" é o que considero mais importante, porque como bom vinho, vai ficando melhor com a passagem do tempo. Não era para ser assim, infelizmente, porque se ele ainda é atual, significa que não aprendemos suas lições. O último caso que ilustra bem a lamentável ignorância científica da nossa sociedade foi a cobertura midiática do cometa 3I/Atlas.
@@ -1950,9 +2682,9 @@ Ao defender, à revelia dos dados, que se tratava de um artefato alienígena, o 
 title: "Observatórios de Ondas Gravitacionais"
 date: 2026-07-09
 draft: false
-tags: []
-categories: []
 description: "Assim como a luz, as ondas gravitacionais têm um espectro, e cada faixa de frequência revela fenômenos diferentes. Do nanoHz sondado pelos pulsares ao miliHz que a futura LISA vai observar, o futuro da astrofísica de buracos negros não está num único observatório poderoso, mas em várias janelas espectrais abertas ao mesmo tempo."
+temas: ["Buracos negros e objetos compactos", "Instrumentos e observatórios"]
+conceitos: ["onda gravitacional", "LISA", "NANOGrav", "pulsar", "buraco negro supermassivo", "crescimento hierárquico"]
 ---
 
 A primeira observação de Ondas Gravitacionais (OG) abriu uma nova janela para o céu. Várias outras já tinham sido abertas ao longo do século XX: infravermelho, ultravioleta, rádio, raios-X e gama. Mas são todas ondas eletromagnéticas, e por isso mapeiam fenômenos diferentes dos que as OG podem mapear. Assim como existe o espectro eletromagnético, também existe um de ondas gravitacionais. E ele também nos revela fenômenos diferentes de acordo com a frequência da OG.
@@ -1986,9 +2718,9 @@ O que considero importante saber é que o futuro da astrofísica de buracos negr
 title: "Garimpando conhecimento"
 date: 2026-07-16
 draft: false
-tags: []
-categories: []
 description: "A ciência avança: as lições do passado podem até ser úteis, mas os dados antigos são ultrapassados porque nossos equipamentos modernos os tornaram obsoletos. Esta é a visão de muitos, e parece fazer sentido. No entanto, está errada por um motivo bem simples"
+temas: ["História e Filosofia da Ciência", "Estrelas"]
+conceitos: ["Almagesto", "Theta Eridani", "envelope comum", "série temporal", "placa fotográfica", "VLTI", "TESS"]
 ---
 
 A ciência avança: as lições do passado podem até ser úteis, mas os dados antigos são ultrapassados porque nossos equipamentos modernos os tornaram obsoletos. Esta é a visão de muitos, e parece fazer sentido. No entanto, está errada por um motivo bem simples: ao analisar séries temporais, dados antigos podem fazer toda a diferença. Na Astrofísica isso é bem mais comum do que parece.  
@@ -2028,9 +2760,9 @@ Confesso que não sei se teria a paciência destes pesquisadores para me debruç
 title: "Sete degraus até a vida"
 date: 2026-07-23
 draft: false
-tags: []
-categories: []
 description: "Em setembro a NASA anunciou uma bioassinatura potencial em Marte, e a imprensa noticiou como descoberta. Entre uma coisa e outra existe uma régua de sete degraus (...)"
+temas: ["Vida no Universo", "História e Filosofia da Ciência"]
+conceitos: ["bioassinatura", "escala CoLD", "Perseverance", "Cheyava Falls", "K2-18b", "Marte"]
 ---
 
 
@@ -2065,9 +2797,9 @@ Fica a lição de prudência da escala CoLD contra o imediatismo da notícia. Um
 title: "Por que primeiro Europa?"
 date: 2026-07-30
 draft: false
-tags: []
-categories: []
 description: "Duas naves caríssimas estão atrás de vida em luas congeladas, longe de qualquer Zona Habitável. Por que gastar tanto, e por que Europa antes de Encélado (...)"
+temas: ["Vida no Universo", "Sol e Sistema Solar"]
+conceitos: ["Europa", "Encélado", "oceano subsuperficial", "zona habitável", "aquecimento de maré", "Europa Clipper", "Cassini"]
 ---
 
 Neste momento duas naves caríssimas estão a caminho para procurar vida em luas congeladas, a mais de meio bilhão de quilômetros do Sol. Parece um contrassenso. Aprendemos que a vida floresce onde a estrela aquece a água a ponto de mantê-la líquida na superfície, a chamada Zona Habitável. A Terra está nela e Marte perto da borda. Mas não é tão simples. Encélado, lua de Saturno, orbita a quase dez vezes a distância Terra-Sol, e Europa, lua de Júpiter, a pouco mais de cinco. As duas estão congeladas por fora, muito além da Zona Habitável, e ainda assim guardam oceanos globais de água líquida sob a casca de gelo.
@@ -2095,9 +2827,9 @@ Mas penso que escolher entre os dois, no fim, é um falso dilema. Temos ambos, e
 title: "Em busca das primeiras estrelas"
 date: 2026-08-06
 draft: false
-tags: []
-categories: []
 description: "Em 1944 o grande astrônomo Walter Baade classificou as estrelas da Via Láctea em dois grupos (...)"
+temas: ["Estrelas", "Cosmologia"]
+conceitos: ["população estelar", "população III", "metalicidade", "Walter Baade", "universo primordial", "James Webb"]
 ---
 
 Em 1944 o grande astrônomo Walter Baade classificou as estrelas da Via Láctea em dois grupos. Estrelas de "População I" eram mais azuis, estavam localizadas principalmente nos braços da Galáxia e tinham maior concentração de elementos pesados (metais, no jargão astronômico). Havia um grupo diferente, as estrelas de "População II", que eram mais vermelhas e estavam distribuídas pelo halo da galáxia. Elas tinham metalicidades até 100 vezes menores do que as do primeiro grupo.
@@ -2132,9 +2864,9 @@ Na minha opinião, a mais interessante foi a medição de Nitrogênio na galáxi
 title: "Dois minutos e muitas perguntas"
 date: 2026-08-13
 draft: false
-tags: []
-categories: []
 description: "Ontem a Lua cobriu o Sol sobre a Islândia e a Espanha por pouco mais de dois minutos. Shadia Habbal, da Universidade do Havaí, montou cinco locais de (...)"
+temas: ["Sol e Sistema Solar", "História e Filosofia da Ciência"]
+conceitos: ["eclipse solar total", "coroa solar", "corônio", "nebúlio", "linha proibida", "aquecimento coronal", "hélio"]
 ---
 
 Ontem a Lua cobriu o Sol sobre a Islândia e a Espanha por pouco mais de dois minutos. Shadia Habbal, da Universidade do Havaí, montou cinco locais de observação espalhados pelos dois países só para não perder tudo por causa de uma nuvem. Foi sua vigésima expedição desde 1995! Inevitável surgir a pergunta: ainda vale a pena atravessar o mundo por dois minutos de eclipse?
@@ -2170,9 +2902,10 @@ Curiosamente, o instrumento de Lyot, que não obteve todo êxito esperado no pro
 title: "A vaca"
 date: 2026-08-20
 draft: false
-tags: []
-categories: []
 description: "Quando um objeto novo aparece no céu e ninguém sabe o que ele é, recebe um nome provisório. Foi o que aconteceu em 2018, quando o ATLAS flagrou um ponto novo e o catalogou como AT2018cow (...)"
+temas: ["Buracos negros e objetos compactos", "Estrelas"]
+conceitos: ["AT2018cow", "transiente rápido", "motor central", "supernova", "níquel radioativo"]
+destaque: 2
 ---
 
 
@@ -2205,9 +2938,9 @@ Acho esses casos muito interessantes. Quando os quasares apareceram nos anos 196
 title: "A estrela certa no lugar certo"
 date: 2026-08-27
 draft: false
-tags: []
-categories: []
 description: "Semana passada a colaboração GRAVITY+ anunciou a descoberta de S301, uma estrela que orbita o buraco negro do centro da Via Láctea a 25 mil km/s (...)"
+temas: ["Buracos negros e objetos compactos", "História e Filosofia da Ciência"]
+conceitos: ["Sagitário A", "S2", "GRAVITY", "relatividade geral", "precessão do periélio", "métrica de Kerr", "arrasto de referenciais"]
 ---
 
 Semana passada a colaboração GRAVITY+ anunciou a descoberta de S301, uma estrela que orbita o buraco negro do centro da Via Láctea a 25 mil km/s, 8,3% da velocidade da luz (c). Muito se falou sobre o recorde de velocidade, mas o ponto interessante é outro.
@@ -2241,9 +2974,10 @@ Sessenta anos entre a solução de Kerr e a estrela que permite testá-la mostra
 title: "Autoridade sem autoritarismos"
 date: 2026-09-03
 draft: false
-tags: []
-categories: []
 description: "Hoje conhecemos a fração de hélio que o Sol tinha ao nascer com três casas decimais de precisão. Há um século, ninguém sabia nem a ordem de grandeza (...)"
+temas: ["História e Filosofia da Ciência", "Estrelas"]
+conceitos: ["Cecilia Payne", "Henry Russell", "equação de Saha", "composição solar", "espectro estelar", "diagrama HR"]
+destaque: 1
 ---
 
 Hoje conhecemos a fração de hélio que o Sol tinha ao nascer com uma precisão de três casas decimais. Há um século ninguém sabia nem mesmo a ordem de grandeza. Cecilia Payne tentou estimar e teve seu trabalho contestado por Henry Russell.
@@ -2279,9 +3013,9 @@ Dez anos depois, no mesmo ramo, Arthur Eddington fez o oposto. Diante do cálcul
 title: "Por que ninguém decide o destino da Terra?"
 date: 2026-09-10
 draft: false
-tags: []
-categories: []
 description: "Sempre que falo sobre evolução estelar, aparece a questão: o Sol vai engolir a Terra? A resposta padrão é sim (...)"
+temas: ["Estrelas", "Sol e Sistema Solar"]
+conceitos: ["evolução estelar", "gigante vermelha", "perda de massa", "vento estelar", "L2 Puppis", "destino da Terra"]
 ---
 
 Sempre que falo sobre evolução estelar, aparece a questão: o Sol vai engolir a Terra? A resposta padrão é sim. No entanto, a história é mais complicada e, portanto, mais interessante que isso.
@@ -2308,15 +3042,109 @@ Costumo repetir que sem dados a Física não passa de conversa fiada, e continuo
 
 - Esseldeurs, M., Mathis, S. & Decin, L. (2026). *The fate of Earth during the Sun's giant phases*. A&A, 710, L26. [DOI](https://doi.org/10.1051/0004-6361/202660576)
 
+--- content/az/21.md ---
+---
+title: "Prêmio máximo ou bilhete falso?"
+date: 2026-09-17
+draft: false
+description: "Simulações de 2026 mostram que a própria Via Láctea imprime nas correntes estelares as mesmas marcas atribuídas a subhalos de Matéria Escura. O controle chegou tarde, não descarta os subhalos e muda o que uma corrente sozinha pode provar."
+temas: ["Galáxias e meio interestelar", "História e Filosofia da Ciência"]
+conceitos: ["corrente estelar", "GD-1", "subhalo", "matéria escura", "aglomerado globular", "Gaia", "Observatório Vera Rubin"]
+---
+
+Em geral os Modelos de Matéria Escura diferem bastante entre si. Um ponto de discórdia testável é a presença de subhalos nas galáxias. Toda galáxia está mergulhada num halo de Matéria Escura, uma nuvem imensa e rarefeita. Se ela for fria (partículas com velocidade baixa), esse halo deveria estar salpicado de nódulos menores e bem mais densos, os subhalos. Se for morna, os menores nem se formam. Contar esses nódulos ajuda a dizer do que ela é feita.
+
+Os subhalos atraem sua vizinhança gravitacionalmente. Os que interessam aqui têm de um milhão a cem milhões de massas solares, e deixam assinaturas em estruturas de tamanho parecido.
+
+Nossa Galáxia possui as chamadas *correntes estelares*, que são restos de aglomerados globulares, bolas com dezenas de milhares a milhões de estrelas que a maré da Galáxia vai desfiando ao longo de bilhões de anos, até virarem fios de dezenas de graus no céu. Uma corrente fria e fina é como areia, qualquer passo deixa pegada. Em pouco mais de uma década o censo na Via Láctea passou de um punhado para quase cem, graças sobretudo ao satélite Gaia.
+
+Em 2018 descobrimos um esporão e uma lacuna em GD-1, corrente que alguns pesquisadores chamam de *jackpot*, que significa prêmio máximo no cassino. A interpretação foi de um encontro com um subhalo. Dessas perturbações tiramos um limite para a massa da partícula de Matéria Escura!
+
+Só que a Via Láctea não é um palco parado. Tem disco, braços espirais, barra e satélites caindo, e tudo isso também puxa as correntes. Havia estudos de um efeito por vez, a barra aqui, a Grande Nuvem de Magalhães ali. Faltava ver uma galáxia realista inteira, evoluindo no tempo, sem nada escuro por perto.
+
+No fim de agosto, Arora e colaboradores fizeram essa conta. Simularam cerca de 15 mil correntes em quatro galáxias parecidas com a nossa, durante 5 bilhões de anos, sem nenhum subhalo. Três quartos ganharam esporões, dobras ou envelopes, apenas umas 70 saíram lisas. As lacunas surgiram na escala de um a cinco graus, onde se esperava a assinatura dos subhalos. Um esporão parecido com o de GD-1 brotou na galáxia mais isolada da amostra. Na mesma conta com uma galáxia estática e simétrica, 35% das correntes saem sem estrutura, contra 2% das lisas no caso realista.
+
+Acho ruim esse controle ter chegado só agora pois era o teste mais natural possível. Suspeito que a empolgação tenha pesado um pouco, e quando o prêmio máximo parece ao alcance a gente para de perguntar quanto do sinal é a Galáxia se mexendo.
+
+Nada disso descarta a Matéria Escura nem os subhalos. Só pela forma, pegada de subhalo e ruído da Galáxia são indistinguíveis. Muda a expectativa, uma corrente isolada deixou de ser suficiente.
+
+O Observatório Vera Rubin vai enxergar quase três magnitudes mais fundo que os levantamentos de hoje e revelar centenas de correntes novas. Com velocidades estelares e estatística de populações inteiras, dá para separar o padrão da Galáxia da pancada do subhalo.
+
+A resposta razoável não será só Matéria Escura, nem apenas Via Láctea, mas as duas juntas. Um sinal vale exatamente o quanto conhecemos do fundo contra o qual ele aparece, e antes de conferir o bilhete é bom saber como é um bilhete sem prêmio.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Bonaca, A., Hogg, D. W., Price-Whelan, A. M. & Conroy, C. (2019). The Spur and the Gap in GD-1: Dynamical Evidence for a Dark Substructure in the Milky Way Halo. ApJ, 880, 38. [DOI](https://doi.org/10.3847/1538-4357/ab2873)
+
+- Banik, N., Bovy, J., Bertone, G., Erkal, D. & de Boer, T. J. L. (2021). Novel constraints on the particle nature of dark matter from stellar streams. JCAP, 10, 043. [ADS](https://ui.adsabs.harvard.edu/abs/2021JCAP...10..043B)
+
+- Arora, A., Ferguson, P. S., Nibauer, J. et al. (2026). No Stream Left Unscathed: The Imprint of a Host Galaxy. ApJ, 1008, 91. [DOI](https://doi.org/10.3847/1538-4357/ae89af)
+
+--- content/az/22.md ---
+---
+title: "O que se esconde nos pontinhos vermelhos do Webb?"
+date: 2026-09-24
+draft: false
+description: "Os pontinhos vermelhos do James Webb escondem buracos negros, mas talvez não sejam uma classe única. A linha do tempo sugere que o nome junta objetos diferentes e fases diferentes, como as nebulosas de Messier juntavam galáxias e nuvens de gás."
+temas: ["Buracos negros e objetos compactos", "Galáxias e meio interestelar"]
+conceitos: ["little red dot", "James Webb", "estrela de buraco negro", "núcleo ativo de galáxia", "raio de Schwarzschild", "quasar", "catálogo Messier"]
+---
+
+Poucos objetos provocaram tanta discussão em tão pouco tempo. No último dia 16 a Nature Astronomy publicou um número temático inteiro sobre eles, aberto por um editorial de título provocador, algo como "Pontinhos vermelhos, o quê?". Num congresso em Aspen, em abril, o debate empacou já no primeiro tópico. Estou falando dos *little red dots*, os pontinhos vermelhos que o Telescópio James Webb encontra em quase toda imagem profunda do Universo jovem.
+
+A primeira leitura veio em fevereiro de 2023, quando Ivo Labbé e colaboradores interpretaram seis deles como galáxias enormes, uma talvez com cem bilhões de massas solares, apenas 600 milhões de anos depois do Big Bang. Não haveria tempo para crescerem tanto. Foi o espectro que mudou a história. Ainda em 2023, a equipe de Jorryt Matthee, com os levantamentos EIGER e FRESCO, batizou a classe e encontrou linhas de hidrogênio alargadas, sinal de gás girando a milhares de quilômetros por segundo em torno de uma massa compacta.
+
+Não conhecemos outro motor capaz disso além de um Buraco Negro (BN). Só com estrelas seriam necessárias massas incompatíveis com a energia medida no infravermelho, e em maio deste ano saiu na Nature a primeira medida dinâmica direta da massa de um desses BNs. O problema é o que falta. Um BN engolindo gás costuma brilhar em raios X, variar de brilho em poucos meses e aquecer a poeira ao redor. Os pontinhos vermelhos fazem pouco ou nada disso. Alguma coisa está na frente, escondendo o motor.
+
+Com o que já sabemos, há duas maneiras de esconder um BN. A primeira é a dos núcleos ativos de galáxias, os AGNs, em que nuvens de gás e poeira cruzam nossa linha de visada e avermelham a luz. Funciona para objetos modestos, mas nos mais brilhantes não se encontra poeira suficiente para esse papel. A segunda é mais exótica. Imagine o BN no centro de um envelope de hidrogênio tão denso que se comporta como a atmosfera de uma estrela, com superfície a cerca de 5.000 K. Estima-se que o BN poderia ter massa de até dez milhões de massas solares, o que corresponde a um Raio de Schwarzschild até 40 raios solares, enquanto a nebulosa pode se estender até centenas de unidades astronômicas. O modelo se chama "Estrela de Buraco Negro" e ganhou força de março de 2025 para cá.
+
+A pista que considero mais importante hoje é a linha do tempo. Os pontinhos vermelhos são abundantes no primeiro bilhão de anos e ficam de dez a cem vezes mais raros quando o Universo chega a pouco mais de 3 bilhões de anos. Entretanto, em junho descobrimos dois deles que brilham em raios X, rádio e infravermelho, possivelmente a caminho de virar quasares!
+
+A comunidade vai se convencendo aos poucos que "Pontinho Vermelho" pode ser uma classificação que reúne objetos diferentes. Nos casos extremos seriam envelopes quase estelares, em outros, núcleos ativos comuns atrás de nuvens, e muitos estariam no meio do caminho entre um estado e outro. A Astronomia já passou por isso. As nebulosas do catálogo de Messier agrupavam galáxias, aglomerados e nuvens de gás sob a mesma aparência difusa, e só o espectro de Huggins, em 1864, e depois as distâncias de Hubble começaram a separá-las. Suspeito que daqui a alguns anos falaremos dos pontinhos vermelhos como hoje falamos das nebulosas, um nome antigo para várias coisas.
+
+## Referências
+
+Matthee, J. et al. (2024). Little Red Dots: An Abundant Population of Faint Active Galactic Nuclei at z ~ 5 Revealed by the EIGER and FRESCO JWST Surveys. ApJ 963, 129. [ADS](https://ui.adsabs.harvard.edu/abs/2024ApJ...963..129M)
+
+Inayoshi, K. & Ho, L. C. (2026). A critical evaluation of the physical nature of the little red dots. Nature Astronomy 10, 1261. [Nature Astronomy](https://doi.org/10.1038/s41550-026-02934-2)
+
+Naidu, R. P. et al. (2026). A gas-enshrouded and gas-reddened black hole at cosmic dawn. Nature 656, 329. [Nature](https://doi.org/10.1038/s41586-026-10846-4)
+
+--- content/az-arquivo.md ---
+---
+title: "Arquivo do Astrofísica de A a Z"
+url: "/az/arquivo/"
+description: "Todas as edições do boletim Astrofísica de A a Z, em ordem cronológica."
+---
+
+Todas as edições publicadas, da mais recente para a mais antiga. Para navegar por assunto, veja os [temas](/az/) ou o [índice A a Z](/az/indice/).
+
+{{< az-arquivo >}}
+
 --- content/az/_index.md ---
 ---
 title: "Astrofísica de A a Z"
-description: "O Astrofísica de A a Z é o lugar onde escrevo toda semana sobre conceitos relevantes ou temas da atualidade na astrofísica e na cosmologia."
+description: "Boletim semanal sobre astrofísica e cosmologia. Textos opinativos sobre o que vale a pena pensar com calma, e sobre o modo de fazer ciência e decidir o que é verdade."
 ---
 
-O Astrofísica de A a Z é o lugar onde escrevo toda semana sobre conceitos relevantes ou temas da atualidade na astrofísica e na cosmologia. Não é uma curadoria de notícias. São textos opinativos sobre o que considero que vale a pena pensar com calma. Cinco a dez minutos de leitura por edição. Inscrição é gratuita.
+Escrevo aqui toda semana sobre astrofísica e cosmologia. Não é uma curadoria de notícias. São textos opinativos sobre o que considero que vale a pena pensar com calma. Não me limito a escrever apenas sobre resultados científicos. Também falo bastante sobre o modo de fazer ciência e decidir o que é verdade ou não: quem descobriu o quê, que evidência sustenta uma afirmação, onde a imprensa passou da conta, etc. São cinco a dez minutos de leitura por edição. A inscrição é gratuita.
 
 {{< newsletter >}}
+
+--- content/az-indice.md ---
+---
+title: "Índice A a Z"
+url: "/az/indice/"
+description: "Índice alfabético dos conceitos, objetos e personagens tratados no boletim Astrofísica de A a Z."
+---
+
+Todos os conceitos, objetos e personagens já tratados no boletim, em ordem alfabética. O número ao lado indica em quantas edições o termo aparece.
+
+{{< az-indice >}}
 
 --- content/contato.md ---
 ---
@@ -2909,8 +3737,9 @@ Meu trabalho de ensino se organiza hoje em dois caminhos paralelos:
 ---
 ## Livros publicados
 
-- **2025:** [Astrofísica Moderna, Fenômenos e Conceitos — Volume I](https://astrofisica.ufsc.br/livros/a1/)
-- **2023:** [Introdução à Cosmologia Moderna: Um Curso de Graduação](https://astrofisica.ufsc.br/livros/cm/)
+- **2025:** [Astrofísica Moderna, Fenômenos e Conceitos — Volume I](/livros/a1/)
+  - Finalista do Prêmio Jabuti Acadêmico de 2026
+- **2023:** [Introdução à Cosmologia Moderna: Um Curso de Graduação](/livros/cm/)
   - Finalista do Prêmio Jabuti Acadêmico de 2024
 - **2016:** [Bíblia e Natureza – Os Dois Livros de Deus: Reflexões Sobre Ciência e Fé](https://omensageiro.org.br/produto/biblia-e-natureza-os-dois-livros-de-deus-reflexoes-sobre-ciencia-e-fe/?srsltid=AfmBOorDU8N3mzLrhq7azrQ_gkOAP8ZpfzF-EqwNYsz7OOdgUVPdiWY8)
   - Coletânea de artigos de vários autores
@@ -2937,9 +3766,133 @@ Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astr
 
 **[Ensino de astrofísica](/ensino).** Projeto "Astrofísica para Todos" pela UFSC, com cursos abertos no YouTube. Imersões e Mentorias em turmas fechadas, com inscrição.
 
+**[Livros](/livros).** *Astrofísica Moderna: Fenômenos e Conceitos* e *Introdução à Cosmologia Moderna*, ambos finalistas do Prêmio Jabuti Acadêmico.
+
 **[Astrofísica de A a Z](/az).** Boletim semanal por email sobre o que acontece na astrofísica e na cosmologia. Minha visão do que é mais relevante na área.
 
 **[Sobre mim](/sobre).** Formação, livros publicados e valores pessoais que orientam este trabalho.
+
+--- content/livros/a1/index.md ---
+---
+title: "Astrofísica Moderna"
+subtitulo: "Fenômenos e Conceitos — Volume I"
+titulo_completo: "Astrofísica Moderna: Fenômenos e Conceitos — Volume I"
+description: "Introdução ampla e conceitual à astrofísica contemporânea, de gravitação e espectros ao Sol, exoplanetas e formação de sistemas planetários. Finalista do Prêmio Jabuti Acadêmico 2026."
+autores: ["Alexandre Zabot", "Marcos Amarante"]
+ano: 2025
+editora: "Livraria da Física"
+editora_url: "https://lfeditorial.com.br/"
+isbn: "978-65-5563-646-8"
+idioma: "Português"
+formato: "Impresso"
+paginas: 637
+premio: "Finalista do Prêmio Jabuti Acadêmico 2026"
+resumo: "Uma introdução ampla e conceitual à astrofísica contemporânea, cobrindo gravitação, luz e espectros, o Sol, o Sistema Solar, exoplanetas e a formação de sistemas planetários. Escrito para quem quer profundidade sem depender de matemática avançada."
+curso_nome: "Curso de origem: Astrofísica I"
+links:
+  compra: "https://lfeditorial.com.br/produto/astrofisica-moderna-fenomenos-e-conceitos-vol-1/"
+  amostra: "https://drive.google.com/file/d/17fRcTYOQeT8nP0p6I1eejGjKVZfP3j03/view?usp=sharing"
+  sumario: "/livros/sumario-astrofisica-moderna.pdf"
+  erratas: "https://drive.google.com/drive/folders/1hoJBOW62X_Q9EN1EZ2DJxb5WIDMC-FlS?usp=sharing"
+  figuras: "https://drive.google.com/file/d/1zcCBwUfB1uvpvatf-e3IGwxCjFu_6nOO/view?usp=sharing"
+  curso: "http://astrofisica.paginas.ufsc.br/cursos-de-astrofisica/astrofisica-i/"
+---
+
+## Sobre o livro
+
+*Astrofísica Moderna: Fenômenos e Conceitos* é o primeiro volume de uma série que apresenta os fundamentos e fenômenos centrais da Astrofísica contemporânea. O livro combina rigor conceitual e linguagem acessível, oferecendo uma introdução sólida aos principais temas da área, de forma compreensível tanto para estudantes quanto para entusiastas da astronomia.
+
+Escrito por **Alexandre Zabot** e **Marcos Amarante**, o volume cobre desde a gravitação e a natureza da luz até a estrutura do Sol, os instrumentos astrofísicos e a formação de sistemas planetários. Cada capítulo foi pensado para construir uma visão integrada e moderna do Universo, sempre apoiada em conceitos físicos fundamentais.
+
+## Para quem é este livro
+
+Esta obra é voltada a quem deseja compreender a Astrofísica sem depender de matemática avançada, mas com atenção à profundidade conceitual e ao contexto histórico e científico.
+
+- Leitores interessados em Astrofísica que desejam ir além da divulgação científica superficial;
+- Estudantes de Física, Astronomia e áreas correlatas em nível de graduação;
+- Professores e divulgadores que buscam uma referência conceitual moderna e atualizada.
+
+Mesmo sem formalismo matemático, o texto aborda os fenômenos com precisão e coerência, tornando-se útil também como material de apoio acadêmico.
+
+## Conteúdo do Volume I
+
+- Introdução à Astrofísica
+- Gravitação e leis do movimento planetário
+- Luz, espectros e fenômenos de redshift/blueshift
+- Óptica e princípios de formação de imagens
+- Instrumentos astrofísicos
+- O Sistema Solar e seus corpos
+- O Sol e sua estrutura
+- Exoplanetas e sua detecção
+- Formação de sistemas planetários
+
+--- content/livros/cm/index.md ---
+---
+title: "Introdução à Cosmologia Moderna"
+subtitulo: "Um curso de graduação"
+titulo_completo: "Introdução à Cosmologia Moderna: Um curso de graduação"
+description: "Livro-texto de Cosmologia para graduação em Física e Astronomia, do modelo cosmológico padrão às componentes escuras. Finalista do Prêmio Jabuti Acadêmico 2024."
+autores: ["Alexandre Zabot", "Marcos Amarante"]
+ano: 2023
+editora: "Livraria da Física"
+editora_url: "https://www.livrariadafisica.com.br"
+isbn: "978-65-5717-067-0"
+idioma: "Português"
+formato: "Capa dura, impresso"
+paginas: 497
+bookFormat: "https://schema.org/Hardcover"
+premio: "Finalista do Prêmio Jabuti Acadêmico 2024"
+resumo: "Apresenta os fundamentos da cosmologia moderna, da expansão do Universo e do Big Bang à inflação e às componentes escuras, com o tratamento matemático necessário para compreendê-los."
+curso_nome: "Cursos de origem: Cosmologia I e II"
+links:
+  compra: "https://www.livrariadafisica.com.br/detalhe_produto.aspx?id=152177"
+  amostra: "https://drive.google.com/file/d/1F7F-OA_rygpnRU0lJKcSBeNgXLFnH4jU/view?usp=share_link"
+  sumario: "/livros/sumario-cosmologia-moderna.pdf"
+  erratas: "https://drive.google.com/drive/folders/1aJ0r_XD9TX6rtQmLLf2V3yDAsTWwrK7M?usp=sharing"
+  curso: "http://astrofisica.paginas.ufsc.br/curso-de-cosmologia/"
+---
+
+## Sobre o livro
+
+*Introdução à Cosmologia Moderna* nasceu a partir dos [Cursos de Cosmologia](http://astrofisica.paginas.ufsc.br/curso-de-cosmologia/) do projeto **Astrofísica para Todos**, oferecidos na Universidade Federal de Santa Catarina. Esta obra reúne e amplia todo o conteúdo das aulas, formando um livro-texto completo voltado ao ensino de Cosmologia em nível universitário.
+
+O livro apresenta os fundamentos da Cosmologia moderna, a ciência que estuda a origem, a estrutura e a evolução do Universo, com uma abordagem matemática e física consistente, porém clara e didática. Ele introduz as equações e conceitos físicos necessários para compreender o modelo cosmológico padrão, a expansão do Universo, a radiação cósmica de fundo, a geometria do espaço-tempo, a matéria e a energia escuras, e o destino cósmico.
+
+Concebido para estudantes de graduação em Física, Astronomia e áreas correlatas, o texto utiliza ferramentas de **Cálculo I e Física I e II**, mas sem aprofundar na matemática avançada da Relatividade Geral ou da Teoria Quântica de Campos. Ao mesmo tempo, a linguagem e a organização do conteúdo tornam o livro acessível a leitores que desejam estudar o tema de forma autodidata, desde que possuam formação científica equivalente.
+
+## Para quem é este livro
+
+- Estudantes de graduação em Física, Astronomia e Engenharia interessados em compreender a Cosmologia de forma quantitativa e conceitual;
+- Professores que buscam um material didático atualizado e completo para cursos de Cosmologia;
+- Leitores com formação científica sólida que desejam estudar a estrutura e evolução do Universo em profundidade.
+
+Diferente de obras de divulgação científica, este livro é voltado à formação acadêmica e inclui o tratamento matemático necessário para compreender a Cosmologia moderna com base na Relatividade Geral e na Física contemporânea. No entanto, mesmo leitores que não tenham interesse no formalismo matemático podem tirar muito proveito da obra, que explora os conceitos e as observações em detalhes, com amplas discussões conceituais.
+
+## Destaques
+
+- Baseado em cursos universitários de Cosmologia ministrados na UFSC;
+- Integra teoria, observação e modelagem matemática;
+- Capítulos organizados de forma progressiva, com seções de contextualização e revisão conceitual;
+- Quase 500 páginas, com figuras, exemplos e deduções passo a passo;
+- Revisado e ampliado em relação ao material original dos cursos.
+
+--- content/livros/_index.md ---
+---
+title: "Livros"
+description: "Astrofísica Moderna e Introdução à Cosmologia Moderna, dois livros nascidos dos cursos do projeto Astrofísica para Todos, da UFSC."
+---
+
+Dois livros nascidos dos cursos do projeto Astrofísica para Todos, da UFSC. Cada um aprofunda e amplia o conteúdo do curso que lhe deu origem.
+
+{{< figura src="/images/livros/livros.jpg" alt="Os livros Astrofísica Moderna e Introdução à Cosmologia Moderna" >}}
+
+{{< livros-lista >}}
+
+O Volume II de *Astrofísica Moderna* está em preparação.
+
+{{< figura src="/images/livros/jabuti-2024.jpg" alt="Alexandre Zabot e Marcos Amarante na cerimônia do Prêmio Jabuti Acadêmico de 2024" caption="Com Marcos Amarante na cerimônia do Prêmio Jabuti Acadêmico de 2024, quando Introdução à Cosmologia Moderna foi finalista." tamanho="media" >}}
+
+Também assino capítulos de *Bíblia e Natureza: Os Dois Livros de Deus* (2016), coletânea de vários autores sobre ciência e fé.
 
 --- content/mentoria/01.md ---
 +++
@@ -4849,15 +5802,15 @@ rm -rf public \
 
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |    45  
+  Pages            |   335  
   Paginator pages  |     0  
-  Non-page files   |     4  
-  Static files     |    11  
-  Processed images |     2  
+  Non-page files   |     6  
+  Static files     |    17  
+  Processed images |    10  
   Aliases          |     0  
   Cleaned          |     0  
 
-Total in 80 ms
+Total in 115 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
