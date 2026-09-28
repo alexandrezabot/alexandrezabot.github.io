@@ -3,7 +3,7 @@ title: "Home"
 description: "Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astrofísica, física e matemática aplicada. Escrevo livros, ensino em cursos regulares e abertos."
 ---
 
-{{< figura src="/images/sobre/eu.jpg" alt="Prof. Alexandre Zabot" tamanho="pequena" pos="esquerda" >}}
+{{< figura src="/images/sobre/eu-2026.jpg" alt="Prof. Alexandre Zabot" tamanho="pequena" pos="esquerda" >}}
 Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astrofísica, física e matemática aplicada. Escrevo livros, ensino em cursos regulares e abertos. Procuro ensinar os conceitos a partir das observações, com rigor técnico mas sem afastar quem está começando. Este site é o retrato de quem sou, do que faço hoje e do que pretendo fazer adiante.
 
 ---
