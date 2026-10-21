@@ -1,0 +1,80 @@
+{{ define "main" }}
+<article class="recurso">
+  <div class="coluna-prosa">
+    <p class="recurso-voltar"><a href="{{ .CurrentSection.RelPermalink }}">← {{ .CurrentSection.Title }}</a></p>
+    <div class="linha-indigo"></div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.tipo }}<div class="post-meta">{{ . }}</div>{{ end }}
+    {{ with .Params.description }}<p class="recurso-lead">{{ . }}</p>{{ end }}
+  </div>
+
+  {{/* sim: true → embute static/recursos/<slug>/sim/index.html */}}
+  {{ if .Params.sim }}
+    {{ $src := printf "%ssim/" .RelPermalink }}
+    {{ $nome := "recurso" }}{{ with .File }}{{ $nome = .ContentBaseName }}{{ end }}
+    <div class="recurso-sim">
+      <iframe src="{{ $src }}{{ with .Params.sim_params }}?{{ . }}{{ end }}" title="{{ .Title }}" allow="fullscreen"></iframe>
+    </div>
+    <p class="recurso-acoes coluna-prosa">
+      <a href="{{ $src }}" target="_blank" rel="noopener">Abrir em tela cheia</a>
+      <a href="{{ $src }}index.html" download="{{ $nome }}.html">Baixar para usar sem internet</a>
+    </p>
+  {{ end }}
+
+  <div class="coluna-prosa">
+    <div class="post-content">
+      {{ .Content }}
+    </div>
+
+    {{ with .Params.aulas }}
+    <section class="recurso-aulas">
+      <h2>Onde usamos</h2>
+      <ul>
+        {{ range . }}
+        <li>
+          {{ if .link }}<a href="{{ .link }}">{{ .curso }}</a>{{ else }}{{ .curso }}{{ end }}{{ with .aula }}, {{ . }}{{ end }}{{ with .video }} · <a href="{{ . }}">assistir à aula</a>{{ end }}
+        </li>
+        {{ end }}
+      </ul>
+    </section>
+    {{ end }}
+
+    {{ with .Params.tags }}
+    <div class="chips recurso-tags">
+      {{ range . }}<a class="chip" href="{{ $.CurrentSection.RelPermalink }}?tag={{ . | urlquery }}">{{ . }}</a>{{ end }}
+    </div>
+    {{ end }}
+
+    <p class="recurso-licenca">
+      Recurso livre sob a licença
+      <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.pt-br">CC BY-NC 4.0</a>.
+      Pode ser usado e adaptado em aulas, com citação da fonte e sem fins comerciais.
+    </p>
+
+    <div class="voltar-link">
+      <a href="{{ .CurrentSection.RelPermalink }}">← Todos os recursos</a>
+    </div>
+  </div>
+</article>
+
+{{ if .Params.sim }}
+<script>
+// A simulação está no mesmo domínio, então a página mede a altura do conteúdo
+// dentro do iframe e ajusta a moldura, sem barra de rolagem interna.
+(() => {
+  const f = document.querySelector(".recurso-sim iframe");
+  if (!f) return;
+  const ajusta = () => {
+    try {
+      const b = f.contentDocument && f.contentDocument.body;
+      if (b) f.style.height = Math.ceil(b.getBoundingClientRect().height) + "px";
+    } catch (e) {}
+  };
+  f.addEventListener("load", () => {
+    ajusta();
+    try { new ResizeObserver(ajusta).observe(f.contentDocument.body); } catch (e) {}
+  });
+})();
+</script>
+{{ end }}
+{{ end }}

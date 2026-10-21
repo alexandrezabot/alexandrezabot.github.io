@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/site.css">
 {{ if eq .Section "livros" }}<link rel="stylesheet" href="{{ .Site.BaseURL }}css/livros.css">{{ end }}
+{{ if eq .Section "recursos" }}<link rel="stylesheet" href="{{ .Site.BaseURL }}css/recursos.css">{{ end }}
 {{ if not .Site.IsServer }}
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.ga_id }}"></script>

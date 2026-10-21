@@ -1,0 +1,92 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<div class="linha-indigo"></div>
+
+<div class="coluna-prosa post-content">{{ .Content }}</div>
+
+{{/* todas as tags, com contagem, para os filtros */}}
+{{ $tags := dict }}
+{{ range .RegularPages }}
+  {{ range .Params.tags }}
+    {{ $tags = merge $tags (dict . (add (index $tags . | default 0) 1)) }}
+  {{ end }}
+{{ end }}
+
+<div class="recursos-filtro" id="filtro">
+  <input type="search" id="busca" placeholder="Buscar por assunto, curso ou palavra" aria-label="Buscar recursos">
+  <div class="chips" id="chips">
+    <button type="button" class="chip ativo" data-tag="">Todos</button>
+    {{ range $t, $n := $tags }}
+      <button type="button" class="chip" data-tag="{{ $t }}">{{ $t }} <span class="chip-conta">{{ $n }}</span></button>
+    {{ end }}
+  </div>
+  <p class="recursos-vazio" id="vazio" hidden>Nenhum recurso encontrado.</p>
+</div>
+
+<div class="posts-grid recursos-grid">
+  {{ range .RegularPages.ByDate.Reverse }}
+    {{ $cursos := slice }}
+    {{ range .Params.aulas }}{{ with .curso }}{{ $cursos = $cursos | append . }}{{ end }}{{ end }}
+    {{ $texto := delimit (slice .Title .Params.description (delimit (.Params.tags | default slice) " ") (delimit $cursos " ")) " " }}
+    <article class="post-card recurso-card"
+             data-tags="{{ delimit (.Params.tags | default slice) "|" }}"
+             data-texto="{{ lower $texto }}">
+      <a href="{{ .RelPermalink }}" class="recurso-card-link">
+        {{ with .Resources.GetMatch "capa.*" }}
+          {{ $img := .Fill "800x450 Center webp q80" }}
+          <img class="recurso-capa" src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="" loading="lazy">
+        {{ end }}
+        <div class="post-card-title">{{ .Title }}</div>
+      </a>
+      {{ $meta := slice }}
+      {{ with .Params.tipo }}{{ $meta = $meta | append . }}{{ end }}
+      {{ with $cursos }}{{ $meta = $meta | append (delimit (uniq .) ", ") }}{{ end }}
+      {{ with $meta }}<div class="post-meta">{{ delimit . " · " }}</div>{{ end }}
+      <p>{{ .Params.description }}</p>
+      {{ with .Params.tags }}
+      <div class="chips">
+        {{ range . }}<a class="chip" href="?tag={{ . | urlquery }}" data-tag="{{ . }}">{{ . }}</a>{{ end }}
+      </div>
+      {{ end }}
+    </article>
+  {{ end }}
+</div>
+
+<script>
+// Busca e filtro por tag, no navegador. O estado fica na URL
+// (/recursos/?tag=paralaxe, /recursos/?q=drake), para poder ser linkado.
+(() => {
+  const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const cards = [...document.querySelectorAll(".recurso-card")];
+  const busca = document.getElementById("busca");
+  const chips = [...document.querySelectorAll("#chips .chip")];
+  const vazio = document.getElementById("vazio");
+  const qs = new URLSearchParams(location.search);
+  let tag = qs.get("tag") || "";
+  busca.value = qs.get("q") || "";
+
+  function aplica() {
+    const q = norm(busca.value).trim().split(/\s+/).filter(Boolean);
+    let n = 0;
+    cards.forEach(c => {
+      const tags = (c.dataset.tags || "").split("|");
+      const txt = norm(c.dataset.texto);
+      const ok = (!tag || tags.includes(tag)) && q.every(p => txt.includes(p));
+      c.hidden = !ok; if (ok) n++;
+    });
+    chips.forEach(b => b.classList.toggle("ativo", b.dataset.tag === tag));
+    vazio.hidden = n > 0;
+    const u = new URLSearchParams();
+    if (tag) u.set("tag", tag);
+    if (busca.value.trim()) u.set("q", busca.value.trim());
+    history.replaceState(null, "", location.pathname + (u.toString() ? "?" + u : ""));
+  }
+  chips.forEach(b => b.addEventListener("click", () => { tag = (tag === b.dataset.tag) ? "" : b.dataset.tag; aplica(); }));
+  document.querySelectorAll(".recurso-card .chip").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault(); tag = a.dataset.tag; aplica(); window.scrollTo({top: document.getElementById("filtro").offsetTop - 20, behavior: "smooth"});
+  }));
+  busca.addEventListener("input", aplica);
+  aplica();
+})();
+</script>
+{{ end }}

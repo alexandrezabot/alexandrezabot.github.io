@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cruzeiro do Sul em 3D</title>
+<script>
+  // Embutida num iframe (página do recurso), esconde título e introdução,
+  // que já estão na página do site. Aberta sozinha, mostra tudo.
+  if (window.self !== window.top) document.documentElement.classList.add("embed");
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noite:#040d29; --indigo:#6168B9; --coral:#FD8354; --lavanda:#A7B0EB;
+    --pessego:#F9BCAA; --creme:#E8E0D0; --creme-q:#F2EDE4; --creme-m:#A69E8E;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--noite);color:var(--creme);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:400}
+  main{max-width:1100px;margin:0 auto;padding:24px 16px 32px}
+  h1{font-weight:400;font-size:1.6rem;margin:0 0 6px;color:var(--creme-q)}
+  p.lead{margin:0 0 18px;color:var(--creme-m);line-height:1.55;max-width:760px}
+  .stage{position:relative;width:100%;aspect-ratio:16/9;min-height:360px;
+    border:1px solid rgba(97,104,185,.35);border-radius:6px;overflow:hidden;touch-action:none}
+  canvas{display:block;width:100%;height:100%;cursor:grab}
+  canvas.drag{cursor:grabbing}
+  .hint{position:absolute;left:12px;bottom:10px;font-size:.78rem;color:var(--creme-m);pointer-events:none}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:14px 0 6px}
+  .views{display:flex;flex-wrap:wrap;gap:8px}
+  button{font:inherit;font-size:.9rem;color:var(--creme);background:transparent;
+    border:1px solid var(--indigo);border-radius:4px;padding:6px 12px;cursor:pointer}
+  button:hover{background:rgba(97,104,185,.25)}
+  button.on{background:var(--indigo);color:var(--creme-q)}
+  label{font-size:.88rem;color:var(--creme);display:flex;align-items:center;gap:8px}
+  input[type=range]{accent-color:var(--coral);width:140px}
+  input[type=checkbox]{accent-color:var(--coral)}
+  table{border-collapse:collapse;margin-top:18px;font-size:.9rem;width:100%;max-width:720px}
+  th,td{text-align:left;padding:6px 10px;border-bottom:1px solid rgba(166,158,142,.25)}
+  th{font-weight:500;color:var(--creme-m)}
+  td.n{font-variant-numeric:tabular-nums}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+  .note{font-size:.8rem;color:var(--creme-m);margin-top:14px;line-height:1.5}
+  @media (max-width:640px){ .stage{aspect-ratio:4/5}
+    table{font-size:.8rem} th,td{padding:5px 6px} td.n{white-space:nowrap} }
+  .embed main > h1, .embed p.lead{display:none}
+  .embed main{padding:16px 16px 20px}
+</style>
+</head>
+<body>
+<main>
+  <h1>O Cruzeiro do Sul em três dimensões</h1>
+  <p class="lead">No céu, as cinco estrelas parecem pregadas na mesma superfície. Aqui cada uma está na sua
+  distância verdadeira. Gire o espaço e veja a cruz se desmanchar. Depois volte para o ponto de vista da
+  Terra e veja ela se montar de novo.</p>
+
+  <div class="stage">
+    <canvas id="c"></canvas>
+    <div class="hint">Arraste para girar · roda do mouse ou pinça para aproximar</div>
+  </div>
+
+  <div class="controls">
+    <div class="views">
+      <button data-view="persp" class="on">Perspectiva</button>
+      <button data-view="terra">Da Terra</button>
+      <button data-view="lado">De lado</button>
+      <button data-view="cima">De cima</button>
+    </div>
+    <label>Exagero dos ângulos <input id="exag" type="range" min="1" max="10" step="0.5" value="6"> <span id="exagv">6×</span></label>
+    <label><input id="spin" type="checkbox"> girar sozinho</label>
+    <label><input id="real" type="checkbox" checked> ligar as estrelas no espaço</label>
+  </div>
+
+  <table>
+    <thead><tr><th>Estrela</th><th>Distância</th><th>Brilho aparente (mag)</th><th>Tipo espectral</th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table>
+
+  <p class="note">Distâncias pela paralaxe medida pelo satélite Hipparcos, na nova redução dos dados
+  (van Leeuwen 2007). Posições no céu para a época J2000. O Cruzeiro tem só 6° de altura no céu, por isso os
+  ângulos aparecem exagerados. Com o exagero em 1× a figura fica em escala, e a cruz quase some no quadro.
+  O tamanho de cada estrela indica o brilho aparente e a cor indica o tipo: coral para a gigante vermelha,
+  pêssego para a gigante laranja, lavanda para as estrelas azuis.</p>
+  <p class="note">Prof. Alexandre Zabot · CC BY-NC 4.0 · profzabot.com.br/recursos/cruzeiro-3d/</p>
+</main>
+
+<script>
+(() => {
+const C = {noite:"#040d29", indigo:"#6168B9", coral:"#FD8354", lavanda:"#A7B0EB",
+           pessego:"#F9BCAA", creme:"#E8E0D0", cremeQ:"#F2EDE4", cremeM:"#A69E8E"};
+
+// nome, AR (h), Dec (graus), V, paralaxe (mas), tipo, cor
+const RAW = [
+  ["Acrux",       12+26/60+35.9/3600, -(63+5/60+57/3600),  0.76, 10.13, "B0.5 IV",  C.lavanda],
+  ["Mimosa",      12+47/60+43.3/3600, -(59+41/60+19/3600), 1.25, 11.71, "B0.5 III", C.lavanda],
+  ["Gacrux",      12+31/60+10.0/3600, -(57+6/60+48/3600),  1.64, 36.83, "M3.5 III", C.coral],
+  ["Imai",        12+15/60+8.7/3600,  -(58+44/60+56/3600), 2.79,  9.45, "B2 IV",    C.lavanda],
+  ["Intrometida", 12+21/60+21.6/3600, -(60+24/60+4/3600),  3.59, 14.30, "K3 III",   C.pessego],
+];
+const rad = d => d*Math.PI/180, deg = r => r*180/Math.PI;
+const ra0 = rad(RAW.reduce((s,r)=>s+r[1],0)/RAW.length*15);
+const de0 = rad(RAW.reduce((s,r)=>s+r[2],0)/RAW.length);
+const STARS = RAW.map(([name,ra,dec,V,plx,sp,col]) => {
+  const a = rad(ra*15), d = rad(dec);
+  const c = Math.sin(de0)*Math.sin(d) + Math.cos(de0)*Math.cos(d)*Math.cos(a-ra0);
+  const xi  = -deg(Math.cos(d)*Math.sin(a-ra0)/c);               // leste à esquerda
+  const eta =  deg((Math.cos(de0)*Math.sin(d) - Math.sin(de0)*Math.cos(d)*Math.cos(a-ra0))/c);
+  return {name, V, sp, col, xi, eta, dist: 1000/plx*3.2616};
+});
+
+// tabela
+document.getElementById("tb").innerHTML = STARS.slice().sort((a,b)=>a.dist-b.dist).map(s =>
+  `<tr><td><span class="dot" style="background:${s.col}"></span>${s.name}</td>
+   <td class="n">${Math.round(s.dist)} anos-luz</td><td class="n">${s.V.toFixed(2)}</td><td>${s.sp}</td></tr>`).join("");
+
+const DSKY = 400, FLOOR = -175, UW = 160;
+let EXAG = 6;
+// mundo: X = profundidade (para o céu), U = horizontal no céu, V = vertical
+const pos = (s, d) => [d, d*Math.tan(rad(EXAG*s.xi)), d*Math.tan(rad(EXAG*s.eta))];
+
+// ---------- câmera orbital ----------
+const VIEWS = {
+  persp: {yaw:-35, pitch:16, dist:760, tgt:[210,0,-55], fov:42},
+  terra: {yaw:0,   pitch:0,  dist:220, tgt:[220,0,0],   fov:48},
+  lado:  {yaw:-90, pitch:0,  dist:1600, tgt:[200,0,-50], fov:17},
+  cima:  {yaw:0.01-90, pitch:89, dist:1700, tgt:[200,0,-50], fov:17},
+};
+let cam = structuredClone(VIEWS.persp), goal = null;
+const lerp = (a,b,t) => a+(b-a)*t;
+function stepCam(){
+  if(!goal) return;
+  const t = 0.12; let done = true;
+  for (const k of ["yaw","pitch","dist","fov"]) {
+    cam[k] = lerp(cam[k], goal[k], t); if (Math.abs(cam[k]-goal[k])>0.05) done=false;
+  }
+  for (let i=0;i<3;i++){ cam.tgt[i]=lerp(cam.tgt[i],goal.tgt[i],t); if(Math.abs(cam.tgt[i]-goal.tgt[i])>0.05) done=false; }
+  if (done){ cam = structuredClone(goal); goal = null; }
+}
+function basis(){
+  const y = rad(cam.yaw), p = rad(cam.pitch);
+  const f = [Math.cos(p)*Math.cos(y), Math.cos(p)*Math.sin(y), -Math.sin(p)];
+  const up = [0,0,1];
+  let r = [up[1]*f[2]-up[2]*f[1], up[2]*f[0]-up[0]*f[2], up[0]*f[1]-up[1]*f[0]];
+  const rn = Math.hypot(...r); r = r.map(v=>v/rn);
+  const u = [f[1]*r[2]-f[2]*r[1], f[2]*r[0]-f[0]*r[2], f[0]*r[1]-f[1]*r[0]];
+  const eye = cam.tgt.map((v,i)=>v - cam.dist*f[i]);
+  return {f,r,u,eye};
+}
+
+// ---------- desenho ----------
+const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+let W=0, H=0, DPR=1;
+function resize(){
+  DPR = window.devicePixelRatio||1;
+  const b = cv.getBoundingClientRect(); W=b.width; H=b.height;
+  cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+}
+new ResizeObserver(resize).observe(cv);
+
+let B, FOC;
+const NEAR = 2;
+function toCam(p){ const d=[p[0]-B.eye[0],p[1]-B.eye[1],p[2]-B.eye[2]];
+  return [d[0]*B.r[0]+d[1]*B.r[1]+d[2]*B.r[2], d[0]*B.u[0]+d[1]*B.u[1]+d[2]*B.u[2], d[0]*B.f[0]+d[1]*B.f[1]+d[2]*B.f[2]]; }
+function scr(c){ return [W/2 + FOC*c[0]/c[2], H/2 - FOC*c[1]/c[2], c[2]]; }
+function proj(p){ const c=toCam(p); return c[2]>NEAR ? scr(c) : null; }
+
+function seg(a,b,color,w=1,dash=[],alpha=1){
+  let A=toCam(a), Bc=toCam(b);
+  if (A[2]<=NEAR && Bc[2]<=NEAR) return;
+  if (A[2]<=NEAR || Bc[2]<=NEAR){           // recorte no plano próximo
+    const t=(NEAR+0.01-A[2])/(Bc[2]-A[2]); const P=A.map((v,i)=>v+(Bc[i]-v)*t);
+    if (A[2]<=NEAR) A=P; else Bc=P;
+  }
+  const p=scr(A), q=scr(Bc);
+  ctx.save(); ctx.globalAlpha=alpha; ctx.strokeStyle=color; ctx.lineWidth=w; ctx.setLineDash(dash);
+  ctx.beginPath(); ctx.moveTo(p[0],p[1]); ctx.lineTo(q[0],q[1]); ctx.stroke(); ctx.restore();
+}
+function poly(pts,fill,stroke,alpha){
+  const P=pts.map(proj); if(P.some(p=>!p)) return;
+  ctx.save(); ctx.beginPath(); P.forEach((p,i)=> i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])); ctx.closePath();
+  ctx.globalAlpha=alpha; ctx.fillStyle=fill; ctx.fill(); ctx.globalAlpha=1;
+  ctx.strokeStyle=stroke; ctx.lineWidth=1; ctx.stroke(); ctx.restore();
+}
+function text(p,str,color,size=13,align="left",dx=0,dy=0,weight=400){
+  const q=proj(p); if(!q) return;
+  ctx.font=`${weight} ${size}px Inter, system-ui, sans-serif`; ctx.fillStyle=color;
+  ctx.textAlign=align; ctx.textBaseline="middle"; ctx.fillText(str,q[0]+dx,q[1]+dy);
+}
+const radius = V => Math.sqrt(160*Math.pow(10,-0.4*(V-0.76))+20)/1.6 + 2;
+
+const showReal = document.getElementById("real");
+function draw(){
+  stepCam();
+  if (spin.checked && !dragging && !goal) cam.yaw += 0.15;
+  B = basis(); FOC = (Math.min(W,H)/2)/Math.tan(rad(cam.fov/2));   // em tela retrato, o campo vale na horizontal
+  ctx.fillStyle=C.noite; ctx.fillRect(0,0,W,H);
+
+  // chão
+  for (let t=0;t<=DSKY;t+=50){
+    seg([t,-UW,FLOOR],[t,UW,FLOOR],C.cremeM, t?0.6:1, [], 0.5);
+    text([t,-UW,FLOOR], String(t), C.cremeM, 11, "right", -6, 0);
+  }
+  seg([0,-UW,FLOOR],[DSKY,-UW,FLOOR],C.cremeM,1,[],0.7);
+  seg([0,UW,FLOOR],[DSKY,UW,FLOOR],C.cremeM,0.6,[],0.5);
+  text([DSKY+30,-UW,FLOOR],"anos-luz",C.cremeM,11,"left");
+
+  // plano do céu
+  const S=180;
+  poly([[DSKY,-S,-S],[DSKY,S,-S],[DSKY,S,S],[DSKY,-S,S]], C.indigo, C.indigo, 0.18);
+  text([DSKY,S,S],"o céu como o vemos", C.creme, 12, "right", -8, 14);
+
+  // Terra
+  seg([0,0,FLOOR],[0,0,0],C.indigo,0.8,[3,3]);
+
+  const items=[];
+  const P = {}, Q = {};
+  for (const s of STARS){
+    const p=pos(s,s.dist), k=DSKY/p[0], q=p.map(v=>v*k);
+    P[s.name]=p; Q[s.name]=q;
+    seg([0,0,0],p,C.indigo,1.1);
+    seg(p,q,C.indigo,0.9,[1,4]);
+    seg(p,[p[0],p[1],FLOOR],s.col,0.8,[3,3],0.9);
+    items.push({p:[p[0],p[1],FLOOR], r:2, col:s.col});
+    items.push({p:q, r:radius(s.V)*0.7, col:s.col});
+    items.push({p, r:radius(s.V), col:s.col, label:`${s.name}  ${Math.round(s.dist)} anos-luz`});
+  }
+  for (const [a,b] of [["Gacrux","Acrux"],["Imai","Mimosa"]]){
+    seg(Q[a],Q[b],C.cremeM,1);
+    if (showReal.checked) seg(P[a],P[b],C.cremeM,0.9,[5,5],0.75);
+  }
+  items.push({p:[0,0,0], r:5, col:C.indigo, label:"Terra", earth:true});
+
+  // estrelas, das mais distantes para as mais próximas
+  items.forEach(it=>{ const c=toCam(it.p); it.z=c[2]; });
+  items.filter(it=>it.z>NEAR).sort((a,b)=>b.z-a.z).forEach(it=>{
+    const q=scr(toCam(it.p));
+    const sc = Math.min(1.8, Math.max(0.6, Math.sqrt(900/it.z)));
+    ctx.beginPath(); ctx.arc(q[0],q[1],it.r*sc,0,2*Math.PI); ctx.fillStyle=it.col; ctx.fill();
+    if (it.label){
+      ctx.font=`400 ${it.earth?14:13}px Inter, system-ui, sans-serif`;
+      ctx.fillStyle=C.creme; ctx.textBaseline="middle";
+      ctx.textAlign = it.earth ? "right" : "left";
+      ctx.fillText(it.label, q[0] + (it.earth? -10 : it.r*sc+8), q[1] - (it.earth?0:2));
+    }
+  });
+  requestAnimationFrame(draw);
+}
+
+// ---------- interação ----------
+const spin = document.getElementById("spin");
+let dragging=false, last=null, pinch=null;
+const pointers=new Map();
+cv.addEventListener("pointerdown",e=>{ cv.setPointerCapture(e.pointerId); pointers.set(e.pointerId,[e.clientX,e.clientY]);
+  dragging=true; goal=null; cv.classList.add("drag"); setOn(null); });
+cv.addEventListener("pointermove",e=>{
+  if(!pointers.has(e.pointerId)) return;
+  const prev=pointers.get(e.pointerId); pointers.set(e.pointerId,[e.clientX,e.clientY]);
+  if (pointers.size===2){
+    const [a,b]=[...pointers.values()]; const d=Math.hypot(a[0]-b[0],a[1]-b[1]);
+    if (pinch) cam.dist=Math.min(2500,Math.max(80,cam.dist*pinch/d)); pinch=d; return;
+  }
+  cam.yaw  -= (e.clientX-prev[0])*0.3;
+  cam.pitch = Math.max(-89,Math.min(89, cam.pitch + (e.clientY-prev[1])*0.3));
+});
+const end=e=>{ pointers.delete(e.pointerId); if(pointers.size<2) pinch=null; if(!pointers.size){dragging=false; cv.classList.remove("drag");} };
+cv.addEventListener("pointerup",end); cv.addEventListener("pointercancel",end);
+cv.addEventListener("wheel",e=>{ e.preventDefault(); goal=null;
+  cam.dist=Math.min(2500,Math.max(80,cam.dist*Math.exp(e.deltaY*0.001))); },{passive:false});
+
+const btns=[...document.querySelectorAll("button[data-view]")];
+function setOn(v){ btns.forEach(b=>b.classList.toggle("on", b.dataset.view===v)); }
+btns.forEach(b=>b.addEventListener("click",()=>{
+  const v=b.dataset.view; goal=structuredClone(VIEWS[v]);
+  // escolhe o caminho mais curto no ângulo
+  while (goal.yaw-cam.yaw>180) goal.yaw-=360; while (cam.yaw-goal.yaw>180) goal.yaw+=360;
+  spin.checked=false; setOn(v);
+}));
+const ex=document.getElementById("exag"), exv=document.getElementById("exagv");
+ex.addEventListener("input",()=>{ EXAG=+ex.value; exv.textContent=`${EXAG}×`; });
+
+// ---------- estado inicial pela URL ----------
+// ?vista=terra|lado|cima|persp  &exag=1..10  &girar=1
+// ex.: /recursos/cruzeiro-3d/sim/?vista=lado&exag=1
+const qs = new URLSearchParams(location.search);
+const v0 = qs.get("vista");
+if (v0 && VIEWS[v0]) { cam = structuredClone(VIEWS[v0]); setOn(v0); }
+const e0 = parseFloat(qs.get("exag"));
+if (e0 >= 1 && e0 <= 10) { EXAG = e0; ex.value = e0; exv.textContent = `${e0}×`; }
+if (qs.get("girar") === "1") spin.checked = true;
+
+resize(); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
