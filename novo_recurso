@@ -1,0 +1,40 @@
+#!/bin/bash
+# novo_recurso — cria a página de um recurso didático e instala a simulação
+# Uso: ./novo_recurso <slug> [arquivo.html]
+#   ./novo_recurso cruzeiro-3d ~/Downloads/cruzeiro_3d.html
+#   ./novo_recurso tabela-magnitudes          (recurso sem simulação)
+set -e
+cd "$(dirname "$0")"
+
+slug="$1"; html="$2"
+if [ -z "$slug" ]; then
+    echo "Uso: ./novo_recurso <slug> [arquivo.html]"; exit 1
+fi
+md="content/recursos/$slug/index.md"
+if [ -e "$md" ]; then
+    echo "Já existe: $md"; exit 1
+fi
+
+hugo new "recursos/$slug/index.md"
+
+if [ -n "$html" ]; then
+    dest="static/recursos/$slug/sim"
+    mkdir -p "$dest"
+    cp "$html" "$dest/index.html"
+    echo "Simulação: $dest/index.html"
+    if ! grep -q 'classList.add("embed")' "$dest/index.html"; then
+        echo "AVISO: o HTML não tem o trecho do modo embed."
+        echo "       O título e a introdução da simulação vão aparecer duplicados na página."
+    fi
+else
+    python3 - "$md" <<'EOF'
+import sys
+p = sys.argv[1]
+t = open(p, encoding="utf-8").read()
+t = t.replace("\nsim: true\n", "\nsim: false\n", 1)
+open(p, "w", encoding="utf-8").write(t)
+EOF
+fi
+
+echo "Página: $md"
+echo "Capa opcional: content/recursos/$slug/capa.png (16:9)"

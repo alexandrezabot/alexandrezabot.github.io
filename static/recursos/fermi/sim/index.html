@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>O paradoxo que se dissolve · Monte Carlo</title>
+<script>
+  // Embutida num iframe (página do recurso), esconde cabeçalho e rodapé,
+  // que já estão na página do site. Aberta sozinha, mostra tudo.
+  if (window.self !== window.top) document.documentElement.classList.add("embed");
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap');
 
@@ -122,11 +127,22 @@ footer{margin-top:46px}
 .ref{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-size:17px;color:var(--coral)}
 .assina{font-family:'Inter';font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--indigo);margin-top:14px}
 
+.licenca{font-size:12px;color:var(--creme-mudo);margin-top:10px}
+.embed body{min-height:0;padding-bottom:24px}
+.embed body > .linha-indigo,.embed header,.embed footer{display:none}
+.embed .wrap{padding:24px 24px 0}
+
 @media (max-width:900px){
   .wrap{padding:0 28px}
   .grid{grid-template-columns:1fr}
   h1{font-size:36px}
   .read-num.big{font-size:60px}
+  .embed .wrap{padding:16px 16px 0}
+}
+@media (max-width:520px){
+  .card{padding:24px 18px}
+  .hist{gap:8px}
+  .hlab{font-size:11px}
 }
 </style>
 </head>
@@ -146,15 +162,15 @@ footer{margin-top:46px}
     <span class="card-label">Uma galáxia por vez</span>
     <div class="fatores" id="fatores"></div>
     <div class="fvals" id="fvals"></div>
-    <div class="meta" id="meta">Cada barra é um fator sorteado em [0 , 0,2]. Clique para gerar a primeira galáxia.</div>
+    <div class="meta" id="meta">Cada barra é um fator sorteado entre 0 e 0.2. Clique para gerar a primeira galáxia.</div>
     <div class="resultado">
       <div class="res-num viva" id="resNum">—</div>
       <div class="res-leg" id="resLeg">civilizações detectáveis nesta galáxia</div>
     </div>
     <div class="controles">
       <button onclick="sortear()">Sortear 1</button>
-      <button onclick="rodar(1000)">Rodar 1 000</button>
-      <button onclick="rodar(100000)">Rodar 100 000</button>
+      <button onclick="rodar(1000)">Rodar 1000</button>
+      <button onclick="rodar(100000)">Rodar 100 mil</button>
       <button class="ghost" onclick="zerar()">Zerar</button>
     </div>
   </div>
@@ -192,6 +208,7 @@ footer{margin-top:46px}
   <div class="sep"></div>
   <p class="ref">Sandberg, Drexler &amp; Ord, <em>Dissolving the Fermi Paradox</em>, 2018.</p>
   <p class="assina">Prof. Alexandre Zabot</p>
+  <p class="licenca">CC BY-NC 4.0 · profzabot.com.br/recursos/fermi/</p>
 </footer>
 
 </div>
@@ -204,10 +221,10 @@ let total = 0, vazias = 0, soma = 0;
 const bins = [0,0,0,0,0,0];
 const binLabels = ['Vazia','1–9','10–10²','10²–10³','10³–10⁴','10⁴–10⁵'];
 
-const fmtPt = n => n.toLocaleString('pt-BR');
+const fmtPt = n => String(n);   // sem separador de milhar
 function expPt(x){
   if(x===0) return '0';
-  const s = x.toExponential(1).replace('.',',').replace('e','\u202F×\u202F10').replace('+','');
+  const s = x.toExponential(1).replace('e','\u202F×\u202F10').replace('+','');
   return s.replace(/10(-?\d+)/, (m,e)=>'10'+toSup(e));
 }
 function toSup(e){
@@ -269,11 +286,11 @@ function buildStatic(){
 function renderGalaxy(g){
   for(let i=0;i<NF;i++){
     document.getElementById('fb'+i).style.height=(g.fs[i]/0.2*100)+'%';
-    document.getElementById('fvv'+i).textContent=g.fs[i].toFixed(2).replace('.',',');
+    document.getElementById('fvv'+i).textContent=g.fs[i].toFixed(2);
   }
   document.getElementById('meta').innerHTML=
     'produto p = '+expPt(g.p)+'  ·  esperado λ = '+
-    (g.lambda<10?g.lambda.toFixed(2).replace('.',','):expPt(g.lambda))+' civilizações';
+    (g.lambda<10?g.lambda.toFixed(2):expPt(g.lambda))+' civilizações';
   const rn=document.getElementById('resNum');
   const rl=document.getElementById('resLeg');
   if(g.count===0){
@@ -291,7 +308,7 @@ function renderStats(){
     document.getElementById('pctVazias').textContent='—';
     document.getElementById('mediaCivs').textContent='—';
   }else{
-    document.getElementById('pctVazias').textContent=(vazias/total*100).toFixed(1).replace('.',',')+'%';
+    document.getElementById('pctVazias').textContent=(vazias/total*100).toFixed(1)+'%';
     document.getElementById('mediaCivs').textContent='≈ '+fmtPt(Math.round(soma/total));
   }
   const max=Math.max(1,...bins);
@@ -323,7 +340,7 @@ function zerar(){
     document.getElementById('fb'+i).style.height='50%';
     document.getElementById('fvv'+i).textContent='—';
   }
-  document.getElementById('meta').innerHTML='Cada barra é um fator sorteado em [0 , 0,2]. Clique para gerar a primeira galáxia.';
+  document.getElementById('meta').innerHTML='Cada barra é um fator sorteado entre 0 e 0.2. Clique para gerar a primeira galáxia.';
   document.getElementById('resNum').textContent='—';
   document.getElementById('resNum').className='res-num viva';
   document.getElementById('resLeg').textContent='civilizações detectáveis nesta galáxia';
@@ -332,6 +349,10 @@ function zerar(){
 
 buildStatic();
 renderStats();
+
+// estado inicial pela URL: ?rodar=1000 já abre com 1000 galáxias sorteadas
+const nIni = parseInt(new URLSearchParams(location.search).get('rodar'));
+if (nIni >= 1 && nIni <= 1000000) rodar(nIni);
 </script>
 </body>
 </html>

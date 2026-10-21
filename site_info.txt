@@ -3,7 +3,7 @@ INFORMAÇÕES DO SITE —
 ============================================================
 
 >>> SISTEMA
-Linux eddington 7.0.0-34-generic #34~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 15:38:29 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+Linux eddington 7.0.0-38-generic #38~24.04.4-Ubuntu SMP PREEMPT_DYNAMIC Mon Sep 14 16:37:11 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
 
 >>> VERSÕES
 Hugo: hugo v0.123.7+extended linux/amd64 BuildDate=2025-07-18T03:41:49Z VendorInfo=ubuntu:0.123.7-1ubuntu0.3
@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-ab702ba artigo novo
+9a8222b artigo
 
 Branches:
 * main
@@ -29,7 +29,7 @@ Submódulos:
 
 Alterações não commitadas:
  M site_info.txt
-?? content/az/22.md
+?? content/az/26.md
 
 >>> CONFIGURAÇÃO HUGO
 --- hugo.toml ---
@@ -45,7 +45,7 @@ capitalizeListTitles = false
 
 [params]
   description = "Doutor em Astrofísica · Professor da UFSC"
-  ogImage = "/images/sobre/eu.jpg"
+  ogImage = "/images/sobre/eu-2026.jpg"
   author = "Prof. Alexandre Zabot"
   ga_id = "G-YY0YJ7HRDS"
 
@@ -730,6 +730,10 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./content/az/20.md
 ./content/az/21.md
 ./content/az/22.md
+./content/az/23.md
+./content/az/24.md
+./content/az/25.md
+./content/az/26.md
 ./content/az-arquivo.md
 ./content/az/_index.md
 ./content/az-indice.md
@@ -827,7 +831,7 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./static/images/livros/jabuti-2024.jpg
 ./static/images/livros/livros.jpg
 ./static/images/sobre
-./static/images/sobre/eu.jpg
+./static/images/sobre/eu-2026.jpg
 ./static/images/sobre/familia.jpg
 ./static/livros
 ./static/livros/sumario-astrofisica-moderna.pdf
@@ -866,7 +870,7 @@ static/images/ensino/floripa.jpg
 static/images/ensino/mcti.jpg
 static/images/livros/jabuti-2024.jpg
 static/images/livros/livros.jpg
-static/images/sobre/eu.jpg
+static/images/sobre/eu-2026.jpg
 static/images/sobre/familia.jpg
 static/livros/sumario-astrofisica-moderna.pdf
 static/livros/sumario-cosmologia-moderna.pdf
@@ -3114,6 +3118,138 @@ Inayoshi, K. & Ho, L. C. (2026). A critical evaluation of the physical nature of
 
 Naidu, R. P. et al. (2026). A gas-enshrouded and gas-reddened black hole at cosmic dawn. Nature 656, 329. [Nature](https://doi.org/10.1038/s41586-026-10846-4)
 
+--- content/az/23.md ---
+---
+title: "Por que uma protoestrela esquenta quando perde energia?"
+date: 2026-10-01
+draft: false
+description: "A gravidade tem uma termodinâmica própria, em que perder energia significa esquentar. O Teorema do Virial explica por que a estrela em formação acende, por que o Sol de Kelvin parecia jovem demais para Darwin e por que o núcleo de um aglomerado globular colapsa."
+temas: ["Estrelas", "Galáxias e meio interestelar"]
+conceitos: ["teorema do virial", "protoestrela", "Rudolf Clausius", "Lord Kelvin", "catástrofe gravotérmica", "aglomerado globular", "aglomerado de Coma", "Fritz Zwicky"]
+---
+
+Quando uma estrela está se formando, antes de começar a realizar fusão nuclear no seu interior, já começa a irradiar luz para o espaço. O natural seria pensar que ela deveria esfriar, pois é isso que acontece aqui na Terra: objetos quentes perdem calor/energia para o meio e esfriam. No entanto, se fosse assim, a estrela jamais chegaria a ficar quente o suficiente para a fusão iniciar. Mas não estamos diante de um paradoxo, é apenas uma consequência da gravidade.
+
+A explicação está no Teorema do Virial, publicado em 1870 por Rudolf Clausius para explicar gases e máquinas térmicas. Num sistema preso pela própria gravidade e em equilíbrio, a energia de movimento das partículas vale metade da energia gravitacional que as mantém juntas. Quando o sistema perde energia, ele se contrai, e metade do que a contração libera vai aquecer o gás. Este é um conceito com muitas aplicações na Astrofísica, porque a mesma relação governa sistemas que vão de uma estrela a um aglomerado com mil galáxias.
+
+Foi com a energia da contração que Lord Kelvin calculou, em 1862, quanto tempo o Sol poderia brilhar. Chegou a algumas dezenas de milhões de anos e entrou em disputa com Darwin, que estimara 300 milhões de anos só para a erosão de um vale no sul da Inglaterra. A evolução precisava de um tempo longo, mas a astrofísica parecia não permitir isso. A conta de Kelvin estava parcialmente correta, mas faltava a componente de energia nuclear no balanço.
+
+O mesmo teorema se aplica numa escala bem maior, a dos aglomerados globulares, que são sistemas com centenas de milhares de estrelas ligadas gravitacionalmente. Nos encontros gravitacionais, as estrelas do centro cedem energia às da periferia. A região central contrai e esquenta, cedendo ainda mais energia e contraindo ainda mais. É um efeito cascata que Lynden-Bell e Wood chamaram de catástrofe gravotérmica, em 1968.
+
+Na prática, o núcleo deixa de ser uma região de densidade quase constante e vira uma concentração tão estreita que os telescópios não resolvem seu tamanho. O processo leva bilhões de anos, e hoje 1/5 dos globulares da Via Láctea está nesse estado, com M15 como exemplo mais conhecido. O colapso só para quando estrelas binárias no centro, ao interagir com vizinhas, passam a ceder energia ao aglomerado.
+
+Em escalas de dezenas de milhões de anos-luz, o teorema serve como balança. Em 1933, Zwicky mediu as velocidades das galáxias no aglomerado de Coma, perto de 1000 km/s, e concluiu que havia muito mais massa do que a luz mostrava. Décadas depois, o mesmo raciocínio previu outra coisa: se as galáxias se movem tão rápido, o gás entre elas deve ter átomos com velocidades parecidas, a quase cem milhões de graus. Esse gás brilha em raios X e hoje é medido em cerca de 90 milhões de graus, com mais massa do que todas as estrelas de Coma juntas.
+
+De certa forma, o Teorema do Virial nos permite concluir que a gravidade tem uma termodinâmica própria, em que perder energia significa esquentar. O destino de cada sistema dependerá de existir uma fonte que responda à dinâmica. Uma estrela tem a fusão, e por isso vive bilhões de anos em equilíbrio. Os aglomerados têm a interação das binárias.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Clausius, R. (1870). On a mechanical theorem applicable to heat. Philosophical Magazine, 40, 122–127. [DOI](https://doi.org/10.1080/14786447008640370)
+
+- Thomson, W. (Lord Kelvin) (1862). On the Age of the Sun's Heat. Macmillan's Magazine, 5, 388–393. [Texto](https://zapatopi.net/kelvin/papers/on_the_age_of_the_suns_heat.html)
+
+- Lynden-Bell, D. & Wood, R. (1968). The gravo-thermal catastrophe in isothermal spheres and the onset of red-giant structure for stellar systems. MNRAS, 138, 495–525. [ADS](https://ui.adsabs.harvard.edu/abs/1968MNRAS.138..495L)
+
+--- content/az/24.md ---
+---
+title: "Por que o Nobel se repete?"
+date: 2026-10-08
+draft: false
+description: "O Nobel de Física de 2026, dado a Francis Halzen pelo IceCube, parece repetir prêmios anteriores, e a explicação está nas regras e nos vieses do próprio prêmio. Defendo que ele continua sendo um bom mapa da Física, desde que se saiba quem o desenhou."
+temas: ["História e Filosofia da Ciência"]
+conceitos: ["Prêmio Nobel", "Francis Halzen", "IceCube", "neutrino", "Cesar Lattes", "Cecil Powell", "LIGO"]
+---
+
+Na última terça-feira a Academia Real de Ciências da Suécia concedeu o Nobel de Física de 2026 a Francis Halzen, belga de 82 anos, por suas contribuições decisivas ao IceCube e pela descoberta de neutrinos de alta energia de origem astrofísica. O IceCube é um quilômetro cúbico de gelo no Polo Sul, atravessado por 86 cabos com 5160 sensores de luz, concluído em 2011. Halzen ganhou o prêmio sozinho, o que não acontecia na Física desde 1992.
+
+Confesso que fiquei surpreso. Já tinha visto que ele aparecia como favorito em várias listas, mas eu não apostava nele. É o quinto Nobel para neutrinos, depois de 1988, 1995, 2002 e 2015, e ninguém duvidava de que os de alta energia existissem. O resultado do IceCube é mais uma confirmação do que uma descoberta. Fui pesquisar e vi que eu estava por fora. Os raios X renderam cinco prêmios entre 1901 e 1924. Reines ganhou em 1995 por detectar uma partícula prevista desde 1930, e o LIGO, em 2017, por Ondas Gravitacionais que também eram consideradas quase uma certeza.
+
+Para entender por que isso se repete é preciso entender como o prêmio Nobel funciona. A indicação é apenas por convite. Em setembro o comitê envia cerca de 3 mil cartas, com prazo até 31 de janeiro. Oito físicos filtram os nomes, pedem pareceres sigilosos e levam uma proposta à Academia, que vota no dia do anúncio. Os papéis ficam trancados por 50 anos, de modo que só a partir de 2076 saberemos o que se discutiu sobre Halzen. Há várias regras, mas três são muito importantes. O prêmio é dividido entre três pessoas, no máximo. Não há premiação póstuma, precisa estar vivo. E só concorre quem foi indicado por escrito para aquele ano.
+
+Toda premiação tem seus problemas, não é diferente com o Nobel. Primeiro, ele atrai gente para as áreas premiadas. Um estudo de 2021 mostrou que temas premiados ganham 40% mais artigos na década seguinte. Ele também se concentra em algumas áreas. Entre 1995 e 2017, cinco de 114 áreas ficaram com mais da metade dos prêmios de ciências, e a Física de partículas liderou. Pode ser que essas áreas tenham mesmo rendido mais, e pode ser que o prestígio de um prêmio prepare o seguinte. E há a linhagem, da qual quase ninguém fala. Dos 736 laureados em ciências e economia até 2023, 702 pertencem à mesma árvore acadêmica, de orientador a orientando. Não é conspiração. Todo laureado ganha o direito vitalício de indicar, e os bons laboratórios atraem os bons alunos.
+
+Nada disso me faz desprezar o Nobel. Reconhecer é necessário e é impossível dar o mérito devido a todo mundo com um prêmio só. Limitar nomes significa colocar alguém pra fora. Se premiarmos todos, ninguém é realmente destacado. O que me agrada é ver que o prêmio a um acaba sendo o prêmio de muitos. O próprio Halzen atribuiu o dele aos corajosos que toparam o projeto quando nenhum físico respeitável toparia. Além disso, as omissões também entram para a história. A Relatividade nunca rendeu um Nobel a Einstein. E Cesar Lattes não poderia ter dividido o prêmio de 1950, porque ninguém o indicou naquele ano. Mesmo assim é mais lembrado entre nós do que Cecil Powell, o premiado. O Nobel é um bom mapa da Física, desde que se saiba quem o desenhou.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Silva Neto, C. P. & Tavares, H. (2024). *Cesar Lattes e o Prêmio Nobel: a Lógica do Prestígio Científico no Século XX*. Revista Brasileira de Ensino de Física, 46, e20240188. [DOI](https://doi.org/10.1590/1806-9126-RBEF-2024-0188)
+
+- Friedman, R. M. (2022). *The 100th Anniversary of Einstein's Nobel Prize: Facts and Fiction*. Annalen der Physik, 2022, 2200305. [DOI](https://doi.org/10.1002/andp.202200305)
+
+- Nobel Prize Outreach (2026). *All Nobel Prizes in Physics*. NobelPrize.org. [Nobel](https://www.nobelprize.org/prizes/lists/all-nobel-prizes-in-physics/)
+
+--- content/az/25.md ---
+---
+title: "Planeta nasce da morte da estrela"
+date: 2026-10-15
+draft: false
+description: "Um espectro do Hubble de 1999 escondia nióbio na superfície de uma anã branca, mil vezes mais concentrado do que no Sol. A química aponta para um planeta formado das cinzas da própria estrela, depois que ela morreu, e não no seu nascimento."
+temas: ["Estrelas", "Buracos negros e objetos compactos"]
+conceitos: ["HS 0209+0832", "anã branca", "planeta de segunda geração", "ramo assintótico das gigantes", "nióbio", "nebulosa planetária", "TESS", "Carl Sagan"]
+---
+
+A anã branca (WD) HS 0209+0832, que está a 270 anos-luz daqui, foi observada no ultravioleta em 1999 pelo telescópio Hubble. O espectro mostrou C, Al, Si, Ca, Ti, Ni, Zn, além de cerca de 100 linhas que ninguém conseguiu identificar. Na época, os astrônomos propuseram que ela atravessava uma nuvem de gás interestelar. Este ano (27 anos mais tarde!), Jamie Williams e colegas publicaram a solução do caso na revista Nature Astronomy. A maior parte das linhas desconhecidas era de nióbio (Nb).
+
+Numa WD quente como esta, os elementos pesados afundam em poucos dias. Se aparecem, é porque algo os está colocando na superfície agora. Em geral, são restos de asteroides parecidos com as rochas do Sistema Solar. Aqui o Fe não aparece e o Si surge só em traços. Por outro lado, na WD há He, que não vem de rocha, e mil vezes mais Nb do que no Sol. Nenhuma das outras 33 WD examinadas mostra Nb.
+
+O nióbio é uma pista decisiva porque não é fabricado por fusão nuclear. Ele nasce pela captura lenta de nêutrons em estrelas parecidas com o Sol já no fim da vida, na fase de gigante chamada AGB. Camadas de He e de H queimam alternadamente em torno do núcleo, e a cada pulso térmico a convecção traz à superfície o material recém-fabricado. O envelope chega ao tamanho da órbita da Terra e é frio o bastante para formar poeira. A luz da estrela empurra os grãos, que arrastam gás consigo, e um vento lento leva o envelope embora. A progenitora tinha 1.3 M☉ e deixou uma WD de 0.6 M☉, então metade dela foi soprada para o espaço. Os modelos preveem nesse vento muito Nb, um pequeno excesso de Ni, Cu e Zn, e nenhum ganho de Fe ou Si.
+
+Muitos alunos me perguntam se esse gás não poderia cair de volta e formar outra estrela. Não é possível porque ele sai num vento que, embora lento, supera a velocidade de escape da estrela. Este gás se torna uma nebulosa planetária, que se dissipa em dezenas de milhares de anos. Para que uma parte fique, é preciso uma companheira que a capture. Então o gás conserva a rotação que tinha na órbita e forma um disco. Estrelas nascem do colapso de nuvens frias com centenas de massas solares, e a morte de uma estrela não recria a nuvem, apenas o disco, que só tem massa suficiente para formar planetas.
+
+Segundo a equipe, um planeta gigante gasoso teria se formado ali e hoje estaria a 0.04 UA da WD, perdendo sua atmosfera para ela. O telescópio TESS identificou uma variação de brilho no sistema com período de 4.4 dias, compatível com a órbita do planeta candidato.
+
+Ou seja, tudo está nos levando a crer que estamos observando um planeta formado na morte da estrela, e não no seu nascimento, como é o normal. Sagan dizia que somos poeira de estrelas, e eu acrescento que de muitas estrelas. O nióbio das nossas minas veio de gerações de estrelas cujas cinzas se misturaram por bilhões de anos antes de formar o Sistema Solar, e nossa composição é uma média. Esse planeta seria feito das cinzas de uma estrela só, sem mistura, e por isso a assinatura dela aparece mil vezes mais concentrada.
+
+*Prof. Alexandre Zabot*
+
+## Referências
+
+- Wolff, B., Jordan, S., Koester, D. & Reimers, D. (2000). *The nature of the DAB white dwarf HS 0209+0832*. Astronomy & Astrophysics, 361, 629. [ADS](https://ui.adsabs.harvard.edu/abs/2000A%26A...361..629W)
+- Busso, M., Gallino, R. & Wasserburg, G. J. (1999). *Nucleosynthesis in asymptotic giant branch stars: relevance for galactic enrichment and solar system formation*. Annual Review of Astronomy and Astrophysics, 37, 239. [ADS](https://ui.adsabs.harvard.edu/abs/1999ARA%26A..37..239B)
+- Williams, J. T., Gänsicke, B. T., Stone, N. C. et al. (2026). *Discovery of a second-generation planet candidate accreting onto a white dwarf*. Nature Astronomy. [DOI](https://doi.org/10.1038/s41550-026-02983-7)
+
+--- content/az/26.md ---
+---
+title: "Um pulso para pesar o Universo"
+date: 2026-10-22
+draft: false
+description: "Ainda não sabemos o que produz as rajadas rápidas de rádio, e mesmo assim elas já servem para medir a matéria comum do Universo, porque a medida depende do caminho e não da fonte. A FRB 20240304B leva essa medida até 3 bilhões de anos depois do Big Bang."
+temas: ["Cosmologia", "Galáxias e meio interestelar"]
+conceitos: ["rajada rápida de rádio", "FRB 20240304B", "medida de dispersão", "meio intergaláctico", "magnetar", "pulsar", "supernova do tipo Ia", "MeerKAT"]
+---
+
+Há uns dias M. Caleb e colaboradores publicaram um artigo na *Science* sobre uma "Rajada Rápida de Rádio" (FRB) detectada pelo radiotelescópio MeerKAT em março de 2024. O James Webb encontrou a galáxia de onde a rajada veio, permitindo saber que ela foi emitida quando o Universo tinha apenas 3 bilhões de anos. Falou-se bastante sobre o recorde de distância, mas acho que a parte mais interessante está no fato de que o pulso permite fazer medidas cosmológicas mesmo sem que saibamos como foi produzido.
+
+Uma FRB é um pulso de ondas de rádio que dura poucos milésimos de segundo. A primeira foi encontrada em 2007 por Duncan Lorimer, em dados de arquivo do radiotelescópio de Parkes. As frequências mais altas chegam primeiro e as mais baixas depois, com um atraso que cresce com o inverso do quadrado da frequência. O fenômeno se chama dispersão e acontece quando a onda atravessa um plasma. Quanto maior o atraso, quantificado pela medida de dispersão, mais elétrons livres havia no caminho do pulso. Na FRB 20240304B, as frequências mais baixas da faixa observada chegaram 10 segundos depois das mais altas.
+
+Não temos muita certeza do mecanismo que gera o pulso. Hoje a fonte favorita é um magnetar, que é uma estrela de nêutrons com campo magnético extremo. A galáxia da FRB do artigo tem cerca de 10 milhões de massas solares em estrelas, é pobre em metais e estava formando estrelas intensamente. Isso é um problema para a hipótese da fusão de duas estrelas de nêutrons, porque o cenário favorece fontes jovens e não houve tempo para que esses pares se formassem e espiralassem até a fusão.
+
+Mas o ponto interessante é que a medida de dispersão depende do caminho, e não da fonte. Basta que o pulso seja curto e que conheçamos a distância da galáxia. Lorimer percebeu isso já no artigo da descoberta. Em 2020, a equipe de Jean-Pierre Macquart usou cinco FRBs localizadas pelo ASKAP para contar os elétrons do meio intergaláctico, onde está mais de três quartos da matéria comum, e encontrou uma densidade de bárions compatível com a da Radiação Cósmica de Fundo.
+
+Curiosamente, não é a primeira vez que usamos um fenômeno como instrumento antes de entender a fonte. Em 1968, no artigo que anunciou o primeiro pulsar, Antony Hewish, Jocelyn Bell e colegas mediram o mesmo atraso e estimaram a distância da fonte, quando ainda discutiam se ela seria uma anã branca ou uma estrela de nêutrons. O caso mais famoso, no entanto, é o das supernovas do tipo Ia. Até hoje discutimos se a anã branca que explode recebe matéria de uma companheira ou se funde com outra, e mesmo assim elas mostraram em 1998 que a expansão do Universo está acelerando.
+
+Há, porém, uma diferença a favor das FRBs. A supernova é útil porque conseguimos calibrar o brilho de cada uma, e o brilho é uma propriedade da fonte. A FRB serve como instrumento por uma propriedade do caminho. A fonte só interfere pela galáxia hospedeira, cuja contribuição ainda precisa ser estimada caso a caso.
+
+Por isso, uma FRB em *redshift* (desvio para o vermelho) de 2.148 é muito importante. Ela mostra que esses pulsos existem na época de maior formação estelar e abre caminho para estudar a reionização do hélio. Acho que é provável que utilizemos as FRBs como instrumentos cosmológicos por muitos anos antes de saber o que as produz.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Lorimer, D. R., Bailes, M., McLaughlin, M. A., Narkevic, D. J. & Crawford, F. (2007). *A bright millisecond radio burst of extragalactic origin*. Science, 318, 777. [DOI](https://doi.org/10.1126/science.1147532)
+- Macquart, J.-P. et al. (2020). *A census of baryons in the Universe from localized fast radio bursts*. Nature, 581, 391. [DOI](https://doi.org/10.1038/s41586-020-2300-2)
+- Caleb, M. et al. (2026). *A fast radio burst at redshift 2, three billion years after the Big Bang*. Science. [DOI](https://www.science.org/doi/10.1126/science.adz2675)
+
 --- content/az-arquivo.md ---
 ---
 title: "Arquivo do Astrofísica de A a Z"
@@ -3759,7 +3895,7 @@ title: "Home"
 description: "Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astrofísica, física e matemática aplicada. Escrevo livros, ensino em cursos regulares e abertos."
 ---
 
-{{< figura src="/images/sobre/eu.jpg" alt="Prof. Alexandre Zabot" tamanho="pequena" pos="esquerda" >}}
+{{< figura src="/images/sobre/eu-2026.jpg" alt="Prof. Alexandre Zabot" tamanho="pequena" pos="esquerda" >}}
 Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astrofísica, física e matemática aplicada. Escrevo livros, ensino em cursos regulares e abertos. Procuro ensinar os conceitos a partir das observações, com rigor técnico mas sem afastar quem está começando. Este site é o retrato de quem sou, do que faço hoje e do que pretendo fazer adiante.
 
 ---
@@ -5802,7 +5938,7 @@ rm -rf public \
 
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |   335  
+  Pages            |   370  
   Paginator pages  |     0  
   Non-page files   |     6  
   Static files     |    17  
@@ -5810,7 +5946,7 @@ rm -rf public \
   Aliases          |     0  
   Cleaned          |     0  
 
-Total in 115 ms
+Total in 136 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
