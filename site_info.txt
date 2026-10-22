@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-ce56b3a atualiza site
+64ece6c atualiza site
 
 Branches:
 * main
@@ -28,7 +28,7 @@ Branches:
 Submódulos:
 
 Alterações não commitadas:
-?? site_info.txt
+ M site_info.txt
 
 >>> CONFIGURAÇÃO HUGO
 --- hugo.toml ---
@@ -2186,9 +2186,9 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
   <nav>
     <a href="/">Home</a>
     <a href="/ensino">Ensino</a>
-    <a href="/recursos">Recursos</a>
     <a href="/livros">Livros</a>
     <a href="/az">Astrofísica de A a Z</a>
+    <a href="/recursos">Recursos</a>
     <a href="/sobre">Sobre</a>
     <a href="/contato">Contato</a>
   </nav>
@@ -6305,7 +6305,7 @@ rm -rf public \
   Aliases          |     1  
   Cleaned          |     0  
 
-Total in 73 ms
+Total in 98 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
