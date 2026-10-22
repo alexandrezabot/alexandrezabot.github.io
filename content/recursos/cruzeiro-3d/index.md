@@ -9,8 +9,8 @@ tags: ["constelações", "distâncias estelares", "paralaxe", "esfera celeste"]
 aulas:
   - curso: "Céu Adentro 1: Astronomia"
     aula: "aula 2, Constelações e o movimento do céu"
-    link: ""
-    video: ""
+    link: "https://astrofisica.ufsc.br/ceu-adentro/astronomia/"
+    video: "https://www.youtube.com/watch?v=DxkGKK8Jo3M"
 ---
 
 Quando olhamos para o Cruzeiro do Sul, as cinco estrelas parecem estar na mesma superfície, à mesma distância de nós. Essa impressão vem do fato de que a olho nu percebemos a direção de cada estrela, mas não a distância até ela. Quando o satélite Hipparcos mediu a paralaxe dessas estrelas, encontrou distâncias muito diferentes. Gacrux, a estrela do topo, está a cerca de 88 anos-luz. Acrux, a do pé, está a cerca de 320, quase quatro vezes mais longe.
