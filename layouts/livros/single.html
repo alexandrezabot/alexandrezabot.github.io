@@ -69,14 +69,14 @@
 {{ with .Params.premio }}{{ $ld = merge $ld (dict "award" .) }}{{ end }}
 {{ with .Params.bookFormat }}{{ $ld = merge $ld (dict "bookFormat" .) }}{{ end }}
 {{ with .Params.links.compra }}{{ $ld = merge $ld (dict "offers" (dict "@type" "Offer" "url" . "availability" "https://schema.org/InStock")) }}{{ end }}
-<script type="application/ld+json">{{ $ld | jsonify | safeHTML }}</script>
+<script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
 
 <script>
   document.querySelectorAll('.livro-ctas a, .livro-extra a').forEach(function (a) {
     a.addEventListener('click', function () {
       if (window.gtag) {
         gtag('event', 'livro_clique', {
-          livro: {{ .Title | jsonify }},
+          livro: {{ .Title }},
           destino: a.textContent.trim()
         });
       }
