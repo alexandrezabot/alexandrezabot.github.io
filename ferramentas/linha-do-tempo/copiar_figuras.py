@@ -2,13 +2,14 @@
 """Copia do acervo as figuras listadas no eventos.yaml.
 
 Uso:
-    python3 copiar_figuras.py EVENTOS.yaml ACERVO DESTINO
+    python3 copiar_figuras.py EVENTOS.yaml [DESTINO] [--acervo PASTA]
 
     EVENTOS.yaml  o arquivo de dados da linha do tempo
-    ACERVO        raiz do acervo de figuras (os caminhos `figura.acervo` são relativos a ela)
-    DESTINO       pasta onde as figuras vão ficar, por exemplo
-                  content/recursos/linha-do-tempo-particulas/figuras   (site)
-                  saida/figuras                                         (carrossel)
+    DESTINO       pasta onde as figuras vão ficar. Sem ele, usa figuras/ ao lado
+                  do EVENTOS.yaml, que é o lugar certo para o site. Para o
+                  carrossel, passe saida/figuras.
+    --acervo      raiz do acervo (padrão /home/zabot/midia). Os caminhos
+                  `figura.acervo` do YAML são relativos a ela.
 
 Cada figura é gravada com o nome de `figura.arquivo`. PDF vira PNG (pdftocairo, do
 poppler-utils). Se o conteúdo real do arquivo não bater com a extensão do destino, o
@@ -43,10 +44,22 @@ def ext(nome):
     return "jpg" if e == "jpeg" else e
 
 
+ACERVO_PADRAO = "/home/zabot/midia"
+
+
 def main(argv):
-    if len(argv) != 4:
+    args = argv[1:]
+    acervo = ACERVO_PADRAO
+    if "--acervo" in args:
+        k = args.index("--acervo")
+        acervo = args[k + 1]
+        del args[k:k + 2]
+    if not 1 <= len(args) <= 2 or args[0] in ("-h", "--help"):
         sys.exit(__doc__)
-    yml, acervo, dest = argv[1:]
+    yml = args[0]
+    dest = args[1] if len(args) == 2 else os.path.join(os.path.dirname(os.path.abspath(yml)), "figuras")
+    if not os.path.isdir(acervo):
+        sys.exit(f"Acervo não encontrado: {acervo}")
     with open(yml, encoding="utf-8") as f:
         dados = yaml.safe_load(f)
     os.makedirs(dest, exist_ok=True)
