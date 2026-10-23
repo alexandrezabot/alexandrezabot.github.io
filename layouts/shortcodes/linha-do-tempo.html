@@ -1,0 +1,161 @@
+{{- /*
+  Linha do tempo interativa.
+  Uso, dentro do index.md de um page bundle:
+      {{< linha-do-tempo >}}                       lê eventos.yaml do bundle
+      {{< linha-do-tempo dados="outro.yaml" >}}    outro arquivo de dados
+  As figuras ficam em figuras/ dentro do bundle e são redimensionadas no build.
+*/ -}}
+{{- $arq := .Get "dados" | default "eventos.yaml" -}}
+{{- $res := .Page.Resources.Get $arq -}}
+{{- if not $res -}}
+  {{- errorf "linha-do-tempo: %s não encontrado no bundle de %s" $arq .Page.File.Path -}}
+{{- end -}}
+{{- $d := $res | transform.Unmarshal -}}
+{{- $evs := $d.eventos -}}
+{{- $pag := .Page -}}
+{{- $uid := printf "ldt-%d" .Ordinal -}}
+{{- $ano0 := 1890 -}}{{- $ano1 := 2025 -}}
+
+{{- $css := resources.Get "linha-do-tempo/ldt.css" | minify | fingerprint -}}
+{{- $js := resources.Get "linha-do-tempo/ldt.js" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+<section class="ldt" id="{{ $uid }}" aria-label="{{ $d.titulo }}">
+  <div class="ldt-cab">
+    <div class="ldt-filtros" role="group" aria-label="Filtrar por família de partículas">
+      <button type="button" class="ldt-filtro" data-familia="" aria-pressed="true">todas</button>
+      {{- range $k, $v := $d.familias }}
+      <button type="button" class="ldt-filtro" data-familia="{{ $k }}" aria-pressed="false">{{ $v }}</button>
+      {{- end }}
+    </div>
+    <div class="ldt-nav">
+      <button type="button" class="ldt-seta" data-dir="-1" aria-label="Voltar">&#8249;</button>
+      <button type="button" class="ldt-seta" data-dir="1" aria-label="Avançar">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="ldt-regua" aria-label="Os mesmos eventos na escala real do tempo">
+    <div class="ldt-regua-faixa">
+      {{- range seq 1900 25 2000 }}
+      <span class="ldt-regua-marco" style="left:{{ div (mul (sub . $ano0) 100.0) (sub $ano1 $ano0) }}%">{{ . }}</span>
+      {{- end }}
+      {{- range $evs }}
+      <button type="button" class="ldt-ponto tipo-{{ .tipo }}" data-alvo="{{ .id }}"
+        style="left:{{ div (mul (sub .ano $ano0) 100.0) (sub $ano1 $ano0) }}%"
+        aria-label="{{ .ano }}, {{ .titulo }}" title="{{ .ano }}, {{ .titulo }}"></button>
+      {{- end }}
+    </div>
+  </div>
+
+  <div class="ldt-trilho" tabindex="0" role="region" aria-label="Linha do tempo, role para os lados">
+    <ol class="ldt-grade">
+      {{- range $i, $e := $evs }}
+      {{- /* previsões que este evento confirma (ou parecia confirmar) */ -}}
+      {{- $prev := slice -}}
+      {{- range $evs -}}
+        {{- $t := . -}}
+        {{- range .confirmada_por -}}
+          {{- if eq .id $e.id -}}
+            {{- $prev = $prev | append (dict "id" $t.id "ano" $t.ano "titulo" $t.titulo "falsa" (.falsa | default false)) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $conf := slice -}}
+      {{- range .confirmada_por -}}{{- $conf = $conf | append .id -}}{{- end -}}
+      {{- $falsas := slice -}}
+      {{- range .confirmada_por -}}{{- if .falsa -}}{{- $falsas = $falsas | append .id -}}{{- end -}}{{- end }}
+      <li class="ldt-ev tipo-{{ .tipo }}" id="{{ .id }}" data-ano="{{ .ano }}"
+          data-familias="{{ delimit .familias " " }}"
+          {{- with $conf }} data-confirma="{{ delimit . " " }}"{{ end }}
+          {{- with $falsas }} data-falsa="{{ delimit . " " }}"{{ end }}>
+        <span class="ldt-marca" aria-hidden="true"></span>
+        <span class="ldt-haste" aria-hidden="true"></span>
+        <article class="ldt-card">
+          <a class="ldt-ano" href="#{{ .id }}" title="Link para este evento">{{ .ano }}</a>
+          <h3 class="ldt-tit">{{ .titulo }}</h3>
+          <p class="ldt-txt">{{ .texto | markdownify }}</p>
+          {{- with .figura }}
+          {{- $img := $pag.Resources.Get (printf "figuras/%s" .arquivo) }}
+          {{- if $img }}
+          {{- $w := $img.Width }}
+          {{- $p := $img.Resize (printf "%dx webp q78" (cond (gt $w 480) 480 $w)) }}
+          {{- $m := $img.Resize (printf "%dx webp q80" (cond (gt $w 960) 960 $w)) }}
+          {{- $g := $img.Resize (printf "%dx webp q82" (cond (gt $w 1600) 1600 $w)) }}
+          <figure class="ldt-fig">
+            <img src="{{ $m.RelPermalink }}"
+                 srcset="{{ $p.RelPermalink }} {{ $p.Width }}w, {{ $m.RelPermalink }} {{ $m.Width }}w"
+                 sizes="(max-width: 719px) 80vw, 300px"
+                 width="{{ $m.Width }}" height="{{ $m.Height }}"
+                 alt="{{ .alt | default .legenda }}" loading="lazy" decoding="async" draggable="false"
+                 data-grande="{{ $g.RelPermalink }}">
+            <figcaption>{{ .legenda | markdownify }}</figcaption>
+          </figure>
+          {{- else }}
+          {{- warnf "linha-do-tempo: figura %s não encontrada em figuras/" .arquivo }}
+          {{- end }}
+          {{- end }}
+          {{- if or $prev .confirmada_por }}
+          <div class="ldt-elos">
+            {{- range $prev }}
+            {{- if .falsa }}
+            <a class="ldt-elo falsa" href="#{{ .id }}">confundido com a previsão de {{ .ano }}</a>
+            {{- else }}
+            <a class="ldt-elo" href="#{{ .id }}">previsto em {{ .ano }} &middot; {{ sub $e.ano .ano }} {{ cond (eq (sub $e.ano .ano) 1) "ano" "anos" }} depois</a>
+            {{- end }}
+            {{- end }}
+            {{- range .confirmada_por }}
+            {{- $alvo := index (where $evs "id" .id) 0 }}
+            {{- if .falsa }}
+            <a class="ldt-elo falsa" href="#{{ .id }}">candidata em {{ $alvo.ano }}, descartada</a>
+            {{- else }}
+            <a class="ldt-elo" href="#{{ .id }}">{{ $alvo.titulo }} em {{ $alvo.ano }} &middot; {{ sub $alvo.ano $e.ano }} anos depois</a>
+            {{- end }}
+            {{- end }}
+          </div>
+          {{- end }}
+          {{- with .mais }}
+          <details class="ldt-mais">
+            <summary>{{ cond (eq $e.tipo "teo") "o argumento" "como se mediu" }}</summary>
+            <div class="ldt-mais-corpo">
+              <p>{{ . | markdownify }}</p>
+              {{- with $e.refs }}
+              <ul class="ldt-refs">
+                {{- range . }}
+                <li>{{ . | markdownify }}</li>
+                {{- end }}
+              </ul>
+              {{- end }}
+            </div>
+          </details>
+          {{- end }}
+        </article>
+      </li>
+      {{- end }}
+      {{- with $d.fim }}
+      <li class="ldt-ev ldt-fim" id="{{ $uid }}-hoje" data-familias="">
+        <span class="ldt-marca" aria-hidden="true"></span>
+        <span class="ldt-haste" aria-hidden="true"></span>
+        <article class="ldt-card">
+          <span class="ldt-ano">{{ .rotulo }}</span>
+          <h3 class="ldt-tit">{{ .titulo }}</h3>
+          <p class="ldt-txt">{{ .texto | markdownify }}</p>
+        </article>
+      </li>
+      {{- end }}
+    </ol>
+    <svg class="ldt-arcos" aria-hidden="true"></svg>
+  </div>
+
+  <div class="ldt-legenda" aria-hidden="true">
+    <span><i class="ldt-marca-mini tipo-exp"></i>descoberta experimental</span>
+    <span><i class="ldt-marca-mini tipo-teo"></i>previsão teórica</span>
+    <span><i class="ldt-marca-mini tipo-astro"></i>Astrofísica</span>
+    <span class="so-arcos"><i class="ldt-arco-mini"></i>da previsão à observação</span>
+  </div>
+
+  <dialog class="ldt-dialogo" aria-labelledby="{{ $uid }}-dlg-tit">
+    <button type="button" class="ldt-fechar" aria-label="Fechar">&times;</button>
+    <div class="ldt-dialogo-corpo" id="{{ $uid }}-dlg-tit"></div>
+  </dialog>
+</section>
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>

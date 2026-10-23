@@ -1,0 +1,652 @@
+# Linha do tempo das descobertas das partículas
+# Fonte única: lida pelo shortcode {{< linha-do-tempo >}} do Hugo e pelo
+# ferramentas/linha-do-tempo/gerar.py (carrossel do Instagram).
+#
+# tipo:       exp (descoberta experimental), teo (previsão teórica), astro (Astrofísica)
+# familias:   chaves de `familias` abaixo; um evento pode ter várias
+# confirmada_por (só em teo): lista de ids; `falsa: true` desenha o arco tracejado
+# figura.acervo:  caminho relativo à raiz do acervo (lido por copiar_figuras.py)
+# figura.arquivo: nome dentro de figuras/ no bundle (extensão = formato real)
+# figura.carrossel: larga  -> no carrossel, figura em largura total (layout "Lw")
+# mais / refs: camada "como se mediu" (exp, astro) ou "o argumento" (teo)
+
+titulo: As grandes descobertas das partículas
+rotulo: Física de Partículas
+subtitulo: >-
+  Em 1897 conhecíamos uma partícula elementar. Em 2012, as 17 do Modelo Padrão
+  estavam todas observadas.
+
+familias:
+  leptons: léptons carregados
+  neutrinos: neutrinos
+  hadrons: quarks e hádrons
+  bosons: bósons
+  antimateria: antimatéria
+
+referencias:
+  - D. Griffiths, *Introduction to Elementary Particles*, 2ª ed. Wiley-VCH, 2008.
+  - A. Pais, *Inward Bound. Of Matter and Forces in the Physical World*. Oxford University Press, 1986.
+
+eventos:
+
+  - id: 1897-eletron
+    ano: 1897
+    tipo: exp
+    titulo: elétron
+    familias: [leptons]
+    texto: >-
+      J. J. Thomson mostra que os raios catódicos são partículas com carga negativa
+      e massa mais de mil vezes menor que a do átomo de hidrogênio.
+      O átomo deixa de ser indivisível.
+    mais: >-
+      Thomson fez os raios catódicos passarem por um campo elétrico e um campo magnético
+      cruzados. Ajustando os dois até que o feixe seguisse reto, ele obteve a velocidade
+      das partículas. Desligando o campo elétrico, a curvatura do feixe no campo magnético
+      deu a razão entre a massa e a carga. O valor era o mesmo qualquer que fosse o gás
+      do tubo ou o metal do cátodo, e mais de mil vezes menor que o do íon de hidrogênio
+      na eletrólise. Hoje sabemos que o próton tem 1836 vezes a massa do elétron.
+    refs:
+      - J. J. Thomson (1897). Cathode Rays. *Philosophical Magazine* 44, 293.
+
+  - id: 1911-nucleo
+    ano: 1911
+    tipo: exp
+    titulo: núcleo atômico
+    familias: [hadrons]
+    texto: >-
+      Rutherford interpreta os desvios de partículas alfa numa folha de ouro, medidos por
+      Geiger e Marsden. Quase toda a massa do átomo está num núcleo dezenas de milhares
+      de vezes menor que o próprio átomo.
+    figura:
+      acervo: people/rutherford.jpg
+      arquivo: rutherford.jpg
+      legenda: Ernest Rutherford
+      alt: Retrato de Ernest Rutherford
+    mais: >-
+      Em 1909, Geiger e Marsden notaram que cerca de uma em cada 8000 partículas alfa
+      voltava para trás ao atingir uma folha fina de platina. No modelo de Thomson, com a
+      carga positiva espalhada por todo o átomo, isso era praticamente impossível.
+      Rutherford calculou como uma carga concentrada num ponto desviaria as partículas
+      alfa e previu que o número de partículas espalhadas cairia com o ângulo θ como
+      1/sen⁴(θ/2). Geiger e Marsden mediram essa dependência em 1913 e encontraram
+      exatamente essa forma.
+    refs:
+      - H. Geiger & E. Marsden (1909). On a Diffuse Reflection of the α-Particles. *Proceedings of the Royal Society A* 82, 495.
+      - E. Rutherford (1911). The Scattering of α and β Particles by Matter and the Structure of the Atom. *Philosophical Magazine* 21, 669.
+      - H. Geiger & E. Marsden (1913). The Laws of Deflexion of α Particles through Large Angles. *Philosophical Magazine* 25, 604.
+
+  - id: 1919-proton
+    ano: 1919
+    tipo: exp
+    titulo: próton
+    familias: [hadrons]
+    texto: >-
+      Rutherford bombardeia nitrogênio com partículas alfa e vê sair núcleos de hidrogênio.
+      Eles fazem parte de todos os outros núcleos e, em 1920, recebem o nome de próton.
+    mais: >-
+      Rutherford fez partículas alfa atravessarem gás nitrogênio e observou cintilações
+      numa tela de sulfeto de zinco colocada além do alcance das próprias partículas alfa.
+      Algo mais leve e mais penetrante saía do gás. Pelo alcance e pelo desvio num campo
+      magnético, ele concluiu que eram núcleos de hidrogênio arrancados dos núcleos de
+      nitrogênio. Em 1925, Blackett fotografou a reação numa câmara de nuvens e mostrou
+      que a partícula alfa era absorvida e que o núcleo resultante era de oxigênio.
+    refs:
+      - E. Rutherford (1919). Collision of α Particles with Light Atoms. IV. An Anomalous Effect in Nitrogen. *Philosophical Magazine* 37, 581.
+      - P. M. S. Blackett (1925). The Ejection of Protons from Nitrogen Nuclei, Photographed by the Wilson Method. *Proceedings of the Royal Society A* 107, 349.
+
+  - id: 1923-foton
+    ano: 1923
+    tipo: exp
+    titulo: fóton
+    familias: [bosons]
+    texto: >-
+      Compton espalha raios X em elétrons e mede o aumento do comprimento de onda.
+      O resultado só se explica tratando a luz como partícula com energia e momento,
+      e os quanta de luz de Einstein passam a ser aceitos.
+    mais: >-
+      Compton fez incidir raios X da linha Kα do molibdênio, com comprimento de onda de
+      0.071 nm, sobre um bloco de grafite e mediu com um espectrômetro de cristal o
+      comprimento de onda dos raios espalhados. Quanto maior o ângulo de espalhamento,
+      maior o comprimento de onda. Tratando a colisão como um choque entre um fóton com
+      energia hf e momento h/λ e um elétron livre, ele obteve
+      Δλ = (h/mₑc)(1 − cos θ), cerca de 0.0024 nm a 90°, de acordo com as medidas.
+    refs:
+      - A. H. Compton (1923). A Quantum Theory of the Scattering of X-rays by Light Elements. *Physical Review* 21, 483.
+
+  - id: 1928-dirac
+    ano: 1928
+    tipo: teo
+    titulo: Dirac prevê a antimatéria
+    familias: [antimateria, leptons]
+    texto: >-
+      A equação relativística de Dirac para o elétron tem soluções de energia negativa
+      que ninguém esperava. Em 1931 ele as interpreta como um antielétron, com a massa
+      do elétron e carga positiva.
+    confirmada_por:
+      - id: 1932-neutron-positron
+    figura:
+      acervo: people/paul_dirac.jpg
+      arquivo: paul_dirac.jpg
+      legenda: Paul Dirac
+      alt: Retrato de Paul Dirac
+    mais: >-
+      Dirac procurava uma equação para o elétron compatível com a Relatividade e de
+      primeira ordem no tempo. A equação que encontrou explicava o spin do elétron sem
+      hipóteses adicionais, mas tinha soluções de energia negativa que não podiam ser
+      simplesmente descartadas. Em 1930 ele propôs que todos os estados de energia
+      negativa estivessem ocupados e que uma vaga nesse mar se comportasse como uma
+      partícula positiva, e chegou a supor que ela fosse o próton. Weyl e Oppenheimer
+      mostraram que a vaga teria de ter a massa do elétron, e em 1931 Dirac a chamou
+      de antielétron.
+    refs:
+      - P. A. M. Dirac (1928). The Quantum Theory of the Electron. *Proceedings of the Royal Society A* 117, 610.
+      - P. A. M. Dirac (1931). Quantised Singularities in the Electromagnetic Field. *Proceedings of the Royal Society A* 133, 60.
+
+  - id: 1930-pauli
+    ano: 1930
+    tipo: teo
+    titulo: Pauli propõe o neutrino
+    familias: [neutrinos]
+    texto: >-
+      O decaimento beta parecia violar a conservação da energia. Pauli propõe, numa carta,
+      uma partícula neutra e muito leve que levaria a energia que falta.
+      Fermi a chamou de neutrino.
+    confirmada_por:
+      - id: 1956-neutrino-eletron
+    mais: >-
+      Em 1914, Chadwick mostrou que os elétrons do decaimento beta saem com energias
+      distribuídas num espectro contínuo, e não com um valor fixo, como acontece com as
+      partículas alfa. Se o núcleo passa de um estado de energia bem definida a outro,
+      a energia que falta tem de ir para algum lugar. Bohr chegou a considerar que a
+      conservação da energia valesse apenas em média. Pauli preferiu uma partícula neutra,
+      leve e muito penetrante, emitida junto com o elétron. Em 1934 Fermi construiu a
+      teoria do decaimento beta incluindo essa partícula, e no mesmo ano Bethe e Peierls
+      estimaram que ela atravessaria anos-luz de matéria sólida sem interagir.
+    refs:
+      - W. Pauli (1930). Carta aos participantes da reunião de Tübingen, 4 de dezembro de 1930.
+      - E. Fermi (1934). Versuch einer Theorie der β-Strahlen. *Zeitschrift für Physik* 88, 161.
+      - H. Bethe & R. Peierls (1934). The Neutrino. *Nature* 133, 532.
+
+  - id: 1932-neutron-positron
+    ano: 1932
+    tipo: exp
+    titulo: nêutron e pósitron
+    familias: [hadrons, antimateria]
+    texto: >-
+      Chadwick identifica o nêutron, neutro e com massa próxima à do próton.
+      No mesmo ano, Anderson fotografa em raios cósmicos, numa câmara de nuvens,
+      o antielétron de Dirac, o pósitron.
+    figura:
+      acervo: particles/positron-track-carl-anderson.png
+      arquivo: positron-track-carl-anderson.jpg
+      legenda: Rastro do pósitron na câmara de nuvens de Anderson, 1932
+      alt: Fotografia em preto e branco de uma câmara de nuvens com o rastro curvo de um pósitron atravessando uma placa de chumbo
+    mais: >-
+      Bothe e Becker tinham visto que o berílio bombardeado com partículas alfa emitia
+      uma radiação muito penetrante, e o casal Joliot-Curie mostrou que ela arrancava
+      prótons da parafina. Se fosse radiação gama, os fótons precisariam de energias muito
+      maiores do que as disponíveis. Chadwick mediu os recuos de prótons e de núcleos de
+      nitrogênio e concluiu que se tratava de uma partícula neutra com massa próxima à do
+      próton. Anderson usava uma câmara de nuvens num campo magnético, com uma placa de
+      chumbo de 6 mm no meio. A placa freava a partícula e mostrava o sentido do movimento,
+      a curvatura indicava carga positiva e o alcance do rastro excluía o próton.
+    refs:
+      - J. Chadwick (1932). Possible Existence of a Neutron. *Nature* 129, 312.
+      - C. D. Anderson (1933). The Positive Electron. *Physical Review* 43, 491.
+
+  - id: 1935-yukawa
+    ano: 1935
+    tipo: teo
+    titulo: Yukawa propõe o méson
+    familias: [hadrons, bosons]
+    texto: >-
+      A força nuclear tem alcance muito curto. Yukawa propõe que ela seja transmitida
+      por uma partícula com cerca de 200 vezes a massa do elétron.
+      Quanto maior a massa do mediador, menor o alcance da força.
+    confirmada_por:
+      - id: 1937-muon
+        falsa: true
+      - id: 1947-pion-kaon
+    figura:
+      acervo: people/hideki_yukawa.jpg
+      arquivo: hideki_yukawa.jpg
+      legenda: Hideki Yukawa
+      alt: Retrato de Hideki Yukawa
+    mais: >-
+      Yukawa partiu da analogia com o Eletromagnetismo, em que a força é transmitida pelo
+      fóton, que não tem massa, e o alcance é infinito. Se o mediador tiver massa m, o
+      princípio da incerteza limita o alcance da força a cerca de ħ/mc. Para um alcance
+      da ordem de 2 × 10⁻¹⁵ m, o tamanho de um núcleo, a energia de repouso do mediador
+      fica perto de 100 MeV, cerca de 200 vezes a do elétron. Por ter massa intermediária
+      entre a do elétron e a do próton, a partícula ganhou o nome de méson.
+    refs:
+      - H. Yukawa (1935). On the Interaction of Elementary Particles. I. *Proceedings of the Physico-Mathematical Society of Japan* 17, 48.
+
+  - id: 1937-muon
+    ano: 1937
+    tipo: exp
+    titulo: múon
+    familias: [leptons]
+    texto: >-
+      Neddermeyer e Anderson encontram nos raios cósmicos uma partícula com a massa
+      prevista por Yukawa. Só em 1947 ficou claro que ela quase não interage com núcleos.
+      É uma versão pesada do elétron, com 207 vezes a sua massa.
+    mais: >-
+      Neddermeyer e Anderson mediram quanta energia as partículas dos raios cósmicos
+      perdiam ao atravessar uma placa de platina dentro da câmara de nuvens. Algumas perdiam
+      muito menos do que um elétron de mesma curvatura perderia e não formavam chuveiros,
+      mas ionizavam pouco demais para serem prótons. A massa ficava entre as duas. Em 1947,
+      Conversi, Pancini e Piccioni mostraram que essas partículas, quando negativas e
+      paradas em carbono, decaíam em vez de serem capturadas pelos núcleos. Uma partícula
+      responsável pela força nuclear seria capturada quase de imediato.
+    refs:
+      - S. H. Neddermeyer & C. D. Anderson (1937). Note on the Nature of Cosmic-Ray Particles. *Physical Review* 51, 884.
+      - M. Conversi, E. Pancini & O. Piccioni (1947). On the Disintegration of Negative Mesons. *Physical Review* 71, 209.
+
+  - id: 1947-pion-kaon
+    ano: 1947
+    tipo: exp
+    titulo: píon e káon
+    familias: [hadrons]
+    texto: >-
+      Lattes, Occhialini e Powell encontram o píon, o verdadeiro méson de Yukawa,
+      em emulsões fotográficas expostas nos Pireneus e no monte Chacaltaya, na Bolívia.
+      No mesmo ano aparece o káon, a primeira partícula estranha.
+    figura:
+      acervo: people/cesar_lattes_1947_andes.jpg
+      arquivo: cesar_lattes_1947_andes.jpg
+      legenda: César Lattes nos Andes, 1947
+      alt: César Lattes nos Andes em 1947
+    mais: >-
+      As novas chapas da Ilford, com emulsão mais espessa e sensível, registravam o rastro
+      de uma partícula carregada como uma trilha de grãos de prata. Lattes levou chapas ao
+      monte Chacaltaya, a 5200 m de altitude, onde o fluxo de raios cósmicos é muito maior
+      que ao nível do mar. Ao microscópio, a equipe encontrou rastros em que uma partícula
+      parava e dela saía outra, sempre com o mesmo alcance. Era o píon decaindo em múon, e
+      a contagem de grãos mostrava que a primeira partícula era mais pesada que a segunda.
+      No mesmo ano, Rochester e Butler viram numa câmara de nuvens rastros em forma de V,
+      vindos do decaimento de uma partícula neutra e pesada, o káon.
+    refs:
+      - C. M. G. Lattes, H. Muirhead, G. P. S. Occhialini & C. F. Powell (1947). Processes Involving Charged Mesons. *Nature* 159, 694.
+      - C. M. G. Lattes, G. P. S. Occhialini & C. F. Powell (1947). Observations on the Tracks of Slow Mesons in Photographic Emulsions. *Nature* 160, 453.
+      - G. D. Rochester & C. C. Butler (1947). Evidence for the Existence of New Unstable Elementary Particles. *Nature* 160, 855.
+
+  - id: 1955-antiproton
+    ano: 1955
+    tipo: exp
+    titulo: antipróton
+    familias: [antimateria, hadrons]
+    texto: >-
+      O Bevatron, em Berkeley, foi projetado com energia suficiente para criar pares de
+      próton e antipróton. Chamberlain e Segrè encontram o antipróton e mostram que a
+      antimatéria não se restringe ao elétron.
+    mais: >-
+      Para criar um par de próton e antipróton numa colisão contra um próton em repouso,
+      o feixe precisa de cerca de 5.6 GeV. O Bevatron acelerava prótons até 6.2 GeV. Os
+      prótons atingiam um alvo de cobre, e ímãs selecionavam as partículas negativas com um
+      mesmo momento. Com o momento fixo, o tempo de voo entre dois cintiladores separados
+      por 12 m dava a massa. Os píons negativos, muito mais numerosos, chegavam antes.
+      Cerca de 60 partículas chegaram com o atraso correspondente à massa do próton.
+    refs:
+      - O. Chamberlain, E. Segrè, C. Wiegand & T. Ypsilantis (1955). Observation of Antiprotons. *Physical Review* 100, 947.
+
+  - id: 1956-neutrino-eletron
+    ano: 1956
+    tipo: exp
+    titulo: neutrino do elétron
+    familias: [neutrinos]
+    texto: >-
+      Cowan e Reines detectam antineutrinos vindos do reator nuclear de Savannah River,
+      nos Estados Unidos. A partícula de Pauli foi observada 26 anos depois da carta
+      em que ele a propôs.
+    mais: >-
+      O reator de Savannah River emitia um fluxo enorme de antineutrinos. Cowan e Reines
+      usaram tanques com água e cloreto de cádmio entre cintiladores líquidos. Um
+      antineutrino que atinge um próton da água produz um pósitron e um nêutron. O pósitron
+      se aniquila logo e emite dois raios gama. O nêutron é capturado pelo cádmio alguns
+      microssegundos depois e emite outros raios gama. Exigir esses dois sinais em
+      sequência eliminava quase todo o ruído. A taxa medida, de cerca de três eventos por
+      hora, caía quando o reator era desligado.
+    refs:
+      - C. L. Cowan, F. Reines, F. B. Harrison, H. W. Kruse & A. D. McGuire (1956). Detection of the Free Neutrino. A Confirmation. *Science* 124, 103.
+
+  - id: 1962-neutrino-muon
+    ano: 1962
+    tipo: exp
+    titulo: neutrino do múon
+    familias: [neutrinos]
+    texto: >-
+      Lederman, Schwartz e Steinberger produzem neutrinos em Brookhaven a partir do
+      decaimento de píons. Ao interagir, eles geram múons e nunca elétrons.
+      Existe mais de um tipo de neutrino.
+    figura:
+      acervo: people/Steinberger_Schwartz_Lederman.jpg
+      arquivo: Steinberger_Schwartz_Lederman.jpg
+      legenda: Steinberger, Schwartz e Lederman
+      alt: Jack Steinberger, Melvin Schwartz e Leon Lederman
+    mais: >-
+      No AGS de Brookhaven, prótons de 15 GeV atingiam um alvo de berílio e produziam
+      píons, que decaem em múon e neutrino. Uma blindagem de 13.5 m de aço, feita de chapas
+      de um navio de guerra desmontado, absorvia tudo menos os neutrinos. Do outro lado,
+      uma câmara de faíscas com 10 toneladas de alumínio registrava as raras interações.
+      A equipe contou algumas dezenas de rastros longos e retos, típicos de múons, e apenas
+      uns poucos candidatos a elétron, compatíveis com o ruído. Se houvesse um único tipo
+      de neutrino, múons e elétrons deveriam aparecer em número parecido.
+    refs:
+      - G. Danby, J.-M. Gaillard, K. Goulianos, L. M. Lederman, N. Mistry, M. Schwartz & J. Steinberger (1962). Observation of High-Energy Neutrino Reactions and the Existence of Two Kinds of Neutrinos. *Physical Review Letters* 9, 36.
+
+  - id: 1964-quarks-higgs
+    ano: 1964
+    tipo: teo
+    titulo: quarks e bóson de Higgs
+    familias: [hadrons, bosons]
+    texto: >-
+      Gell-Mann e Zweig propõem que prótons, nêutrons e mésons sejam formados por quarks.
+      No mesmo ano, Higgs, Englert, Brout e outros propõem o mecanismo que dá massa às
+      partículas e prevê um novo bóson.
+    confirmada_por:
+      - id: 1969-quarks-proton
+      - id: 2012-higgs
+    figura:
+      acervo: particles/quarks_inside_proton_neutron.jpg
+      arquivo: quarks_inside_proton_neutron.jpg
+      legenda: Quarks no próton e no nêutron
+      alt: Esquema do próton e do nêutron, cada um formado por três quarks
+    mais: >-
+      Nos anos 1950 e 1960 os aceleradores revelaram dezenas de hádrons. Gell-Mann e
+      Ne'eman notaram que eles se organizavam em famílias de 8 e de 10 partículas, segundo
+      uma simetria chamada SU(3). Em 1964, Gell-Mann e Zweig mostraram que esses padrões
+      aparecem naturalmente se os hádrons forem formados por três tipos de constituintes,
+      com cargas de 2/3 e −1/3 da carga do próton. No mesmo ano, três grupos mostraram como
+      bósons mediadores de uma teoria desse tipo podem adquirir massa pela interação com
+      um campo que preenche todo o espaço. Higgs observou que esse campo implica a
+      existência de uma partícula nova.
+    refs:
+      - M. Gell-Mann (1964). A Schematic Model of Baryons and Mesons. *Physics Letters* 8, 214.
+      - G. Zweig (1964). An SU(3) Model for Strong Interaction Symmetry and its Breaking. CERN-TH-401.
+      - F. Englert & R. Brout (1964). *Physical Review Letters* 13, 321.
+      - P. W. Higgs (1964). Broken Symmetries and the Masses of Gauge Bosons. *Physical Review Letters* 13, 508.
+      - G. S. Guralnik, C. R. Hagen & T. W. B. Kibble (1964). *Physical Review Letters* 13, 585.
+
+  - id: 1964-omega
+    ano: 1964
+    tipo: exp
+    titulo: ômega menos
+    familias: [hadrons]
+    texto: >-
+      Gell-Mann tinha previsto em 1962 a existência e a massa da partícula Ω⁻, a partir
+      da simetria que organiza os hádrons. Uma câmara de bolhas em Brookhaven a registra
+      com a massa prevista.
+    mais: >-
+      Na família de 10 bárions, as massas crescem em degraus de cerca de 150 MeV a cada
+      quark estranho a mais, das partículas Δ, com 1232 MeV, às Σ* e Ξ*. A décima posição
+      estava vazia. Gell-Mann previu que ela seria ocupada por uma partícula com carga
+      negativa e massa perto de 1680 MeV, que só poderia decair pela interação fraca e,
+      por isso, viveria o suficiente para deixar um rastro. Em Brookhaven, um feixe de
+      káons negativos atravessou a câmara de bolhas de hidrogênio líquido de 80 polegadas.
+      Entre dezenas de milhares de fotografias, um evento mostrou a cadeia de decaimentos
+      esperada, com massa de 1686 ± 12 MeV.
+    refs:
+      - V. E. Barnes et al. (1964). Observation of a Hyperon with Strangeness Minus Three. *Physical Review Letters* 12, 204.
+
+  - id: 1969-quarks-proton
+    ano: 1969
+    tipo: exp
+    titulo: quarks dentro do próton
+    familias: [hadrons]
+    texto: >-
+      No SLAC, elétrons de alta energia espalhados por prótons revelam pontos de carga
+      lá dentro. O experimento repetiu, dentro do próton, a lógica de Rutherford
+      dentro do átomo.
+    figura:
+      acervo: particles/slac_particle_accelerator.jpg
+      arquivo: slac_particle_accelerator.jpg
+      legenda: O acelerador linear do SLAC
+      alt: Vista aérea do acelerador linear do SLAC, com 3 km de extensão
+    mais: >-
+      O acelerador linear do SLAC, com 3 km de comprimento, produzia elétrons de até
+      20 GeV. A equipe do MIT e do SLAC mediu quantos elétrons eram espalhados em grandes
+      ângulos com grande perda de energia. Se a carga do próton estivesse distribuída de
+      modo uniforme pelo seu volume, esses espalhamentos seriam raros. Eles eram frequentes,
+      e as funções de estrutura medidas quase não dependiam da energia transferida, como
+      Bjorken tinha previsto para constituintes pontuais. Feynman chamou esses
+      constituintes de pártons. Medidas com feixes de neutrinos no CERN mostraram depois
+      que eles tinham as cargas fracionárias dos quarks.
+    refs:
+      - E. D. Bloom et al. (1969). High-Energy Inelastic e–p Scattering at 6° and 10°. *Physical Review Letters* 23, 930.
+      - M. Breidenbach et al. (1969). Observed Behavior of Highly Inelastic Electron-Proton Scattering. *Physical Review Letters* 23, 935.
+
+  - id: 1974-charm
+    ano: 1974
+    tipo: exp
+    titulo: charm
+    familias: [hadrons]
+    texto: >-
+      Richter, no SLAC, e Ting, em Brookhaven, descobrem a mesma partícula quase ao mesmo
+      tempo, e por isso ela tem dois nomes, J/ψ. É formada por um quarto quark,
+      o charm, e seu antiquark.
+    mais: >-
+      A equipe de Ting bombardeava berílio com prótons e media pares de elétron e pósitron,
+      procurando picos na massa do par. Encontrou um pico estreito em 3.1 GeV. No anel
+      SPEAR do SLAC, a equipe de Richter colidia elétrons e pósitrons variando a energia em
+      pequenos passos. Em 3.1 GeV a taxa de produção de hádrons subiu cerca de cem vezes,
+      numa faixa de energia muito estreita. Uma partícula tão pesada e tão estável só se
+      explicava com um quarto quark, cujo par com o antiquark não decai facilmente em
+      quarks mais leves. O episódio ficou conhecido como a Revolução de Novembro.
+    refs:
+      - J. J. Aubert et al. (1974). Experimental Observation of a Heavy Particle J. *Physical Review Letters* 33, 1404.
+      - J.-E. Augustin et al. (1974). Discovery of a Narrow Resonance in e⁺e⁻ Annihilation. *Physical Review Letters* 33, 1406.
+
+  - id: 1975-tau
+    ano: 1975
+    tipo: exp
+    titulo: tau
+    familias: [leptons]
+    texto: >-
+      Martin Perl, no SLAC, encontra um terceiro lépton carregado, com cerca de 3500 vezes
+      a massa do elétron. Foi o primeiro sinal de uma terceira geração de partículas.
+    figura:
+      acervo: particles/Standard_Model_of_Elementary_Particles_br.pdf
+      arquivo: Standard_Model_of_Elementary_Particles_br.png
+      legenda: As partículas do Modelo Padrão
+      alt: Tabela das partículas do Modelo Padrão, com quarks, léptons, bósons de calibre e o bóson de Higgs
+      carrossel: larga
+    mais: >-
+      A equipe de Perl procurava, no SPEAR, colisões de elétrons e pósitrons que
+      produzissem exatamente um elétron e um múon de cargas opostas e nada mais visível.
+      Nenhum processo conhecido fazia isso. Eles encontraram 24 eventos assim, com energia
+      e momento faltando, o que indica que pelo menos duas partículas invisíveis tinham
+      escapado. A explicação era a produção de um par de léptons novos e pesados, cada um
+      decaindo num lépton mais leve e em neutrinos. A massa medida depois foi de 1.78 GeV.
+    refs:
+      - M. L. Perl et al. (1975). Evidence for Anomalous Lepton Production in e⁺e⁻ Annihilation. *Physical Review Letters* 35, 1489.
+
+  - id: 1977-bottom
+    ano: 1977
+    tipo: exp
+    titulo: bottom
+    familias: [hadrons]
+    texto: >-
+      A equipe de Lederman, no Fermilab, encontra a partícula ϒ, formada por um quinto
+      quark, o bottom, e seu antiquark. Se a terceira geração seguisse o padrão das
+      outras duas, deveria haver um sexto quark.
+    mais: >-
+      A equipe de Lederman lançou prótons de 400 GeV do Fermilab contra alvos de cobre e
+      de platina e mediu pares de múons de cargas opostas. No espectro de massa desses pares
+      apareceu um excesso em torno de 9.5 GeV, depois resolvido em mais de um estado. Pela
+      mesma lógica do J/ψ, um estado ligado de quark e antiquark tão pesado exigia um quinto
+      quark, com carga −1/3.
+    refs:
+      - S. W. Herb et al. (1977). Observation of a Dimuon Resonance at 9.5 GeV in 400-GeV Proton-Nucleus Collisions. *Physical Review Letters* 39, 252.
+
+  - id: 1979-gluon
+    ano: 1979
+    tipo: exp
+    titulo: glúon
+    familias: [bosons]
+    texto: >-
+      No acelerador PETRA, em Hamburgo, colisões de elétrons e pósitrons produzem eventos
+      com três jatos de partículas. O terceiro jato vem de um glúon, a partícula que
+      mantém os quarks unidos.
+    figura:
+      acervo: particles/force_carriers.jpg
+      arquivo: force_carriers.jpg
+      legenda: Os bósons que transmitem as forças
+      alt: Ilustração dos bósons mediadores das forças
+    mais: >-
+      Em colisões de elétrons e pósitrons, um par de quark e antiquark aparece no detector
+      como dois jatos de hádrons em sentidos opostos. Se um dos quarks emitir um glúon de
+      alta energia, surge um terceiro jato, e os três ficam num mesmo plano. Os
+      experimentos TASSO, MARK-J, PLUTO e JADE, no PETRA, com energias de cerca de 30 GeV,
+      encontraram esses eventos de três jatos na proporção prevista pela Cromodinâmica
+      Quântica.
+    refs:
+      - R. Brandelik et al. (TASSO) (1979). Evidence for Planar Events in e⁺e⁻ Annihilation at High Energies. *Physics Letters B* 86, 243.
+
+  - id: 1983-w-z
+    ano: 1983
+    tipo: exp
+    titulo: W e Z
+    familias: [bosons]
+    texto: >-
+      Os experimentos UA1 e UA2, no CERN, encontram os bósons da força fraca com as massas
+      previstas pela teoria eletrofraca, 80 e 91 GeV/c². Rubbia e van der Meer recebem
+      o Nobel no ano seguinte.
+    mais: >-
+      Para produzir partículas com quase 100 vezes a massa do próton, o CERN transformou o
+      SPS num colisor de prótons e antiprótons, com 540 GeV no centro de massa. Isso só foi
+      possível porque van der Meer desenvolveu o resfriamento estocástico, que concentra
+      os antiprótons num feixe denso. O W é identificado quando decai num elétron de grande
+      momento transversal e num neutrino, que se revela pela energia que falta no balanço.
+      O Z aparece como um par de elétron e pósitron, ou de múons, com massa total de 91 GeV.
+      Os primeiros artigos tinham poucos eventos, seis W no UA1 e quatro no UA2.
+    refs:
+      - G. Arnison et al. (UA1) (1983). Experimental Observation of Isolated Large Transverse Energy Electrons with Associated Missing Energy at √s = 540 GeV. *Physics Letters B* 122, 103.
+      - M. Banner et al. (UA2) (1983). *Physics Letters B* 122, 476.
+      - G. Arnison et al. (UA1) (1983). Experimental Observation of Lepton Pairs of Invariant Mass around 95 GeV/c² at the CERN SPS Collider. *Physics Letters B* 126, 398.
+
+  - id: 1987-sn1987a
+    ano: 1987
+    tipo: astro
+    titulo: neutrinos da SN 1987A
+    familias: [neutrinos]
+    texto: >-
+      Uma estrela explode na Grande Nuvem de Magalhães. Detectores no Japão, nos Estados
+      Unidos e na União Soviética registram 24 neutrinos horas antes da luz.
+      Foram os primeiros neutrinos vindos de fora do Sistema Solar.
+    figura:
+      acervo: stellar/supernovae1987a_neutrino_pulse_kamiokande_hirata1987_fig1.png
+      arquivo: supernovae1987a_neutrino_pulse_kamiokande_hirata1987_fig1.png
+      legenda: Os neutrinos da SN 1987A no Kamiokande II (Hirata et al. 1987)
+      alt: Gráfico do número de fotomultiplicadoras acionadas em função do tempo no Kamiokande II, com o pulso de neutrinos da SN 1987A
+      carrossel: larga
+    mais: >-
+      Kamiokande II, no Japão, e IMB, nos Estados Unidos, eram tanques com milhares de
+      toneladas de água rodeados de fotomultiplicadoras, construídos para procurar o
+      decaimento do próton. Um antineutrino que atinge um próton da água produz um pósitron
+      rápido, que emite luz Cherenkov. Em 23 de fevereiro de 1987, o Kamiokande II registrou
+      11 eventos em cerca de 13 segundos, o IMB registrou 8 e o detector de Baksan, na União
+      Soviética, registrou 5. A energia total estimada, da ordem de 10⁴⁶ J, confirmou que
+      quase toda a energia do colapso do núcleo da estrela sai na forma de neutrinos.
+    refs:
+      - K. Hirata et al. (1987). Observation of a Neutrino Burst from the Supernova SN1987A. *Physical Review Letters* 58, 1490.
+      - R. M. Bionta et al. (1987). Observation of a Neutrino Burst in Coincidence with Supernova 1987A in the Large Magellanic Cloud. *Physical Review Letters* 58, 1494.
+
+  - id: 1995-top
+    ano: 1995
+    tipo: exp
+    titulo: top
+    familias: [hadrons]
+    texto: >-
+      CDF e DØ, no Tevatron do Fermilab, encontram o sexto quark. Com cerca de 173 GeV/c²,
+      quase a massa de um átomo de tungstênio inteiro, é a partícula elementar mais
+      pesada que conhecemos.
+    mais: >-
+      No Tevatron, prótons e antiprótons colidiam com 1.8 TeV. Um par de quark top e antitop
+      decai quase sempre em dois bósons W e dois quarks bottom. Os experimentos procuraram
+      eventos com um lépton de grande energia, energia faltante e vários jatos, alguns deles
+      identificados como vindos de quarks bottom pelo pequeno deslocamento do ponto de
+      decaimento. Depois de reunir algumas dezenas de candidatos acima do ruído esperado,
+      CDF e DØ anunciaram a descoberta no mesmo dia.
+    refs:
+      - F. Abe et al. (CDF) (1995). Observation of Top Quark Production in p̄p Collisions. *Physical Review Letters* 74, 2626.
+      - S. Abachi et al. (DØ) (1995). Observation of the Top Quark. *Physical Review Letters* 74, 2632.
+
+  - id: 1998-oscilacao
+    ano: 1998
+    tipo: exp
+    titulo: neutrinos têm massa
+    familias: [neutrinos]
+    texto: >-
+      O Super-Kamiokande registra menos neutrinos do múon vindos de baixo, depois de
+      atravessar a Terra, do que vindos de cima. Eles mudam de tipo no caminho,
+      e isso só é possível se tiverem massa.
+    figura:
+      acervo: particles/kamiokande_neutrinos.jpg
+      arquivo: kamiokande_neutrinos.jpg
+      legenda: Detector de neutrinos no Japão
+      alt: Interior do detector de neutrinos japonês, com as paredes cobertas de fotomultiplicadoras
+    mais: >-
+      Os raios cósmicos que atingem a atmosfera produzem neutrinos do elétron e do múon em
+      proporção conhecida, vindos de todas as direções. Os que chegam de cima percorreram
+      cerca de 15 km, e os que chegam de baixo atravessaram a Terra, cerca de 13000 km. O
+      Super-Kamiokande, com 50 mil toneladas de água, distingue pela forma do anel de luz
+      Cherenkov se o neutrino gerou um múon ou um elétron. Os eventos com elétron vinham por
+      igual de cima e de baixo. Os eventos com múon vindos de baixo eram cerca de metade
+      dos esperados. A dependência com a distância percorrida indicava oscilação, e a
+      oscilação exige que os neutrinos tenham massas diferentes, logo que pelo menos um
+      deles tenha massa.
+    refs:
+      - Y. Fukuda et al. (1998). Evidence for Oscillation of Atmospheric Neutrinos. *Physical Review Letters* 81, 1562.
+
+  - id: 2000-neutrino-tau
+    ano: 2000
+    tipo: exp
+    titulo: neutrino do tau
+    familias: [neutrinos]
+    texto: >-
+      O experimento DONUT, no Fermilab, observa diretamente o neutrino do tau.
+      Com ele, os 12 férmions do Modelo Padrão, 6 quarks e 6 léptons, estavam todos
+      observados. Faltava um bóson.
+    mais: >-
+      Prótons de 800 GeV do Tevatron atingiam um bloco de tungstênio e produziam mésons com
+      quark charm, alguns dos quais decaem em tau e neutrino do tau. Blindagens e ímãs
+      removiam as partículas carregadas. Os neutrinos atravessavam placas de ferro
+      intercaladas com emulsão nuclear. Quando um neutrino do tau interagia, nascia um tau,
+      que percorria cerca de 1 mm antes de decair. Na emulsão isso aparece como um rastro
+      que dobra bruscamente logo depois de começar. A equipe identificou 4 eventos assim
+      entre cerca de 200 interações de neutrinos analisadas.
+    refs:
+      - K. Kodama et al. (DONUT) (2001). Observation of Tau Neutrino Interactions. *Physics Letters B* 504, 218.
+
+  - id: 2012-higgs
+    ano: 2012
+    tipo: exp
+    titulo: bóson de Higgs
+    familias: [bosons]
+    texto: >-
+      ATLAS e CMS, no LHC, anunciam em 4 de julho uma partícula de 125 GeV/c² com as
+      propriedades do bóson de Higgs. Foram 48 anos entre a previsão e a detecção.
+    figura:
+      acervo: particles/higgs_simulation.jpg
+      arquivo: higgs_simulation.jpg
+      legenda: Simulação de um evento com bóson de Higgs
+      alt: Simulação de uma colisão no LHC com produção de um bóson de Higgs
+    mais: >-
+      O bóson de Higgs vive cerca de 10⁻²² s e só é visto pelos produtos do seu decaimento.
+      Os dois canais mais limpos foram o decaimento em dois fótons e o decaimento em dois
+      bósons Z, que leva a quatro léptons. Nos dois canais apareceu um pequeno excesso de
+      eventos com massa total perto de 125 GeV sobre um fundo muito maior. Com os dados de
+      2011 e 2012, cada experimento chegou a uma significância de cerca de 5 desvios-padrão,
+      o que corresponde a uma chance de cerca de uma em 3 milhões de que uma flutuação do
+      fundo produzisse o sinal.
+    refs:
+      - ATLAS Collaboration (2012). Observation of a New Particle in the Search for the Standard Model Higgs Boson with the ATLAS Detector at the LHC. *Physics Letters B* 716, 1.
+      - CMS Collaboration (2012). Observation of a New Boson at a Mass of 125 GeV with the CMS Experiment at the LHC. *Physics Letters B* 716, 30.
+
+fim:
+  rotulo: hoje
+  titulo: o que ainda falta
+  texto: >-
+    Nenhuma dessas partículas explica a Matéria Escura. Também não sabemos por que o
+    Universo tem mais matéria que antimatéria, nem qual é a massa de cada neutrino.
