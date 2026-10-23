@@ -1,0 +1,258 @@
+/* Linha do tempo interativa — profzabot.com.br
+   Bloco escuro de largura total, independente do tema da página. */
+
+.ldt {
+  --noite: #040d29;
+  --card: #0b1738;
+  --borda: #24305f;
+  --indigo: #6168B9;
+  --lavanda: #A7B0EB;
+  --coral: #FD8354;
+  --pessego: #F9BCAA;
+  --creme: #E8E0D0;
+  --mudo: #A69E8E;
+
+  --col: 300px;          /* largura de cada evento */
+  --gap: 28px;           /* espaço entre eventos */
+  --arcos: 68px;         /* faixa dos arcos acima da linha */
+  --margem: max(16px, calc((var(--ldt-vw, 100vw) - 1200px) / 2));
+
+  position: relative;
+  box-sizing: border-box;
+  width: var(--ldt-vw, 100vw);
+  margin: 2.5rem 0 2.5rem calc(50% - var(--ldt-vw, 100vw) / 2);
+  padding: 22px 0 20px;
+  background: var(--noite);
+  color: var(--creme);
+  font: 400 15px/1.5 Inter, system-ui, sans-serif;
+  border-top: 3px solid var(--indigo);
+}
+.ldt *, .ldt *::before, .ldt *::after { box-sizing: border-box; }
+.ldt button { font: inherit; color: inherit; cursor: pointer; }
+.ldt a { color: inherit; }
+
+/* ---------- cabeçalho: filtros e setas ---------- */
+.ldt-cab {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 0 var(--margem); margin-bottom: 14px;
+}
+.ldt-filtros { display: flex; flex-wrap: wrap; gap: 6px; }
+.ldt-filtro {
+  margin: 0; padding: 5px 12px; font-size: 13px; line-height: 1.3;
+  background: transparent; border: 1px solid var(--borda); border-radius: 999px;
+  transition: background .15s, border-color .15s;
+}
+.ldt-filtro:hover { border-color: var(--indigo); }
+.ldt-filtro[aria-pressed="true"] { background: var(--indigo); border-color: var(--indigo); color: #fff; }
+.ldt-nav { display: flex; gap: 8px; }
+.ldt-seta {
+  width: 38px; height: 38px; margin: 0; padding: 0; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--borda); font-size: 24px; line-height: 1;
+}
+.ldt-seta:hover { border-color: var(--indigo); }
+
+/* ---------- régua em escala real ---------- */
+.ldt-regua { padding: 0 var(--margem); margin-bottom: 6px; }
+.ldt-regua-faixa { position: relative; height: 34px; }
+.ldt-regua-faixa::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 9px; height: 2px;
+  background: var(--borda);
+}
+.ldt-regua-marco {
+  position: absolute; top: 18px; transform: translateX(-50%);
+  font-size: 11px; color: var(--mudo); letter-spacing: .03em;
+}
+.ldt-ponto {
+  position: absolute; top: 5px; width: 10px; height: 10px; margin: 0 0 0 -5px; padding: 0;
+  border: 0; border-radius: 50%; background: var(--coral); opacity: .55;
+  transition: transform .2s, opacity .2s;
+}
+.ldt-ponto.tipo-teo { background: var(--lavanda); border-radius: 1px; transform: rotate(45deg) scale(.85); }
+.ldt-ponto.tipo-astro { background: var(--pessego); }
+.ldt-ponto.visivel { opacity: 1; transform: scale(1.35); box-shadow: 0 0 0 2px var(--noite), 0 0 0 3px var(--creme); }
+.ldt-ponto.tipo-teo.visivel { transform: rotate(45deg) scale(1.15); }
+.ldt-ponto.apagado { opacity: .15; }
+
+/* ---------- trilho que rola para os lados ---------- */
+.ldt-trilho {
+  position: relative;
+  overflow-x: auto; overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--margem);
+  scrollbar-width: thin; scrollbar-color: var(--indigo) transparent;
+  padding-bottom: 12px;
+  outline: none;
+}
+.ldt-trilho:focus-visible { box-shadow: inset 0 0 0 2px var(--indigo); }
+.ldt-trilho::-webkit-scrollbar { height: 8px; }
+.ldt-trilho::-webkit-scrollbar-thumb { background: var(--indigo); border-radius: 4px; }
+.ldt.arrastando .ldt-trilho { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+@media (pointer: fine) { .ldt-trilho { cursor: grab; } }
+
+.ldt-grade {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--col);
+  column-gap: var(--gap);
+  width: max-content;
+  margin: 0; padding: var(--arcos) var(--margem) 0;
+  list-style: none;
+  /* a linha: do primeiro ao último marcador antes de "hoje" */
+  background: linear-gradient(var(--indigo), var(--indigo)) no-repeat;
+  background-size: calc(100% - 2 * var(--margem) - 2 * var(--col) - var(--gap)) 4px;
+  background-position: calc(var(--margem) + 9px) calc(var(--arcos) + 16px);
+}
+
+.ldt-ev {
+  position: relative;
+  display: flex; flex-direction: column;
+  align-self: start;
+  margin: 0; padding: 0;
+  scroll-snap-align: start;
+  transition: opacity .25s;
+}
+.ldt-ev::marker { content: none; }
+
+/* marcadores, centrados em x = 9px */
+.ldt-marca { position: relative; z-index: 2; display: block; width: 18px; height: 18px; margin: 9px 0; flex: none; }
+.tipo-exp > .ldt-marca { background: var(--coral); border-radius: 50%; box-shadow: 0 0 0 4px var(--noite); }
+.tipo-teo > .ldt-marca {
+  width: 15px; height: 15px; margin: 10.5px 1.5px;
+  background: var(--noite); border: 3px solid var(--lavanda); transform: rotate(45deg);
+  box-shadow: 0 0 0 3px var(--noite);
+}
+.tipo-astro > .ldt-marca {
+  width: 26px; height: 26px; margin: 5px -4px;
+  background: var(--pessego);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.ldt-fim > .ldt-marca { width: 16px; height: 16px; margin: 10px 1px; border-radius: 50%; border: 3px solid var(--indigo); background: var(--noite); }
+.ldt-fim::before {   /* trecho tracejado até "hoje" */
+  content: ""; position: absolute; z-index: 1; top: 16px; height: 4px;
+  left: calc(18px - var(--col) - var(--gap)); width: calc(var(--col) + var(--gap) - 18px);
+  background: repeating-linear-gradient(90deg, var(--indigo) 0 14px, var(--noite) 14px 24px);
+}
+
+.ldt-haste { display: block; width: 2px; height: 14px; margin-left: 8px; background: var(--cor, var(--coral)); flex: none; }
+
+/* ---------- cartão ---------- */
+.ldt-ev { --cor: var(--coral); }
+.ldt-ev.tipo-teo { --cor: var(--lavanda); }
+.ldt-ev.tipo-astro { --cor: var(--pessego); }
+.ldt-ev.ldt-fim { --cor: var(--indigo); }
+
+.ldt-card {
+  flex: none;
+  margin: 0 0 0 8px; padding: 14px 16px 16px;
+  background: var(--card);
+  border-left: 2px solid var(--cor);
+  border-radius: 0 6px 6px 0;
+}
+.ldt-fim .ldt-card { border-left-style: dashed; }
+.ldt-ev.alvo .ldt-card { box-shadow: 0 0 0 2px var(--cor); }
+
+.ldt .ldt-ano {
+  display: inline-block; margin: 0; font: 600 15px/1 Inter, system-ui, sans-serif;
+  letter-spacing: .04em; color: var(--cor); text-decoration: none;
+}
+.ldt a.ldt-ano:hover { text-decoration: underline; }
+.ldt .ldt-tit {
+  margin: 6px 0 8px; padding: 0; border: 0;
+  font: italic 500 27px/1.08 'Cormorant Garamond', Georgia, serif;
+  color: var(--creme); letter-spacing: 0; text-transform: none;
+}
+.ldt .ldt-txt { margin: 0; font-size: 15px; line-height: 1.5; color: var(--creme); opacity: .93; }
+
+.ldt .ldt-fig { margin: 12px 0 0; padding: 0; }
+.ldt .ldt-fig img {
+  display: block; width: auto; height: auto; max-width: 100%; max-height: 170px;
+  margin: 0; border: 0; border-radius: 3px; cursor: zoom-in;
+}
+.ldt .ldt-fig figcaption { margin-top: 6px; font-size: 12.5px; line-height: 1.35; color: var(--coral); }
+
+.ldt-elos { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.ldt .ldt-elo {
+  display: inline-block; padding: 3px 10px; font-size: 12.5px; line-height: 1.35;
+  color: var(--lavanda); text-decoration: none;
+  border: 1px solid rgba(167, 176, 235, .45); border-radius: 999px;
+}
+.ldt .ldt-elo:hover { background: rgba(167, 176, 235, .12); }
+.ldt .ldt-elo.falsa { color: var(--mudo); border-style: dashed; border-color: rgba(166, 158, 142, .6); }
+
+.ldt-mais { margin-top: 12px; }
+.ldt-mais > summary {
+  display: inline-block; list-style: none; cursor: pointer;
+  font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--cor);
+}
+.ldt-mais > summary::-webkit-details-marker { display: none; }
+.ldt-mais > summary::before { content: "+ "; }
+.ldt-mais[open] > summary::before { content: "− "; }
+.ldt-mais-corpo p, .ldt-dialogo-corpo p { margin: 10px 0 0; font-size: 14.5px; line-height: 1.6; }
+.ldt .ldt-refs { margin: 12px 0 0; padding: 0; list-style: none; }
+.ldt .ldt-refs li { margin: 0 0 6px; padding: 0; font-size: 12.5px; line-height: 1.45; color: var(--mudo); }
+
+/* ---------- arcos previsão → observação ---------- */
+.ldt-arcos { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; }
+.ldt-arcos path { fill: none; stroke: var(--lavanda); stroke-width: 1.6; opacity: .85; transition: opacity .25s; }
+.ldt-arcos path.falsa { stroke: var(--mudo); stroke-dasharray: 5 5; }
+.ldt-arcos text { font: 600 12px Inter, system-ui, sans-serif; fill: var(--lavanda); text-anchor: middle; transition: opacity .25s; }
+.ldt-arcos text.falsa { fill: var(--mudo); }
+.ldt-arcos .apagado { opacity: .12; }
+
+/* ---------- legenda ---------- */
+.ldt-legenda {
+  display: flex; flex-wrap: wrap; gap: 6px 22px;
+  padding: 10px var(--margem) 0; font-size: 13px; color: var(--mudo);
+}
+.ldt-legenda span { display: inline-flex; align-items: center; gap: 8px; }
+.ldt-marca-mini { display: inline-block; width: 12px; height: 12px; }
+.ldt-marca-mini.tipo-exp { background: var(--coral); border-radius: 50%; }
+.ldt-marca-mini.tipo-teo { width: 10px; height: 10px; border: 2px solid var(--lavanda); transform: rotate(45deg); }
+.ldt-marca-mini.tipo-astro { width: 15px; height: 15px; background: var(--pessego);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.ldt-arco-mini { display: inline-block; width: 22px; height: 9px; border: 1.6px solid var(--lavanda); border-bottom: 0; border-radius: 11px 11px 0 0; }
+
+/* ---------- filtro: no computador os outros eventos esmaecem ---------- */
+.ldt[data-filtro] .ldt-ev:not(.ativo) { opacity: .2; }
+
+/* ---------- diálogo ---------- */
+.ldt-dialogo {
+  width: min(640px, calc(100vw - 24px)); max-height: 86vh; overflow: auto;
+  margin: auto; padding: 22px 24px 24px;
+  background: var(--card); color: var(--creme);
+  border: 1px solid var(--borda); border-radius: 10px;
+  font: 400 15px/1.5 Inter, system-ui, sans-serif;
+}
+.ldt-dialogo.imagem { width: auto; max-width: calc(100vw - 24px); padding: 14px; }
+.ldt-dialogo::backdrop { background: rgba(2, 6, 20, .78); }
+.ldt-fechar {
+  position: sticky; top: 0; float: right; width: 34px; height: 34px; margin: -8px -10px 0 8px; padding: 0;
+  background: var(--noite); border: 1px solid var(--borda); border-radius: 50%; font-size: 20px; line-height: 1;
+}
+.ldt-dialogo-corpo .ldt-ano { display: block; }
+.ldt-dialogo-corpo h3 { margin: 6px 0 4px; font: italic 500 30px/1.1 'Cormorant Garamond', Georgia, serif; }
+.ldt-dialogo-corpo .ldt-rotulo { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--mudo); }
+.ldt-dialogo-corpo img { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto; }
+.ldt-dialogo-corpo figcaption { margin-top: 8px; font-size: 13px; color: var(--coral); }
+
+/* ---------- celular ---------- */
+@media (max-width: 719px) {
+  .ldt { --col: min(82vw, 340px); --gap: 14px; --arcos: 0px; padding-top: 18px; }
+  .ldt-trilho { scroll-snap-type: x mandatory; }
+  .ldt-arcos, .ldt-legenda .so-arcos { display: none; }
+  .ldt-nav { display: none; }
+  .ldt-filtros { flex-wrap: nowrap; overflow-x: auto; margin: 0 calc(-1 * var(--margem)); padding: 0 var(--margem) 4px; scrollbar-width: none; }
+  .ldt-filtros::-webkit-scrollbar { display: none; }
+  .ldt-filtro { white-space: nowrap; }
+  .ldt .ldt-fig img { max-height: 200px; }
+  /* no celular os eventos fora do filtro saem do trilho */
+  .ldt[data-filtro] .ldt-ev:not(.ativo) { display: none; }
+  .ldt[data-filtro] .ldt-grade { background-size: calc(100% - 2 * var(--margem) - var(--col)) 4px; }
+  .ldt[data-filtro] .ldt-fim::before { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ldt *, .ldt *::before { transition: none !important; }
+}
