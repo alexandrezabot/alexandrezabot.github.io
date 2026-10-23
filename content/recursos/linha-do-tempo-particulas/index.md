@@ -2,6 +2,12 @@
 title: "As grandes descobertas das partículas"
 description: "Linha do tempo interativa das descobertas da Física de Partículas, do elétron em 1897 ao bóson de Higgs em 2012, com o experimento por trás de cada uma e a referência do artigo original."
 date: 2026-10-23
+tipo: "Linha do tempo"
+sim: false
+sim_params: ""
+privado: false
+tags: ["física de partículas", "Modelo Padrão", "história da física", "neutrinos", "antimatéria"]
+aulas: []
 licenca: "CC BY-NC 4.0"
 # publica só as versões redimensionadas, nunca os originais nem o eventos.yaml
 build:
