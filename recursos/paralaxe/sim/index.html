@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paralaxe</title>
+<script>
+  // Embutida num iframe (página do recurso), esconde título e introdução,
+  // que já estão na página do site. Aberta sozinha, mostra tudo.
+  if (window.self !== window.top) document.documentElement.classList.add("embed");
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noite:#040d29; --indigo:#6168B9; --lavanda:#A7B0EB; --coral:#FD8354;
+    --pessego:#F9BCAA; --creme:#E8E0D0; --curso:#214478;
+    --creme-mudo:rgba(232,224,208,.62); --linha:rgba(167,176,235,.28);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--noite);color:var(--creme)}
+  body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:300;line-height:1.5;min-height:100vh}
+  main{max-width:1100px;margin:0 auto;padding:32px 24px 24px}
+  h1{font-weight:500;font-size:28px;margin:0 0 6px;letter-spacing:.2px}
+  .lead{margin:0 0 22px;color:var(--creme-mudo);max-width:760px}
+  .grade{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
+  .painel{border:1px solid var(--linha);border-radius:6px;padding:12px}
+  .rotulo{font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:var(--lavanda);margin:0 0 8px;font-weight:500}
+  svg{display:block;width:100%;height:auto}
+  .cameras{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .cam .rotulo.p2{color:var(--pessego)}
+  .leitura{margin-top:14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+  .angulo{font-size:40px;font-weight:500;color:var(--coral);line-height:1.1}
+  .angulo small{font-size:18px;font-weight:400}
+  .dados{color:var(--creme-mudo);font-size:15px}
+  .dados b{color:var(--creme);font-weight:500}
+  .controles{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px 28px}
+  .ctl label{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+  .ctl label span:last-child{color:var(--creme);font-weight:500}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;background:transparent;height:28px;margin:0}
+  input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--indigo)}
+  input[type=range]::-moz-range-track{height:2px;background:var(--indigo)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--noite);border:2px solid var(--lavanda);margin-top:-8px}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--noite);border:2px solid var(--lavanda)}
+  .botoes{display:flex;flex-wrap:wrap;gap:8px}
+  button{font:inherit;font-size:14px;font-weight:400;color:var(--creme);background:transparent;border:1px solid var(--linha);border-radius:4px;padding:7px 12px;cursor:pointer}
+  button:hover{border-color:var(--lavanda)}
+  button.ativo{background:var(--curso);border-color:var(--curso)}
+  .grupo{grid-column:1 / -1}
+  .grupo .rotulo{margin-bottom:6px}
+  .nota{font-size:13px;color:var(--creme-mudo);margin:8px 0 0}
+  footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--linha);font-size:12px;color:var(--creme-mudo)}
+  footer a{color:var(--lavanda)}
+  .embed main > h1,.embed p.lead,.embed footer{display:none}
+  .embed body{min-height:0}
+  .embed main{padding:16px 16px 20px}
+  @media (max-width:820px){
+    .grade{grid-template-columns:1fr}
+    .controles{grid-template-columns:1fr}
+  }
+  @media (max-width:520px){
+    main{padding:20px 16px 16px}
+    .embed main{padding:12px 12px 16px}
+    h1{font-size:24px}
+    .angulo{font-size:34px}
+    .cameras{gap:6px}
+    .painel{padding:8px}
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Paralaxe</h1>
+  <p class="lead">Dois pontos de observação olham para o mesmo alvo. Cada um o vê numa direção um pouco diferente, e por isso o alvo parece saltar contra o fundo de estrelas muito distantes. Mude a distância e a base e observe o tamanho do salto.</p>
+
+  <div class="grade">
+    <div class="painel">
+      <p class="rotulo">Vista de cima</p>
+      <svg id="cima" viewBox="0 0 400 360" role="img" aria-label="Vista de cima dos dois pontos de observação e do alvo"></svg>
+      <p class="nota" id="escala"></p>
+    </div>
+
+    <div>
+      <div class="cameras">
+        <div class="painel cam">
+          <p class="rotulo">Vista do ponto 1</p>
+          <svg id="cam1" viewBox="0 0 300 210" role="img" aria-label="O alvo visto do ponto 1"></svg>
+        </div>
+        <div class="painel cam">
+          <p class="rotulo p2">Vista do ponto 2</p>
+          <svg id="cam2" viewBox="0 0 300 210" role="img" aria-label="O alvo visto do ponto 2"></svg>
+        </div>
+      </div>
+      <p class="nota" id="campo"></p>
+
+      <div class="leitura">
+        <div class="angulo" id="ang" aria-live="polite"></div>
+        <div class="dados" id="dados"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controles">
+    <div class="ctl">
+      <label for="sd"><span>Distância até o alvo</span><span id="vd"></span></label>
+      <input type="range" id="sd" min="0" max="1000" step="1">
+    </div>
+    <div class="ctl">
+      <label for="sb"><span>Tamanho da base</span><span id="vb"></span></label>
+      <input type="range" id="sb" min="0" max="1000" step="1">
+    </div>
+    <div class="grupo">
+      <p class="rotulo">Exemplos</p>
+      <div class="botoes" id="exemplos">
+        <button data-ex="polegar">Polegar a 60 cm, olhos</button>
+        <button data-ex="poste">Poste a 6 m, olhos</button>
+        <button data-ex="lua">Lua, base de um raio da Terra</button>
+      </div>
+    </div>
+    <div class="grupo">
+      <p class="rotulo">Campo de visão das câmeras</p>
+      <div class="botoes" id="zooms">
+        <button data-z="1">30 graus</button>
+        <button data-z="10">3 graus</button>
+        <button data-z="100">0.3 grau</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Prof. Alexandre Zabot · CC BY-NC 4.0 · <a href="https://www.profzabot.com.br/recursos/paralaxe/">profzabot.com.br/recursos/paralaxe</a>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const COR = {lav:"#A7B0EB", pes:"#F9BCAA", coral:"#FD8354", indigo:"#6168B9",
+               creme:"#E8E0D0", mudo:"rgba(232,224,208,.62)", linha:"rgba(167,176,235,.28)"};
+
+  // Faixas dos controles, em metros, em escala logarítmica
+  const D_MIN = 0.1, D_MAX = 1e9;      // 10 cm a 1 milhão de km
+  const B_MIN = 0.01, B_MAX = 1e7;     // 1 cm a 10 mil km
+  const EXEMPLOS = {
+    polegar: {d:0.6,   b:0.065,  z:1},
+    poste:   {d:6,     b:0.065,  z:10},
+    lua:     {d:3.84e8,b:6.371e6,z:10},
+  };
+  const FOV = {1:30, 10:3, 100:0.3};   // largura do campo de cada câmera, em graus
+
+  const st = {d:0.6, b:0.065, z:1, ex:"polegar"};
+
+  // ---------- formatação (ponto decimal, sem separador de milhar) ----------
+  function sig(x, n){
+    if (x === 0) return "0";
+    const casas = Math.max(0, n - 1 - Math.floor(Math.log10(Math.abs(x))));
+    return (+x.toFixed(casas)).toString();
+  }
+  function comp(m){
+    if (m < 1) return sig(m*100, m*100 < 10 ? 2 : 3) + " cm";
+    if (m < 1000) return sig(m, 3) + " m";
+    const km = m/1000;
+    if (km < 10000) return sig(km, 3) + " km";
+    if (km < 1e6) return sig(km/1000, 3) + " mil km";
+    const mi = km/1e6;
+    return sig(mi, 3) + (mi < 2 ? " milhão de km" : " milhões de km");
+  }
+  function graus(p){
+    const casas = Math.max(0, 1 - Math.floor(Math.log10(p)));
+    let s = p.toFixed(Math.min(casas, 12));
+    if (p >= 10) s = p.toFixed(1);
+    s = s.replace(/(\.\d*?[1-9])0+$/,"$1").replace(/\.0+$/,"");
+    return {num:s, un: p < 2 ? "grau" : "graus"};
+  }
+  function vezes(r){
+    if (r >= 1e6) return sig(r/1e6, 3) + " milhões de";
+    if (r >= 1e4) return sig(r/1000, 3) + " mil";
+    return sig(r, r < 10 ? 2 : 3);
+  }
+
+  // ---------- controles logarítmicos ----------
+  const sd = document.getElementById("sd"), sb = document.getElementById("sb");
+  const toSl = (v, a, b) => Math.round(1000 * Math.log(v/a) / Math.log(b/a));
+  const fromSl = (s, a, b) => a * Math.pow(b/a, s/1000);
+  // arredonda o valor do controle para 3 algarismos, para não mostrar 59.97 cm
+  const limpo = v => +v.toPrecision(3);
+
+  sd.addEventListener("input", () => { st.d = limpo(fromSl(+sd.value, D_MIN, D_MAX)); st.ex = null; desenha(); });
+  sb.addEventListener("input", () => { st.b = limpo(fromSl(+sb.value, B_MIN, B_MAX)); st.ex = null; desenha(); });
+
+  document.querySelectorAll("#exemplos button").forEach(bt => bt.addEventListener("click", () => {
+    const e = EXEMPLOS[bt.dataset.ex];
+    Object.assign(st, {d:e.d, b:e.b, z:e.z, ex:bt.dataset.ex});
+    desenha(true);
+  }));
+  document.querySelectorAll("#zooms button").forEach(bt => bt.addEventListener("click", () => {
+    st.z = +bt.dataset.z; desenha();
+  }));
+
+  // ---------- utilitários de SVG ----------
+  function el(nome, at, pai){
+    const e = document.createElementNS(NS, nome);
+    for (const k in at) e.setAttribute(k, at[k]);
+    if (pai) pai.appendChild(e);
+    return e;
+  }
+  function txt(pai, x, y, s, at){
+    const t = el("text", Object.assign({x, y, fill:COR.mudo, "font-size":12, "font-family":"Inter, system-ui, sans-serif"}, at||{}), pai);
+    t.textContent = s; return t;
+  }
+
+  // gerador pseudoaleatório com semente, para o fundo ser o mesmo nas duas câmeras
+  function rng(seed){ return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+  const CAMPOS = {};
+  for (const z of [1,10,100]){
+    const r = rng(7 + z*13), estrelas = [];
+    for (let i = 0; i < 90; i++) estrelas.push({u:r()*1.2-0.6, v:r()*0.9-0.45, m:r()});
+    CAMPOS[z] = estrelas;
+  }
+
+  // ---------- vista de cima ----------
+  const cima = document.getElementById("cima");
+  function vistaDeCima(p){
+    cima.innerHTML = "";
+    const W = 400, yObs = 300, yTopo = 22, cx = 200;
+    const r = st.d / st.b;                     // distância em unidades da base
+    const Dmax = yObs - 70;                    // altura útil até o alvo
+    let bpx = Math.min(300, Dmax / r), dpx = r * bpx, fora = 1;
+    const BMIN = 18;
+    if (bpx < BMIN){ bpx = BMIN; dpx = Dmax; fora = r * BMIN / Dmax; }
+    const xa = cx - bpx/2, xb = cx + bpx/2, yt = yObs - dpx;
+
+    // estrelas distantes no alto
+    const rr = rng(99);
+    for (let i = 0; i < 46; i++) el("circle", {cx:8 + rr()*384, cy:8 + rr()*20, r:0.6 + rr()*1.1, fill:COR.creme, opacity:0.35 + rr()*0.5}, cima);
+    txt(cima, W - 8, 44, "estrelas muito distantes", {"text-anchor":"end", "font-size":11});
+
+    // linhas de visada, prolongadas até o fundo
+    function visada(x0, cor){
+      const kx = (cx - x0) / (yt - yObs);      // dx por dy
+      const xTopo = x0 + kx * (yTopo - yObs);
+      el("line", {x1:x0, y1:yObs, x2:cx, y2:yt, stroke:cor, "stroke-width":1.4}, cima);
+      el("line", {x1:cx, y1:yt, x2:xTopo, y2:yTopo, stroke:cor, "stroke-width":1, "stroke-dasharray":"3 4", opacity:0.8}, cima);
+      return xTopo;
+    }
+    visada(xa, COR.lav); visada(xb, COR.pes);
+
+    // arco do ângulo no alvo
+    const ang = Math.atan2(bpx/2, dpx);
+    const ra = Math.min(34, dpx * 0.45);
+    if (ra > 6 && ang > 0.004){
+      const x1 = cx - ra*Math.sin(ang), y1 = yt + ra*Math.cos(ang);
+      const x2 = cx + ra*Math.sin(ang), y2 = y1;
+      el("path", {d:`M${x1},${y1} A${ra},${ra} 0 0 0 ${x2},${y2}`, fill:"none", stroke:COR.coral, "stroke-width":1.4}, cima);
+    }
+
+    // alvo
+    el("circle", {cx, cy:yt, r:6, fill:COR.coral}, cima);
+    txt(cima, cx + 12, yt - 6, "alvo", {fill:COR.creme});
+
+    // observadores
+    el("circle", {cx:xa, cy:yObs, r:5, fill:COR.lav}, cima);
+    el("circle", {cx:xb, cy:yObs, r:5, fill:COR.pes}, cima);
+    txt(cima, xa - 8, yObs + 4, "1", {"text-anchor":"end", fill:COR.lav, "font-size":13});
+    txt(cima, xb + 8, yObs + 4, "2", {fill:COR.pes, "font-size":13});
+
+    // cota da base
+    const yb = yObs + 24;
+    el("line", {x1:xa, y1:yb, x2:xb, y2:yb, stroke:COR.mudo, "stroke-width":1}, cima);
+    el("line", {x1:xa, y1:yb-4, x2:xa, y2:yb+4, stroke:COR.mudo, "stroke-width":1}, cima);
+    el("line", {x1:xb, y1:yb-4, x2:xb, y2:yb+4, stroke:COR.mudo, "stroke-width":1}, cima);
+    txt(cima, cx, yb + 18, "base " + comp(st.b), {"text-anchor":"middle"});
+
+    // cota da distância, à esquerda
+    const xd = Math.max(20, xa - 34);
+    el("line", {x1:xd, y1:yObs, x2:xd, y2:yt, stroke:COR.mudo, "stroke-width":1}, cima);
+    el("line", {x1:xd-4, y1:yt, x2:xd+4, y2:yt, stroke:COR.mudo, "stroke-width":1}, cima);
+    el("line", {x1:xd-4, y1:yObs, x2:xd+4, y2:yObs, stroke:COR.mudo, "stroke-width":1}, cima);
+    const ym = (yObs + yt)/2, yc = yObs - 30;
+    if (fora > 1){
+      // marca de corte na cota: a distância real é maior que a desenhada
+      el("path", {d:`M${xd-6},${yc+3} L${xd+6},${yc-3} M${xd-6},${yc+8} L${xd+6},${yc+2}`, stroke:COR.creme, "stroke-width":1.2, fill:"none"}, cima);
+    }
+    txt(cima, xd - 8, ym, comp(st.d), {"text-anchor":"middle", transform:`rotate(-90 ${xd-8} ${ym})`});
+
+    const nota = document.getElementById("escala");
+    nota.textContent = fora > 1
+      ? `Fora de escala. Para caber no quadro, a distância foi desenhada ${vezes(fora)} vezes menor do que seria com esta base, e por isso o ângulo aparece maior do que é.`
+      : "Desenho em escala.";
+  }
+
+  // ---------- câmeras ----------
+  function camera(svg, desvio, cor){
+    // desvio: direção do alvo em relação à frente, em graus (positivo = para a direita)
+    svg.innerHTML = "";
+    const W = 300, H = 210, fov = FOV[st.z], esc = W / fov;
+    el("rect", {x:0, y:0, width:W, height:H, fill:"#040d29"}, svg);
+    for (const s of CAMPOS[st.z]){
+      const x = W/2 + s.u * W, y = H/2 + s.v * W;
+      if (x < 0 || x > W || y < 0 || y > H) continue;
+      el("circle", {cx:x, cy:y, r:0.5 + s.m*1.3, fill:COR.creme, opacity:0.3 + s.m*0.6}, svg);
+    }
+    // direção "em frente", igual para as duas câmeras
+    el("line", {x1:W/2, y1:0, x2:W/2, y2:H, stroke:COR.indigo, "stroke-width":1, "stroke-dasharray":"4 4"}, svg);
+    const x = W/2 + desvio * esc, y = H/2;
+    if (Math.abs(desvio) <= fov/2){
+      el("circle", {cx:x, cy:y, r:9, fill:COR.coral}, svg);
+      el("circle", {cx:x, cy:y, r:13, fill:"none", stroke:cor, "stroke-width":1}, svg);
+    } else {
+      const lado = desvio > 0 ? 1 : -1, xs = lado > 0 ? W - 10 : 10;
+      el("path", {d:`M${xs},${y} l${-lado*12},-8 l0,16 z`, fill:COR.coral}, svg);
+      txt(svg, lado > 0 ? W - 28 : 28, y + 26, "alvo fora do campo", {"text-anchor": lado > 0 ? "end" : "start", "font-size":12, fill:COR.creme});
+    }
+    el("rect", {x:0.5, y:0.5, width:W-1, height:H-1, fill:"none", stroke:cor, "stroke-width":1, opacity:0.5}, svg);
+  }
+
+  // ---------- tudo ----------
+  function desenha(moverControles){
+    const p = 2 * Math.atan(st.b / (2 * st.d)) * 180 / Math.PI;   // ângulo no alvo, em graus
+    if (moverControles !== false){
+      sd.value = toSl(st.d, D_MIN, D_MAX);
+      sb.value = toSl(st.b, B_MIN, B_MAX);
+    }
+    document.getElementById("vd").textContent = comp(st.d);
+    document.getElementById("vb").textContent = comp(st.b);
+
+    vistaDeCima(p);
+    // o ponto 1 está à esquerda e vê o alvo deslocado para a direita, e o ponto 2, o contrário
+    camera(document.getElementById("cam1"), +p/2, COR.lav);
+    camera(document.getElementById("cam2"), -p/2, COR.pes);
+
+    const g = graus(p);
+    document.getElementById("ang").innerHTML = `${g.num} <small>${g.un}</small>`;
+    document.getElementById("dados").innerHTML =
+      `ângulo de paralaxe<br><b>${comp(st.d)}</b> de distância, <b>${comp(st.b)}</b> de base`;
+
+    const fov = FOV[st.z];
+    document.getElementById("campo").textContent =
+      `Cada câmera mostra ${graus(fov).num} ${graus(fov).un} do céu. As estrelas do fundo estão tão longe que aparecem no mesmo lugar nas duas vistas.`;
+
+    document.querySelectorAll("#exemplos button").forEach(b => b.classList.toggle("ativo", b.dataset.ex === st.ex));
+    document.querySelectorAll("#zooms button").forEach(b => b.classList.toggle("ativo", +b.dataset.z === st.z));
+  }
+
+  // ---------- estado inicial pela URL ----------
+  // ?ex=polegar|poste|lua   ou   ?d=0.6&b=0.065 (em metros)   e   &campo=30|3|0.3
+  const q = new URLSearchParams(location.search);
+  if (EXEMPLOS[q.get("ex")]) { Object.assign(st, EXEMPLOS[q.get("ex")]); st.ex = q.get("ex"); }
+  const qd = parseFloat(q.get("d")), qb = parseFloat(q.get("b"));
+  if (qd >= D_MIN && qd <= D_MAX) { st.d = qd; st.ex = null; }
+  if (qb >= B_MIN && qb <= B_MAX) { st.b = qb; st.ex = null; }
+  const qc = q.get("campo");
+  if (qc === "30") st.z = 1; else if (qc === "3") st.z = 10; else if (qc === "0.3") st.z = 100;
+
+  desenha(true);
+})();
+</script>
+</body>
+</html>
