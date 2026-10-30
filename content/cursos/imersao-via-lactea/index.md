@@ -9,7 +9,6 @@ encerrada = false
 
 checkout = "https://pay.herospark.com/imersao-via-lactea-549822"
 cta = "Garantir minha vaga"
-cta_apoio = "As inscrições ficam abertas até o início da transmissão, às 9h de 14 de novembro."
 preco = "R$ 75,00"
 preco_detalhe = "à vista · ou em até 12x no cartão"
 
@@ -18,13 +17,13 @@ capa = ""
 [[secoes]]
 tipo = "abertura"
 conteudo = """
-Quase todos nós conhecemos a Via Láctea pela imagem. Sabemos que é uma espiral, que tem braços, um buraco negro no centro e bilhões de estrelas, e que o Sol está longe do centro. Mas a imagem não conta como a Galáxia chegou a ser assim, nem o que segura o Sol na sua órbita. E a resposta a esta segunda pergunta não é o buraco negro central. Dentro da órbita do Sol há umas 25 mil vezes mais massa do que a de Sgr A\\*.
+Muitos de nós conhecemos a imagem da Via Láctea. Sabemos que é uma espiral, que tem braços, um buraco negro no centro e bilhões de estrelas, e que o Sol está longe do centro. Mas a imagem não conta como a Galáxia chegou a ser assim, nem o que mantém o Sol na sua órbita. Curiosamente, a resposta a esta segunda pergunta não é "o buraco negro central". Tanto é assim que dentro da órbita do Sol há umas 25 mil vezes mais massa do que a de Sgr A\\*!
 
 **A Via Láctea guarda a própria história no movimento e na composição das suas estrelas.**
 
 Em 2016 o satélite Gaia começou a medir a posição, a distância e a velocidade de mais de um bilhão de estrelas. Com esses dados nós passamos a saber de onde veio cada grupo de estrelas, quando ele chegou e o que encontrou aqui. Descobrimos que a Galáxia engoliu outra galáxia há uns 11 bilhões de anos e que o disco ainda oscila por causa de uma perturbação de algumas centenas de milhões de anos. Também descobrimos que a colisão com Andrômeda, que parecia certa, voltou a ser discutida.
 
-Esta imersão conta essa história em quatro aulas, do presente até os primeiros bilhões de anos da Galáxia, e termina no que vem pela frente. O Gaia DR4, a próxima liberação de dados, sai em 2 de dezembro, dezoito dias depois da imersão. Quem fizer a imersão vai saber ler o que for anunciado.
+Esta imersão contará essa história em quatro aulas, do presente até os primeiros bilhões de anos da Galáxia, e termina com o que vem pela frente. O Gaia DR4, a próxima liberação de dados, sai em 2 de dezembro, dezoito dias depois da imersão. Quem fizer a imersão vai ser capaz de compreender o que for divulgado nas notícias.
 """
 
 [[secoes]]
@@ -85,9 +84,9 @@ tipo = "entregaveis"
 titulo = "Formato e acesso"
 subtitulo = "Online, ao vivo, no dia"
 conteudo = """
-A transmissão acontece ao vivo pelo YouTube, por link não listado enviado só aos inscritos. Depois do evento, a gravação completa fica disponível com acesso ilimitado na plataforma, junto com o restante do material. A inscrição é a única forma de ter acesso, no dia e depois dele, porque a gravação não é vendida avulsa depois do dia 14.
+A transmissão acontece ao vivo pelo YouTube, por link exclusivo enviado só aos inscritos. Depois do evento, a gravação completa fica disponível com acesso ilimitado na plataforma, junto com o restante do material. A inscrição é a única forma de ter acesso, no dia e depois dele, porque a gravação não é vendida avulsa depois do dia 14.
 
-Minha equipe dá suporte por WhatsApp para qualquer dificuldade de acesso, pagamento ou senha, e fica online durante toda a transmissão respondendo em tempo real.
+Minha equipe dá suporte por WhatsApp para qualquer dificuldade de acesso, pagamento ou senha, e fica online durante toda a transmissão, ajudando em tempo real.
 """
 
 [[secoes.itens]]
