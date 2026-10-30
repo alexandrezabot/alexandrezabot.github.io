@@ -285,7 +285,7 @@ section h2 + .colunas, section h2 + .prof-corpo { margin-top: 40px; }
 .valor-det { font-size: 0.9rem; color: var(--indigo-claro); margin-top: 10px; }
 .ficha { margin: 34px 0; text-align: left; }
 .ficha > div { display: flex; gap: 14px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.1); }
-.ficha dt { flex: 0 0 78px; font-size: 0.85rem; font-weight: 600; color: var(--indigo-claro); }
+.ficha dt { flex: 0 0 92px; font-size: 0.85rem; font-weight: 600; color: var(--indigo-claro); }
 .ficha dd { font-size: 0.92rem; color: #cfd4e6; }
 
 /* ---------- FAQ ---------- */

@@ -15,10 +15,10 @@ capitalizeListTitles = false
   ga_id = "G-YY0YJ7HRDS"
 
 [params.aviso]
-  ativo = false
-  link = "/cursos/mentoria-materia/"
-  texto = "Mentoria · Matéria"
-  detalhe = "Inscrições até 19 de agosto"
+  ativo = true
+  link = "/cursos/imersao-via-lactea/"
+  texto = "Imersão · Via Láctea, uma biografia"
+  detalhe = "Sábado, 14 de novembro"
 
 [taxonomies]
   tema = "temas"
