@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-0b8eb0d atualiza site
+385b44f Recurso: paralaxe (Céu Adentro 1, aula 3)
 
 Branches:
 * main
@@ -763,6 +763,9 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./archetypes/default.md
 ./archetypes/recursos.md
 ./assets
+./assets/linha-do-tempo
+./assets/linha-do-tempo/ldt.css
+./assets/linha-do-tempo/ldt.js
 ./atualiza
 ./coleta_site.sh
 ./content
@@ -795,6 +798,7 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./content/az/24.md
 ./content/az/25.md
 ./content/az/26.md
+./content/az/27.md
 ./content/az-arquivo.md
 ./content/az/_index.md
 ./content/az-indice.md
@@ -836,9 +840,34 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./content/recursos/fermi/capa.jpg
 ./content/recursos/fermi/index.md
 ./content/recursos/_index.md
+./content/recursos/linha-do-tempo-particulas
+./content/recursos/linha-do-tempo-particulas/capa.png
+./content/recursos/linha-do-tempo-particulas/eventos.yaml
+./content/recursos/linha-do-tempo-particulas/figuras
+./content/recursos/linha-do-tempo-particulas/figuras/cesar_lattes_1947_andes.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/force_carriers.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/hideki_yukawa.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/higgs_simulation.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/kamiokande_neutrinos.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/paul_dirac.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/positron-track-carl-anderson.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/quarks_inside_proton_neutron.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/rutherford.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/slac_particle_accelerator.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/Standard_Model_of_Elementary_Particles_br.png
+./content/recursos/linha-do-tempo-particulas/figuras/Steinberger_Schwartz_Lederman.jpg
+./content/recursos/linha-do-tempo-particulas/figuras/supernovae1987a_neutrino_pulse_kamiokande_hirata1987_fig1.png
+./content/recursos/linha-do-tempo-particulas/index.md
+./content/recursos/paralaxe
+./content/recursos/paralaxe/capa.png
+./content/recursos/paralaxe/index.md
 ./content/sobre.md
 ./data
 ./estrutura
+./ferramentas
+./ferramentas/linha-do-tempo
+./ferramentas/linha-do-tempo/copiar_figuras.py
+./ferramentas/linha-do-tempo/gerar.py
 ./.hugo_build.lock
 ./hugo.toml
 ./i18n
@@ -881,6 +910,7 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./layouts/shortcodes
 ./layouts/shortcodes/az-arquivo.html
 ./layouts/shortcodes/az-indice.html
+./layouts/shortcodes/linha-do-tempo.html
 ./layouts/shortcodes/livros-lista.html
 ./layouts/shortcodes/newsletter.html
 ./novo_recurso
@@ -915,6 +945,9 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./static/recursos/fermi
 ./static/recursos/fermi/sim
 ./static/recursos/fermi/sim/index.html
+./static/recursos/paralaxe
+./static/recursos/paralaxe/sim
+./static/recursos/paralaxe/sim/index.html
 ./static/robots.txt
 ./themes
 ./themes/profzabot-custom
@@ -955,6 +988,7 @@ static/livros/sumario-astrofisica-moderna.pdf
 static/livros/sumario-cosmologia-moderna.pdf
 static/recursos/cruzeiro-3d/sim/index.html
 static/recursos/fermi/sim/index.html
+static/recursos/paralaxe/sim/index.html
 static/robots.txt
 
 >>> GITHUB ACTIONS
@@ -1870,14 +1904,14 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
 {{ with .Params.premio }}{{ $ld = merge $ld (dict "award" .) }}{{ end }}
 {{ with .Params.bookFormat }}{{ $ld = merge $ld (dict "bookFormat" .) }}{{ end }}
 {{ with .Params.links.compra }}{{ $ld = merge $ld (dict "offers" (dict "@type" "Offer" "url" . "availability" "https://schema.org/InStock")) }}{{ end }}
-<script type="application/ld+json">{{ $ld | jsonify | safeHTML }}</script>
+<script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
 
 <script>
   document.querySelectorAll('.livro-ctas a, .livro-extra a').forEach(function (a) {
     a.addEventListener('click', function () {
       if (window.gtag) {
         gtag('event', 'livro_clique', {
-          livro: {{ .Title | jsonify }},
+          livro: {{ .Title }},
           destino: a.textContent.trim()
         });
       }
@@ -2405,6 +2439,169 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
     </section>
   {{ end }}
 </div>
+
+--- layouts/shortcodes/linha-do-tempo.html ---
+{{- /*
+  Linha do tempo interativa.
+  Uso, dentro do index.md de um page bundle:
+      {{< linha-do-tempo >}}                       lê eventos.yaml do bundle
+      {{< linha-do-tempo dados="outro.yaml" >}}    outro arquivo de dados
+  As figuras ficam em figuras/ dentro do bundle e são redimensionadas no build.
+*/ -}}
+{{- $arq := .Get "dados" | default "eventos.yaml" -}}
+{{- $res := .Page.Resources.Get $arq -}}
+{{- if not $res -}}
+  {{- errorf "linha-do-tempo: %s não encontrado no bundle de %s" $arq .Page.File.Path -}}
+{{- end -}}
+{{- $d := $res | transform.Unmarshal -}}
+{{- $evs := $d.eventos -}}
+{{- $pag := .Page -}}
+{{- $uid := printf "ldt-%d" .Ordinal -}}
+{{- $ano0 := 1890 -}}{{- $ano1 := 2025 -}}
+
+{{- $css := resources.Get "linha-do-tempo/ldt.css" | minify | fingerprint -}}
+{{- $js := resources.Get "linha-do-tempo/ldt.js" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+<section class="ldt" id="{{ $uid }}" aria-label="{{ $d.titulo }}">
+  <div class="ldt-cab">
+    <div class="ldt-filtros" role="group" aria-label="Filtrar por família de partículas">
+      <button type="button" class="ldt-filtro" data-familia="" aria-pressed="true">todas</button>
+      {{- range $k, $v := $d.familias }}
+      <button type="button" class="ldt-filtro" data-familia="{{ $k }}" aria-pressed="false">{{ $v }}</button>
+      {{- end }}
+    </div>
+    <div class="ldt-nav">
+      <button type="button" class="ldt-seta" data-dir="-1" aria-label="Voltar">&#8249;</button>
+      <button type="button" class="ldt-seta" data-dir="1" aria-label="Avançar">&#8250;</button>
+    </div>
+  </div>
+
+  <div class="ldt-regua" aria-label="Os mesmos eventos na escala real do tempo">
+    <div class="ldt-regua-faixa">
+      {{- range seq 1900 25 2000 }}
+      <span class="ldt-regua-marco" style="left:{{ div (mul (sub . $ano0) 100.0) (sub $ano1 $ano0) }}%">{{ . }}</span>
+      {{- end }}
+      {{- range $evs }}
+      <button type="button" class="ldt-ponto tipo-{{ .tipo }}" data-alvo="{{ .id }}"
+        style="left:{{ div (mul (sub .ano $ano0) 100.0) (sub $ano1 $ano0) }}%"
+        aria-label="{{ .ano }}, {{ .titulo }}" title="{{ .ano }}, {{ .titulo }}"></button>
+      {{- end }}
+    </div>
+  </div>
+
+  <div class="ldt-trilho" tabindex="0" role="region" aria-label="Linha do tempo, role para os lados">
+    <ol class="ldt-grade">
+      {{- range $i, $e := $evs }}
+      {{- /* previsões que este evento confirma (ou parecia confirmar) */ -}}
+      {{- $prev := slice -}}
+      {{- range $evs -}}
+        {{- $t := . -}}
+        {{- range .confirmada_por -}}
+          {{- if eq .id $e.id -}}
+            {{- $prev = $prev | append (dict "id" $t.id "ano" $t.ano "titulo" $t.titulo "falsa" (.falsa | default false)) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $conf := slice -}}
+      {{- range .confirmada_por -}}{{- $conf = $conf | append .id -}}{{- end -}}
+      {{- $falsas := slice -}}
+      {{- range .confirmada_por -}}{{- if .falsa -}}{{- $falsas = $falsas | append .id -}}{{- end -}}{{- end }}
+      <li class="ldt-ev tipo-{{ .tipo }}" id="{{ .id }}" data-ano="{{ .ano }}"
+          data-familias="{{ delimit .familias " " }}"
+          {{- with $conf }} data-confirma="{{ delimit . " " }}"{{ end }}
+          {{- with $falsas }} data-falsa="{{ delimit . " " }}"{{ end }}>
+        <span class="ldt-marca" aria-hidden="true"></span>
+        <span class="ldt-haste" aria-hidden="true"></span>
+        <article class="ldt-card">
+          <a class="ldt-ano" href="#{{ .id }}" title="Link para este evento">{{ .ano }}</a>
+          <h3 class="ldt-tit">{{ .titulo }}</h3>
+          <p class="ldt-txt">{{ .texto | markdownify }}</p>
+          {{- with .figura }}
+          {{- $img := $pag.Resources.Get (printf "figuras/%s" .arquivo) }}
+          {{- if $img }}
+          {{- $w := $img.Width }}
+          {{- $p := $img.Resize (printf "%dx webp q78" (cond (gt $w 480) 480 $w)) }}
+          {{- $m := $img.Resize (printf "%dx webp q80" (cond (gt $w 960) 960 $w)) }}
+          {{- $g := $img.Resize (printf "%dx webp q82" (cond (gt $w 1600) 1600 $w)) }}
+          <figure class="ldt-fig">
+            <img src="{{ $m.RelPermalink }}"
+                 srcset="{{ $p.RelPermalink }} {{ $p.Width }}w, {{ $m.RelPermalink }} {{ $m.Width }}w"
+                 sizes="(max-width: 719px) 80vw, 300px"
+                 width="{{ $m.Width }}" height="{{ $m.Height }}"
+                 alt="{{ .alt | default .legenda }}" loading="lazy" decoding="async" draggable="false"
+                 data-grande="{{ $g.RelPermalink }}">
+            <figcaption>{{ .legenda | markdownify }}</figcaption>
+          </figure>
+          {{- else }}
+          {{- warnf "linha-do-tempo: figura %s não encontrada em figuras/" .arquivo }}
+          {{- end }}
+          {{- end }}
+          {{- if or $prev .confirmada_por }}
+          <div class="ldt-elos">
+            {{- range $prev }}
+            {{- if .falsa }}
+            <a class="ldt-elo falsa" href="#{{ .id }}">confundido com a previsão de {{ .ano }}</a>
+            {{- else }}
+            <a class="ldt-elo" href="#{{ .id }}">previsto em {{ .ano }} &middot; {{ sub $e.ano .ano }} {{ cond (eq (sub $e.ano .ano) 1) "ano" "anos" }} depois</a>
+            {{- end }}
+            {{- end }}
+            {{- range .confirmada_por }}
+            {{- $alvo := index (where $evs "id" .id) 0 }}
+            {{- if .falsa }}
+            <a class="ldt-elo falsa" href="#{{ .id }}">candidata em {{ $alvo.ano }}, descartada</a>
+            {{- else }}
+            <a class="ldt-elo" href="#{{ .id }}">{{ $alvo.titulo }} em {{ $alvo.ano }} &middot; {{ sub $alvo.ano $e.ano }} anos depois</a>
+            {{- end }}
+            {{- end }}
+          </div>
+          {{- end }}
+          {{- with .mais }}
+          <details class="ldt-mais">
+            <summary>{{ cond (eq $e.tipo "teo") "o argumento" "como se mediu" }}</summary>
+            <div class="ldt-mais-corpo">
+              <p>{{ . | markdownify }}</p>
+              {{- with $e.refs }}
+              <ul class="ldt-refs">
+                {{- range . }}
+                <li>{{ . | markdownify }}</li>
+                {{- end }}
+              </ul>
+              {{- end }}
+            </div>
+          </details>
+          {{- end }}
+        </article>
+      </li>
+      {{- end }}
+      {{- with $d.fim }}
+      <li class="ldt-ev ldt-fim" id="{{ $uid }}-hoje" data-familias="">
+        <span class="ldt-marca" aria-hidden="true"></span>
+        <span class="ldt-haste" aria-hidden="true"></span>
+        <article class="ldt-card">
+          <span class="ldt-ano">{{ .rotulo }}</span>
+          <h3 class="ldt-tit">{{ .titulo }}</h3>
+          <p class="ldt-txt">{{ .texto | markdownify }}</p>
+        </article>
+      </li>
+      {{- end }}
+    </ol>
+    <svg class="ldt-arcos" aria-hidden="true"></svg>
+  </div>
+
+  <div class="ldt-legenda" aria-hidden="true">
+    <span><i class="ldt-marca-mini tipo-exp"></i>descoberta experimental</span>
+    <span><i class="ldt-marca-mini tipo-teo"></i>previsão teórica</span>
+    <span><i class="ldt-marca-mini tipo-astro"></i>Astrofísica</span>
+    <span class="so-arcos"><i class="ldt-arco-mini"></i>da previsão à observação</span>
+  </div>
+
+  <dialog class="ldt-dialogo" aria-labelledby="{{ $uid }}-dlg-tit">
+    <button type="button" class="ldt-fechar" aria-label="Fechar">&times;</button>
+    <div class="ldt-dialogo-corpo" id="{{ $uid }}-dlg-tit"></div>
+  </dialog>
+</section>
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 
 --- layouts/shortcodes/livros-lista.html ---
 <div class="livros-grid">
@@ -3537,6 +3734,43 @@ Por isso, uma FRB em *redshift* (desvio para o vermelho) de 2.148 é muito impor
 - Lorimer, D. R., Bailes, M., McLaughlin, M. A., Narkevic, D. J. & Crawford, F. (2007). *A bright millisecond radio burst of extragalactic origin*. Science, 318, 777. [DOI](https://doi.org/10.1126/science.1147532)
 - Macquart, J.-P. et al. (2020). *A census of baryons in the Universe from localized fast radio bursts*. Nature, 581, 391. [DOI](https://doi.org/10.1038/s41586-020-2300-2)
 - Caleb, M. et al. (2026). *A fast radio burst at redshift 2, three billion years after the Big Bang*. Science. [DOI](https://www.science.org/doi/10.1126/science.adz2675)
+
+--- content/az/27.md ---
+---
+title: "A primeira anatomia da Via Láctea"
+date: 2026-10-29
+draft: false
+destaque: 3
+description: "Em 1930 Trumpler descobriu a poeira interestelar e resolveu o conflito entre Kapteyn e Shapley sobre o lugar do Sol na Galáxia. O episódio rendeu duas descobertas, a de que não estamos no centro e a do meio interestelar, e foi a primeira evidência de que a Via Láctea tem uma anatomia."
+temas: ["História e Filosofia da Ciência", "Galáxias e meio interestelar"]
+conceitos: ["Via Láctea", "Jacobus Kapteyn", "Harlow Shapley", "Robert Trumpler", "William Herschel", "poeira interestelar", "meio interestelar", "aglomerado globular"]
+---
+
+Em 1922, ano em que morreu, Jacobus Kapteyn publicou o resultado de décadas de contagens de estrelas. A Via Láctea aparecia como um disco achatado, com a densidade de estrelas diminuindo em todas as direções a partir de um centro a apenas 2 mil anos-luz do Sol. William Herschel tinha chegado a um quadro parecido em 1785, também contando estrelas. Quase quatro séculos depois de Copérnico, o Sol continuava perto do centro de tudo o que conhecíamos.
+
+Entretanto, Harlow Shapley tinha chegado a uma conclusão contrária em 1918 usando uma técnica diferente de Herschel e Kapteyn. Usou estrelas variáveis para medir a distância de aglomerados globulares e viu que eles se distribuem em torno de um ponto na direção de Sagitário, a dezenas de milhares de anos-luz.
+
+A discordância aconteceu porque Herschel e Kapteyn não consideraram a absorção da luz no espaço. Kapteyn desconfiava dela, tanto é que em 1909 disse que ela deixaria as estrelas distantes mais vermelhas. Porém, Shapley mostrou em 1916 que, com a absorção estimada por Kapteyn, as estrelas dos aglomerados globulares deveriam estar mais avermelhadas do que o medido. Kapteyn aceitou o argumento, mas nenhum dos dois cogitou que a poeira pudesse estar concentrada no plano da Galáxia, longe da maior parte dos aglomerados.
+
+Apenas em 1930 Robert Trumpler, do Observatório Lick, conseguiu entender a origem do problema. Ele estimou a distância de 100 aglomerados abertos, que ficam no plano da Galáxia, por dois métodos. Um usava o tamanho aparente, supondo diâmetros semelhantes, e o outro o brilho das estrelas. Num espaço transparente os dois dariam o mesmo resultado. No entanto, as distâncias calculadas pelo brilho saíram sistematicamente maiores, e a diferença crescia com a distância. Trumpler concluiu que uma poeira fina, numa camada estreita ao longo do plano, absorvia a luz. Pelas contas dele, uma estrela perdia quase metade do brilho a cada 3 mil anos-luz.
+
+Trumpler resolveu o conflito. Como a poeira enfraquece a luz em todas as direções ao longo do plano, as estrelas parecem rarear de modo semelhante em volta de quem observa, e por isso o observador se acha no centro. Com a correção, o sistema de Kapteyn cresceu cerca de 3 vezes e o de Shapley encolheu pela metade, em parte pela poeira e em parte por um erro na calibração das variáveis.
+
+Costumamos lembrar desse episódio só pela conclusão de que não estamos no centro da Galáxia. Mas considero a outra descoberta tão importante quanto essa. Até 1930 o espaço entre as estrelas era tratado como transparente nas medidas de distância. O incômodo das contagens de estrelas passou a ser objeto de estudo, e dali cresceu uma área inteira da Astrofísica, a do meio interestelar. As duas descobertas não poderiam ter sido feitas uma sem a outra.
+
+Herschel e Kapteyn estavam no centro do que conseguiam ver, e o erro deles foi tomar o limite da própria visão pelo limite do sistema. Kapteyn também supunha que a mistura de estrelas era a mesma em toda parte. Corrigida a poeira, as contagens dele e os aglomerados de Shapley passaram a descrever partes diferentes da Galáxia, um disco fino com o Sol e a poeira e um halo muito maior. Foi a primeira evidência de que a Via Láctea tem uma anatomia, e não é um mero aglomerado de estrelas.
+
+*Prof. Alexandre Zabot*
+
+---
+
+## Referências
+
+- Shapley, H. (1918). *Studies based on the colors and magnitudes in stellar clusters. VII. The distances, distribution in space, and dimensions of 69 globular clusters*. ApJ, 48, 154. [ADS](https://ui.adsabs.harvard.edu/abs/1918ApJ....48..154S)
+
+- Trumpler, R. J. (1930). *Preliminary results on the distances, dimensions and space distribution of open star clusters*. Lick Observatory Bulletin, 14, 154. [ADS](https://ui.adsabs.harvard.edu/abs/1930LicOB..14..154T)
+
+- van der Kruit, P. C. (2014). *Lessons from the Milky Way: the Kapteyn Universe*. [arXiv](https://arxiv.org/abs/1407.2632)
 
 --- content/az-arquivo.md ---
 ---
@@ -6247,6 +6481,74 @@ Aqui estão os materiais que preparo para as aulas do projeto Astrofísica para 
 
 Todos os recursos são livres, sob a licença [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.pt-br). Professores podem usá-los e adaptá-los em suas aulas, citando a fonte. As simulações também podem ser baixadas como um arquivo único, que abre em qualquer navegador mesmo sem internet.
 
+--- content/recursos/linha-do-tempo-particulas/index.md ---
+---
+title: "As grandes descobertas das partículas"
+description: "Linha do tempo interativa das descobertas da Física de Partículas, do elétron em 1897 ao bóson de Higgs em 2012, com o experimento por trás de cada uma e a referência do artigo original."
+date: 2026-10-23
+tipo: "Linha do tempo"
+sim: false
+sim_params: ""
+privado: false
+tags: ["física de partículas", "Modelo Padrão", "história da física", "neutrinos", "antimatéria"]
+aulas: []
+licenca: "CC BY-NC 4.0"
+# publica só as versões redimensionadas, nunca os originais nem o eventos.yaml
+build:
+  publishResources: false
+---
+
+Em 1897 conhecíamos uma partícula elementar, o elétron. Em 2012, com o bóson de Higgs, as 17 partículas do Modelo Padrão estavam todas observadas. Esta linha do tempo reúne as descobertas que levaram de uma situação à outra e também as previsões teóricas que vieram antes de várias delas.
+
+Os círculos marcam descobertas experimentais, os losangos marcam previsões teóricas e a estrela marca a única descoberta da lista que veio de um evento astrofísico. Os arcos acima da linha ligam cada previsão à observação que a confirmou, e o número sobre o arco é o tempo que nós levamos para ir de uma à outra. O arco tracejado entre Yukawa e o múon registra um engano que durou dez anos, porque a partícula encontrada em 1937 tinha a massa prevista mas quase não interagia com os núcleos.
+
+{{< linha-do-tempo >}}
+
+Em cada descoberta, o botão *como se mediu* explica o experimento, com os números que decidiram a questão e a referência do artigo original. Nas previsões teóricas, o mesmo botão traz o argumento que levou à previsão. Os filtros separam as famílias de partículas. Escolhendo *neutrinos*, por exemplo, ficam seis eventos que contam a história dessa partícula, da carta de Pauli em 1930 à observação do neutrino do tau em 2000.
+
+A régua acima da linha mostra os mesmos eventos na escala real do tempo. Na linha principal eles aparecem igualmente espaçados, para que todos possam ser lidos, mas a régua deixa ver que as descobertas se concentraram em alguns períodos, como os anos 1930 e a década de 1970.
+
+Cada evento tem um endereço próprio. Clicando no ano, o link daquele ponto da linha do tempo aparece na barra do navegador e pode ser copiado para uma aula ou um exercício.
+
+## Referências
+
+- D. Griffiths, *Introduction to Elementary Particles*, 2ª ed. Wiley-VCH, 2008.
+- A. Pais, *Inward Bound. Of Matter and Forces in the Physical World*. Oxford University Press, 1986.
+
+As referências de cada evento estão no próprio evento.
+
+Este recurso está disponível sob a licença [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.pt-br).
+
+--- content/recursos/paralaxe/index.md ---
+---
+title: "Paralaxe"
+description: "Dois pontos de observação veem o mesmo alvo em direções um pouco diferentes, e o alvo parece saltar contra o fundo de estrelas. O tamanho desse salto depende da distância e da base."
+date: 2026-10-28
+tipo: "Simulação"
+sim: true
+sim_params: ""
+privado: false
+tags: ["paralaxe", "triangulação", "distâncias", "Lua"]
+aulas:
+  - curso: "Céu Adentro 1: Astronomia"
+    aula: "aula 3, A Terra esférica e seu tamanho"
+    link: "https://astrofisica.ufsc.br/ceu-adentro/astronomia/"
+    video: ""
+---
+
+Quando estendemos o braço e olhamos para o polegar com um olho de cada vez, ele parece saltar de lado contra o fundo. Os dois olhos estão separados por cerca de 6.5 cm, e cada um vê o polegar numa direção um pouco diferente. Esse deslocamento aparente se chama paralaxe, e é com ele que medimos a distância da Lua e das estrelas mais próximas.
+
+Na simulação, a vista de cima mostra os dois pontos de observação, separados pela base, e as linhas de visada que partem de cada um deles até o alvo. O ângulo entre essas linhas, no alvo, é o ângulo de paralaxe, e o seu valor aparece em graus abaixo das câmeras. As duas câmeras mostram o que cada ponto vê. As estrelas do fundo estão tão longe que ficam no mesmo lugar nas duas vistas, e por isso só o alvo muda de posição. A linha tracejada marca a direção em frente, que é a mesma para as duas câmeras, e serve de referência para comparar o salto.
+
+Os três exemplos reproduzem os casos que vimos na aula. Quando o salto fica pequeno demais para ser percebido, podemos reduzir o campo de visão das câmeras, como faríamos com um binóculo ou um telescópio. Em alguns casos o triângulo não cabe no quadro em escala, porque o alvo está longe demais em comparação com a base. Nesses casos a distância é desenhada menor do que deveria, e o aviso abaixo do desenho indica quantas vezes. O valor do ângulo, entretanto, é sempre o verdadeiro.
+
+## Para explorar
+
+1. Comece pelo exemplo do polegar e aumente a distância aos poucos, sem mexer na base. O que acontece com o salto nas câmeras e com o ângulo?
+2. Agora deixe a distância fixa e aumente a base. O ângulo cresce ou diminui?
+3. Coloque o alvo a 6 m com uma base de 65 cm e compare com o exemplo do polegar. Por que os dois ângulos são iguais?
+4. No exemplo da Lua, a base é o raio da Terra, com mais de 6 mil km, e mesmo assim o ângulo fica perto de 1 grau. A estrela mais próxima do Sol está cerca de 100 milhões de vezes mais longe que a Lua. Que base poderíamos usar para medir a paralaxe dela?
+
 --- content/sobre.md ---
 ---
 title: "Sobre mim"
@@ -6297,15 +6599,15 @@ rm -rf public \
 
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |   389  
+  Pages            |   404  
   Paginator pages  |     0  
-  Non-page files   |     8  
-  Static files     |    19  
-  Processed images |    14  
+  Non-page files   |     9  
+  Static files     |    20  
+  Processed images |    55  
   Aliases          |     1  
   Cleaned          |     0  
 
-Total in 188 ms
+Total in 167 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
