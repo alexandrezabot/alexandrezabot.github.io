@@ -9,7 +9,7 @@
 <meta property="og:title" content="{{ .Title }}">
 <meta property="og:description" content="{{ .Params.descricao }}">
 <meta property="og:url" content="{{ .Permalink }}">
-{{ with .Resources.GetMatch "capa*" }}<meta property="og:image" content="{{ .Permalink }}">{{ end }}
+{{ with .Resources.GetMatch "capa*" }}<meta property="og:image" content="{{ .Permalink }}">{{ else }}<meta property="og:image" content="{{ site.Params.ogImage | absURL }}">{{ end }}
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
