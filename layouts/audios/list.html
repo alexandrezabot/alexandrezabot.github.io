@@ -1,0 +1,260 @@
+{{ define "main" }}
+{{/* Página não listada do acervo de áudios.
+     O repositório guarda só esta casca. A lista vem de <base_url>/<chave>/audios.json,
+     e a chave chega pelo fragmento do link (/audios/#chave), que nunca vai ao servidor
+     nem ao GitHub. Depois da primeira visita ela fica guardada no navegador. */}}
+<div class="audios" id="audios" data-base="{{ .Params.base_url }}">
+  <h1>{{ .Title }}</h1>
+  <div class="linha-indigo"></div>
+
+  <div class="audios-aviso" id="sem-chave" hidden>
+    <p>Abra esta página pelo link completo, com a chave depois do <code>#</code>, ou cole a chave aqui.</p>
+    <form id="form-chave">
+      <input type="password" id="chave" placeholder="chave" autocomplete="off" aria-label="Chave de acesso">
+      <button type="submit" class="chip">Abrir</button>
+    </form>
+  </div>
+
+  <div id="conteudo" hidden>
+    <div class="audios-filtro">
+      <input type="search" id="busca" placeholder="Buscar em títulos, tags e notas" aria-label="Buscar áudios">
+      <div class="chips" id="cats"></div>
+      <div class="chips" id="tags"></div>
+      <p class="audios-conta" id="conta"></p>
+    </div>
+
+    <ol class="audios-lista" id="lista"></ol>
+
+    <details class="audios-feeds">
+      <summary>Feeds para o AntennaPod</summary>
+      <p>Toque em <em>assinar</em> no celular com o AntennaPod instalado, ou copie o endereço e cole em Adicionar podcast &gt; Endereço RSS. Assine os feeds de categoria ou o geral, não os dois, senão cada episódio aparece duas vezes.</p>
+      <ul id="feeds"></ul>
+    </details>
+  </div>
+</div>
+
+<div class="player" id="player" hidden>
+  <div class="container player-dentro">
+    <div class="player-info">
+      <span class="player-titulo" id="p-titulo"></span>
+      <span class="player-meta" id="p-meta"></span>
+    </div>
+    <audio id="audio" controls preload="none"></audio>
+    <button type="button" class="chip" id="vel" title="Velocidade">1×</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const raiz = $("audios");
+  const BASE = raiz.dataset.base.replace(/\/$/, "");
+  const CH = "audios-chave";
+  const ls = {
+    get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} },
+    del: k => { try { localStorage.removeItem(k); } catch (e) {} },
+  };
+  const norm = s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  const dataBR = d => new Date(d + "T12:00:00").toLocaleDateString("pt-BR", {day: "numeric", month: "short", year: "numeric"});
+
+  // ---------- chave ----------
+  let chave = location.hash.slice(1);
+  if (chave) {
+    ls.set(CH, chave);
+    history.replaceState(null, "", location.pathname + location.search);
+  } else {
+    chave = ls.get(CH);
+  }
+  window.addEventListener("hashchange", () => {
+    const h = location.hash.slice(1);
+    if (!h) return;
+    ls.set(CH, h); chave = h;
+    history.replaceState(null, "", location.pathname + location.search);
+    carrega();
+  });
+  $("form-chave").addEventListener("submit", e => {
+    e.preventDefault();
+    const v = $("chave").value.trim();
+    if (v) { ls.set(CH, v); chave = v; carrega(); }
+  });
+
+  // ---------- estado dos filtros (fica na URL: ?c=teologia&t=penrose&q=...) ----------
+  const qs = new URLSearchParams(location.search);
+  let cat = qs.get("c") || "";
+  let tagsSel = new Set((qs.get("t") || "").split(",").filter(Boolean));
+  $("busca").value = qs.get("q") || "";
+  let dados = null, todasTags = [], mostraTodasTags = false;
+
+  async function carrega() {
+    if (!chave) { $("sem-chave").hidden = false; return; }
+    try {
+      const r = await fetch(`${BASE}/${chave}/audios.json`, {cache: "no-cache"});
+      if (!r.ok) throw new Error(r.status);
+      dados = await r.json();
+    } catch (e) {
+      ls.del(CH); chave = null;
+      $("sem-chave").hidden = false;
+      return;
+    }
+    $("sem-chave").hidden = true;
+    $("conteudo").hidden = false;
+    const conta = {};
+    dados.audios.forEach(a => (a.tags || []).forEach(t => conta[t] = (conta[t] || 0) + 1));
+    todasTags = Object.entries(conta).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    feeds();
+    aplica();
+  }
+
+  // ---------- chips ----------
+  function chips() {
+    const cats = $("cats"); cats.replaceChildren();
+    const porCat = {};
+    dados.audios.forEach(a => porCat[a.categoria] = (porCat[a.categoria] || 0) + 1);
+    const btn = (rot, n, ativo, fn, extra) => {
+      const b = el("button", "chip" + (ativo ? " ativo" : "") + (extra || ""), rot);
+      b.type = "button";
+      if (n != null) b.append(el("span", "chip-conta", String(n)));
+      b.addEventListener("click", fn);
+      return b;
+    };
+    cats.append(btn("Todas", dados.audios.length, !cat, () => { cat = ""; aplica(); }));
+    Object.entries(dados.categorias).forEach(([k, nome]) => {
+      if (porCat[k]) cats.append(btn(nome, porCat[k], cat === k, () => { cat = (cat === k ? "" : k); aplica(); }));
+    });
+
+    const tg = $("tags"); tg.replaceChildren();
+    const LIM = 15;
+    const lista = mostraTodasTags ? todasTags : todasTags.filter(([t], i) => i < LIM || tagsSel.has(t));
+    lista.forEach(([t, n]) => tg.append(btn("#" + t, n, tagsSel.has(t), () => alterna(t), " chip-tag")));
+    if (todasTags.length > LIM) {
+      tg.append(btn(mostraTodasTags ? "menos" : `+${todasTags.length - LIM} tags`, null, false,
+        () => { mostraTodasTags = !mostraTodasTags; chips(); }, " chip-mais"));
+    }
+  }
+  function alterna(t) { tagsSel.has(t) ? tagsSel.delete(t) : tagsSel.add(t); aplica(); }
+
+  // ---------- lista ----------
+  function aplica() {
+    const q = norm($("busca").value).trim().split(/\s+/).filter(Boolean);
+    const vis = dados.audios.filter(a => {
+      if (cat && a.categoria !== cat) return false;
+      for (const t of tagsSel) if (!(a.tags || []).includes(t)) return false;
+      const txt = norm([a.titulo, a.notas, (a.tags || []).join(" "), dados.categorias[a.categoria]].join(" "));
+      return q.every(p => txt.includes(p));
+    });
+    chips();
+    const ol = $("lista"); ol.replaceChildren();
+    vis.forEach(a => ol.append(item(a)));
+    $("conta").textContent = vis.length === dados.audios.length
+      ? `${vis.length} áudios` : `${vis.length} de ${dados.audios.length} áudios`;
+
+    const u = new URLSearchParams();
+    if (cat) u.set("c", cat);
+    if (tagsSel.size) u.set("t", [...tagsSel].join(","));
+    if ($("busca").value.trim()) u.set("q", $("busca").value.trim());
+    history.replaceState(null, "", location.pathname + (u.toString() ? "?" + u : ""));
+  }
+
+  function item(a) {
+    const li = el("li", "audio-item" + (a.id === atual ? " tocando" : "") + (ls.get("audios-fim-" + a.id) ? " ouvido" : ""));
+    li.dataset.id = a.id;
+    const play = el("button", "audio-play", "▶");
+    play.type = "button";
+    play.setAttribute("aria-label", "Ouvir " + a.titulo);
+    play.addEventListener("click", () => toca(a));
+    const corpo = el("div", "audio-corpo");
+    corpo.append(el("div", "audio-titulo", a.titulo));
+    const pos = +ls.get("audios-pos-" + a.id) || 0;
+    let meta = `${dados.categorias[a.categoria]} · ${dataBR(a.data)} · ${a.duracao}`;
+    if (ls.get("audios-fim-" + a.id)) meta += " · ouvido";
+    else if (pos > 30) meta += ` · parou em ${hms(pos)}`;
+    corpo.append(el("div", "post-meta audio-meta", meta));
+    if (a.tags && a.tags.length) {
+      const c = el("div", "chips");
+      a.tags.forEach(t => {
+        const b = el("button", "chip chip-tag" + (tagsSel.has(t) ? " ativo" : ""), "#" + t);
+        b.type = "button";
+        b.addEventListener("click", () => { alterna(t); raiz.scrollIntoView({behavior: "smooth"}); });
+        c.append(b);
+      });
+      corpo.append(c);
+    }
+    if (a.notas) corpo.append(el("p", "audio-notas", a.notas));
+    li.append(play, corpo);
+    return li;
+  }
+
+  function feeds() {
+    const ul = $("feeds"); ul.replaceChildren();
+    const nomes = {...dados.categorias, todos: "Todos os áudios"};
+    Object.entries(dados.feeds).forEach(([k, url]) => {
+      const li = el("li");
+      li.append(el("span", "feed-nome", nomes[k] || k), " ");
+      const ass = el("a", null, "assinar");
+      ass.href = "https://antennapod.org/deeplink/subscribe/?url=" + encodeURIComponent(url);
+      const cp = el("button", "chip", "copiar");
+      cp.type = "button";
+      cp.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(url); cp.textContent = "copiado"; }
+        catch (e) { prompt("Copie o endereço:", url); }
+        setTimeout(() => cp.textContent = "copiar", 1500);
+      });
+      li.append(ass, " ", cp);
+      ul.append(li);
+    });
+  }
+
+  // ---------- player ----------
+  const audio = $("audio");
+  let atual = null, ultimoSalvo = 0;
+  const hms = s => { s = Math.floor(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return (h ? h + ":" + String(m).padStart(2, "0") : m) + ":" + String(x).padStart(2, "0"); };
+
+  function toca(a) {
+    if (atual !== a.id) {
+      atual = a.id;
+      audio.src = a.url;
+      $("p-titulo").textContent = a.titulo;
+      $("p-meta").textContent = `${dados.categorias[a.categoria]} · ${a.duracao}`;
+      $("player").hidden = false;
+      document.body.classList.add("com-player");
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: a.titulo, artist: dados.categorias[a.categoria], album: "Acervo",
+          artwork: [{src: dados.feeds[a.categoria].replace(/feeds\/[^/]+\.xml$/, `capas/${a.categoria}.png`), sizes: "1400x1400", type: "image/png"}],
+        });
+      }
+      document.querySelectorAll(".audio-item").forEach(li => li.classList.toggle("tocando", li.dataset.id === a.id));
+    }
+    audio.play();
+  }
+  audio.addEventListener("loadedmetadata", () => {
+    const pos = +ls.get("audios-pos-" + atual) || 0;
+    if (pos > 5 && pos < audio.duration - 10) audio.currentTime = pos - 3;
+    audio.playbackRate = vel;
+  });
+  audio.addEventListener("timeupdate", () => {
+    if (Math.abs(audio.currentTime - ultimoSalvo) > 5) {
+      ultimoSalvo = audio.currentTime;
+      ls.set("audios-pos-" + atual, Math.floor(audio.currentTime));
+    }
+  });
+  audio.addEventListener("pause", () => ls.set("audios-pos-" + atual, Math.floor(audio.currentTime)));
+  audio.addEventListener("ended", () => { ls.set("audios-fim-" + atual, "1"); ls.del("audios-pos-" + atual); aplica(); });
+
+  const VELS = [1, 1.25, 1.5, 1.75, 2];
+  let vel = +ls.get("audios-vel") || 1;
+  const mostraVel = () => $("vel").textContent = String(vel).replace(".", ",") + "×";
+  mostraVel();
+  $("vel").addEventListener("click", () => {
+    vel = VELS[(VELS.indexOf(vel) + 1) % VELS.length];
+    audio.playbackRate = vel; ls.set("audios-vel", vel); mostraVel();
+  });
+
+  $("busca").addEventListener("input", () => aplica());
+  carrega();
+})();
+</script>
+{{ end }}

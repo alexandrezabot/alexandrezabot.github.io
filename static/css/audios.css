@@ -1,0 +1,77 @@
+/* Página não listada /audios/. Carregado pelo baseof quando .Section = audios.
+   Reaproveita chips, post-meta e linha-indigo do tema e do site.css. */
+
+.audios { max-width: var(--largura-prosa); margin: 0 auto; }
+
+/* ---------- aviso de chave ---------- */
+.audios-aviso { color: var(--creme-mudo); font-size: 14px; }
+.audios-aviso form { display: flex; gap: 0.6rem; margin-top: 0.8rem; }
+
+/* ---------- filtro ---------- */
+.audios-filtro { margin: 0 0 1.5rem; }
+.audios input[type=search], .audios input[type=password] {
+  width: 100%; max-width: 480px;
+  font: inherit; font-size: 14px; color: var(--creme);
+  background: var(--superficie);
+  border: 1px solid var(--indigo-fraco); border-bottom: 1.5px solid var(--indigo);
+  border-radius: 4px; padding: 0.6rem 0.9rem;
+}
+.audios input:focus { outline: none; border-color: var(--indigo); }
+.audios input::placeholder { color: var(--creme-mudo); }
+.audios button.chip, .player button.chip { border: 0; font-family: inherit; cursor: pointer; }
+.audios .chip.ativo { background-color: var(--indigo); color: var(--creme); }
+.chip-conta { opacity: 0.6; margin-left: 0.3rem; }
+.audios .chip-tag { text-transform: none; letter-spacing: 0.3px; font-size: 12px; }
+.audios .chip-mais { background: transparent; color: var(--creme-mudo); text-transform: none; }
+#cats { margin-top: 1rem; }
+#tags { margin-top: 0.2rem; }
+.audios-conta { color: var(--creme-mudo); font-size: 12px; margin: 0.4rem 0 0; }
+
+/* ---------- lista ---------- */
+.audios-lista { list-style: none; padding: 0; margin: 0; }
+.audio-item {
+  display: grid; grid-template-columns: 2.6rem 1fr; gap: 0.9rem; align-items: start;
+  padding: 1rem 0.2rem; border-bottom: 1px solid var(--indigo-fraco);
+}
+.audio-play {
+  width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  border: 1.5px solid var(--indigo); background: transparent; color: var(--creme);
+  font-size: 0.9rem; cursor: pointer; transition: background-color 0.2s;
+}
+.audio-play:hover { background: var(--indigo); }
+.audio-item.tocando .audio-play { background: var(--coral); border-color: var(--coral); color: var(--noite); }
+.audio-titulo {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 1.35rem; line-height: 1.2; color: var(--creme);
+}
+.audio-item.tocando .audio-titulo { color: var(--pessego); }
+.audio-item.ouvido .audio-titulo { color: var(--creme-mudo); }
+.audio-meta { margin: 0.25rem 0 0; }
+.audio-item .chips { margin: 0.5rem 0 0; }
+.audio-notas { font-size: 13px; color: var(--creme-mudo); margin: 0.5rem 0 0; line-height: 1.5; }
+
+/* ---------- feeds ---------- */
+.audios-feeds { margin: 2.5rem 0 1rem; font-size: 14px; color: var(--creme-mudo); }
+.audios-feeds summary { cursor: pointer; color: var(--lavanda); }
+.audios-feeds ul { list-style: none; padding: 0; }
+.audios-feeds li { padding: 0.35rem 0; border-bottom: 1px solid var(--indigo-fraco); display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+.feed-nome { color: var(--creme); min-width: 11rem; }
+
+/* ---------- player fixo ---------- */
+.player {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  background: var(--superficie); border-top: 2px solid var(--coral);
+  padding: 0.6rem 0;
+}
+.player-dentro { display: flex; align-items: center; gap: 1rem; }
+.player-info { display: flex; flex-direction: column; min-width: 0; flex: 0 1 16rem; }
+.player-titulo { font-size: 13px; color: var(--creme); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-meta { font-size: 11px; color: var(--coral); }
+.player audio { flex: 1; min-width: 0; height: 40px; }
+body.com-player { padding-bottom: 6rem; }
+
+@media (max-width: 640px) {
+  .player-dentro { flex-wrap: wrap; gap: 0.4rem 0.8rem; }
+  .player-info { flex: 1 1 100%; }
+  body.com-player { padding-bottom: 8rem; }
+}
