@@ -223,7 +223,7 @@
       if ("mediaSession" in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
           title: a.titulo, artist: dados.categorias[a.categoria], album: "Acervo",
-          artwork: [{src: dados.feeds[a.categoria].replace(/feeds\/[^/]+\.xml$/, `capas/${a.categoria}.png`), sizes: "1400x1400", type: "image/png"}],
+          artwork: dados.capas ? [{src: dados.capas[a.categoria], sizes: "1400x1400", type: "image/png"}] : [],
         });
       }
       document.querySelectorAll(".audio-item").forEach(li => li.classList.toggle("tocando", li.dataset.id === a.id));
