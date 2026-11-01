@@ -15,6 +15,7 @@
   <meta name="description" content="{{ $description }}">
   <meta name="author" content="{{ .Site.Params.author }}">
   <link rel="canonical" href="{{ .Permalink }}">
+  {{ with .Params.robots }}<meta name="robots" content="{{ . }}">{{ end }}
 
   <!-- Open Graph -->
   <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
@@ -35,7 +36,8 @@
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/site.css">
 {{ if eq .Section "livros" }}<link rel="stylesheet" href="{{ .Site.BaseURL }}css/livros.css">{{ end }}
 {{ if eq .Section "recursos" }}<link rel="stylesheet" href="{{ .Site.BaseURL }}css/recursos.css">{{ end }}
-{{ if not .Site.IsServer }}
+{{ if eq .Section "audios" }}<link rel="stylesheet" href="{{ .Site.BaseURL }}css/audios.css">{{ end }}
+{{ if and (not .Site.IsServer) (not .Params.sem_analytics) }}
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.ga_id }}"></script>
 <script>
