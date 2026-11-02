@@ -136,8 +136,7 @@ lista = [
   "Espera equações, derivações e formalismo. Aqui aparecem poucas equações, nunca deduzidas, e o rigor está na argumentação e no modo de avaliar a evidência."
 ]
 
-# DEPOIMENTOS PROVISÓRIOS, da Imersão James Webb (mesmos da página da Biossinaturas).
-# Substituir pelos escolhidos no banco de depoimentos quando estiver pronto.
+
 [[secoes]]
 tipo = "depoimentos"
 titulo = "O que dizem alunos de imersões anteriores"
@@ -158,9 +157,12 @@ nome = "João Francisco Ferrari Duch"
 origem = "Imersão James Webb"
 
 [[secoes.itens]]
-texto = "Esta imersão foi uma inovação realizada com timing, excelente qualidade e diálogo. Perfeita."
-nome = "Breno Kuperman"
-origem = "Imersão James Webb"
+texto = "Tenho 65 anos e estudei a vida inteira. Tive ótimos professores ao destes anos, alguns deles, inclusive, me inspiraram na decisão do que estudar e que profissão seguir. Mas confesso que nenhum deles foi tão inspirador quanto o Prof. Zabot. Parabéns e obrigado!"
+nome = "Claudio Fajardo"
+origem = "Mentoria História da Matéria"
+
+
+
 
 [[secoes]]
 tipo = "professor"
