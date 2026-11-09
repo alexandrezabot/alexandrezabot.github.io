@@ -15,7 +15,7 @@
   <meta name="description" content="{{ $description }}">
   <meta name="author" content="{{ .Site.Params.author }}">
   <link rel="canonical" href="{{ .Permalink }}">
-  {{ with .Params.robots }}<meta name="robots" content="{{ . }}">{{ end }}
+  {{ with .Params.robots }}<meta name="robots" content="{{ . }}">{{ else }}{{ if partial "seo/noindex.html" . }}<meta name="robots" content="noindex, follow">{{ end }}{{ end }}
 
   <!-- Open Graph -->
   <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">

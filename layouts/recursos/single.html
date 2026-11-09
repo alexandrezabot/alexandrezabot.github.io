@@ -41,7 +41,7 @@
 
     {{ with .Params.tags }}
     <div class="chips recurso-tags">
-      {{ range . }}<a class="chip" href="{{ $.CurrentSection.RelPermalink }}?tag={{ . | urlquery }}">{{ . }}</a>{{ end }}
+      {{ range . }}<a class="chip" href="{{ $.CurrentSection.RelPermalink }}#tag={{ . | urlquery }}">{{ . }}</a>{{ end }}
     </div>
     {{ end }}
 
