@@ -21,6 +21,15 @@ if [ -n "$html" ]; then
     dest="static/recursos/$slug/sim"
     mkdir -p "$dest"
     cp "$html" "$dest/index.html"
+    if ! grep -q 'indexifembedded' "$dest/index.html"; then
+        python3 - "$dest/index.html" <<'EOF2'
+import re, sys
+p = sys.argv[1]; s = open(p, encoding="utf-8").read()
+s, n = re.subn(r"(<head[^>]*>)", r'\1\n<meta name="robots" content="noindex, indexifembedded">', s, count=1)
+open(p, "w", encoding="utf-8").write(s)
+print("Meta robots inserida" if n else "AVISO: HTML sem <head>, meta robots NÃO inserida")
+EOF2
+    fi
     echo "Simulação: $dest/index.html"
     if ! grep -q 'classList.add("embed")' "$dest/index.html"; then
         echo "AVISO: o HTML não tem o trecho do modo embed."

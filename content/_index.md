@@ -1,4 +1,5 @@
 ---
+aliases: ["/home/"]
 title: "Home"
 description: "Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astrofísica, física e matemática aplicada. Escrevo livros, ensino em cursos regulares e abertos."
 ---
