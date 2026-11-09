@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-8108cda troca destaques do AZ pelas edições mais bem avaliadas
+b690c32 SEO: filtros em fragmento, links com barra, noindex em simulações e conceitos únicos, sitemap, 404
 
 Branches:
 * main
@@ -28,6 +28,7 @@ Branches:
 Submódulos:
 
 Alterações não commitadas:
+ M coleta_site.sh
  M site_info.txt
 
 >>> CONFIGURAÇÃO HUGO
@@ -949,6 +950,7 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./hugo.toml
 ./i18n
 ./layouts
+./layouts/404.html
 ./layouts/audios
 ./layouts/audios/list.html
 ./layouts/az
@@ -959,6 +961,7 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./layouts/_default
 ./layouts/_default/baseof.html
 ./layouts/_default/home.html
+./layouts/_default/sitemap.xml
 ./layouts/_default/taxonomy.html
 ./layouts/_default/term.html
 ./layouts/livros
@@ -983,6 +986,8 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./layouts/partials/curso/secao-programa.html
 ./layouts/partials/curso/secao-texto.html
 ./layouts/partials/header.html
+./layouts/partials/seo
+./layouts/partials/seo/noindex.html
 ./layouts/recursos
 ./layouts/recursos/list.html
 ./layouts/recursos/single.html
@@ -1113,8 +1118,7 @@ User-agent: *
 Disallow: /mentoria/
 Disallow: /artigos/
 
-User-agent: *
-Allow: /
+Sitemap: https://www.profzabot.com.br/sitemap.xml
 
 >>> GITIGNORE
 --- .gitignore ---
@@ -1202,6 +1206,73 @@ Como usar os controles.
 1. 
 2. 
 3. 
+
+>>> SIMULAÇÕES ESTÁTICAS (primeiras 20 linhas de cada)
+--- static/recursos/cruzeiro-3d/sim/index.html ---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, indexifembedded">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cruzeiro do Sul em 3D</title>
+<script>
+  // Embutida num iframe (página do recurso), esconde título e introdução,
+  // que já estão na página do site. Aberta sozinha, mostra tudo.
+  if (window.self !== window.top) document.documentElement.classList.add("embed");
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noite:#040d29; --indigo:#6168B9; --coral:#FD8354; --lavanda:#A7B0EB;
+    --pessego:#F9BCAA; --creme:#E8E0D0; --creme-q:#F2EDE4; --creme-m:#A69E8E;
+  }
+  *{box-sizing:border-box}
+
+--- static/recursos/fermi/sim/index.html ---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, indexifembedded">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O paradoxo que se dissolve · Monte Carlo</title>
+<script>
+  // Embutida num iframe (página do recurso), esconde cabeçalho e rodapé,
+  // que já estão na página do site. Aberta sozinha, mostra tudo.
+  if (window.self !== window.top) document.documentElement.classList.add("embed");
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --noite:#040d29;
+  --superficie:#1a1422;
+  --elevada:#1C1C22;
+  --indigo:#6168B9;
+
+--- static/recursos/paralaxe/sim/index.html ---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, indexifembedded">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paralaxe</title>
+<script>
+  // Embutida num iframe (página do recurso), esconde título e introdução,
+  // que já estão na página do site. Aberta sozinha, mostra tudo.
+  if (window.self !== window.top) document.documentElement.classList.add("embed");
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noite:#040d29; --indigo:#6168B9; --lavanda:#A7B0EB; --coral:#FD8354;
+    --pessego:#F9BCAA; --creme:#E8E0D0; --curso:#214478;
+    --creme-mudo:rgba(232,224,208,.62); --linha:rgba(167,176,235,.28);
 
 ============================================================
 DUMP DOS ARQUIVOS
@@ -1368,7 +1439,7 @@ DUMP DOS ARQUIVOS
 <footer>
   <div class="container">
     <div class="footer-links">
-      <a href="/az">Astrofísica de A a Z</a>
+      <a href="/az/">Astrofísica de A a Z</a>
       <a href="https://www.youtube.com/@AstrofísicaparaTodos">YouTube</a>
       <a href="https://www.instagram.com/prof.zabot">Instagram</a>
       <a href="https://wa.me/554732047484">WhatsApp</a>
@@ -1648,7 +1719,17 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
   .aviso-seta { margin-left: 0; }
 }
 
-### LAYOUTS PROJETO (overrides) ###
+### LAYOUTS PROJETO (overrides, inclui sitemap.xml) ###
+
+--- layouts/404.html ---
+{{ define "main" }}
+<div class="coluna-prosa">
+<div class="linha-indigo"></div>
+<h1>Página não encontrada</h1>
+<p>Este endereço não existe mais. As páginas de imersões e mentorias saem do ar quando as inscrições se encerram.</p>
+<p><a href="/az/">Astrofísica de A a Z</a> · <a href="/recursos/">Recursos didáticos</a> · <a href="/">Página inicial</a></p>
+</div>
+{{ end }}
 
 --- layouts/audios/list.html ---
 {{ define "main" }}
@@ -2059,7 +2140,7 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
   <meta name="description" content="{{ $description }}">
   <meta name="author" content="{{ .Site.Params.author }}">
   <link rel="canonical" href="{{ .Permalink }}">
-  {{ with .Params.robots }}<meta name="robots" content="{{ . }}">{{ end }}
+  {{ with .Params.robots }}<meta name="robots" content="{{ . }}">{{ else }}{{ if partial "seo/noindex.html" . }}<meta name="robots" content="noindex, follow">{{ end }}{{ end }}
 
   <!-- Open Graph -->
   <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
@@ -2119,6 +2200,17 @@ footer .copyright { color: var(--creme-mudo); font-size: 12px; }
   {{ .Content }}
 </div>
 {{ end }}
+
+--- layouts/_default/sitemap.xml ---
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{{- $fora := slice "mentoria" "artigos" }}
+{{- range site.Pages }}
+  {{- if and .Permalink (not (in $fora .Section)) (not (partial "seo/noindex.html" .)) }}
+  <url><loc>{{ .Permalink }}</loc>{{ if not .Lastmod.IsZero }}<lastmod>{{ .Lastmod.Format "2006-01-02" }}</lastmod>{{ end }}</url>
+  {{- end }}
+{{- end }}
+</urlset>
 
 --- layouts/_default/taxonomy.html ---
 {{ define "main" }}
@@ -2564,14 +2656,20 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
   <p class="tagline">Doutor em Astrofísica · Professor da UFSC</p>
   <nav>
     <a href="/">Home</a>
-    <a href="/ensino">Ensino</a>
-    <a href="/livros">Livros</a>
-    <a href="/az">Astrofísica de A a Z</a>
-    <a href="/recursos">Recursos</a>
-    <a href="/sobre">Sobre</a>
-    <a href="/contato">Contato</a>
+    <a href="/ensino/">Ensino</a>
+    <a href="/livros/">Livros</a>
+    <a href="/az/">Astrofísica de A a Z</a>
+    <a href="/recursos/">Recursos</a>
+    <a href="/sobre/">Sobre</a>
+    <a href="/contato/">Contato</a>
   </nav>
 </header>
+
+--- layouts/partials/seo/noindex.html ---
+{{- $r := false -}}
+{{- with .Params.robots -}}{{- if strings.Contains . "noindex" -}}{{- $r = true -}}{{- end -}}{{- end -}}
+{{- if and (eq .Kind "term") (eq .Data.Plural "conceitos") (lt (len .Pages) 2) -}}{{- $r = true -}}{{- end -}}
+{{- return $r -}}
 
 --- layouts/recursos/list.html ---
 {{ define "main" }}
@@ -2621,7 +2719,7 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
       <p>{{ .Params.description }}</p>
       {{ with .Params.tags }}
       <div class="chips">
-        {{ range . }}<a class="chip" href="?tag={{ . | urlquery }}" data-tag="{{ . }}">{{ . }}</a>{{ end }}
+        {{ range . }}<a class="chip" href="#tag={{ . | urlquery }}" data-tag="{{ . }}">{{ . }}</a>{{ end }}
       </div>
       {{ end }}
     </article>
@@ -2637,7 +2735,7 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
   const busca = document.getElementById("busca");
   const chips = [...document.querySelectorAll("#chips .chip")];
   const vazio = document.getElementById("vazio");
-  const qs = new URLSearchParams(location.search);
+  const qs = new URLSearchParams(location.hash.slice(1) || location.search);
   let tag = qs.get("tag") || "";
   busca.value = qs.get("q") || "";
 
@@ -2655,7 +2753,7 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
     const u = new URLSearchParams();
     if (tag) u.set("tag", tag);
     if (busca.value.trim()) u.set("q", busca.value.trim());
-    history.replaceState(null, "", location.pathname + (u.toString() ? "?" + u : ""));
+    history.replaceState(null, "", location.pathname + (u.toString() ? "#" + u : ""));
   }
   chips.forEach(b => b.addEventListener("click", () => { tag = (tag === b.dataset.tag) ? "" : b.dataset.tag; aplica(); }));
   document.querySelectorAll(".recurso-card .chip").forEach(a => a.addEventListener("click", e => {
@@ -2711,7 +2809,7 @@ document.querySelectorAll('.depo-video-facade').forEach(function (el) {
 
     {{ with .Params.tags }}
     <div class="chips recurso-tags">
-      {{ range . }}<a class="chip" href="{{ $.CurrentSection.RelPermalink }}?tag={{ . | urlquery }}">{{ . }}</a>{{ end }}
+      {{ range . }}<a class="chip" href="{{ $.CurrentSection.RelPermalink }}#tag={{ . | urlquery }}">{{ . }}</a>{{ end }}
     </div>
     {{ end }}
 
@@ -4534,13 +4632,13 @@ Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astr
 
 ---
 
-**[Ensino de astrofísica](/ensino).** Projeto "Astrofísica para Todos" pela UFSC, com cursos abertos no YouTube. Imersões e Mentorias em turmas fechadas, com inscrição.
+**[Ensino de astrofísica](/ensino/).** Projeto "Astrofísica para Todos" pela UFSC, com cursos abertos no YouTube. Imersões e Mentorias em turmas fechadas, com inscrição.
 
-**[Livros](/livros).** *Astrofísica Moderna: Fenômenos e Conceitos* e *Introdução à Cosmologia Moderna*, ambos finalistas do Prêmio Jabuti Acadêmico.
+**[Livros](/livros/).** *Astrofísica Moderna: Fenômenos e Conceitos* e *Introdução à Cosmologia Moderna*, ambos finalistas do Prêmio Jabuti Acadêmico.
 
-**[Astrofísica de A a Z](/az).** Boletim semanal por email sobre o que acontece na astrofísica e na cosmologia. Minha visão do que é mais relevante na área.
+**[Astrofísica de A a Z](/az/).** Boletim semanal por email sobre o que acontece na astrofísica e na cosmologia. Minha visão do que é mais relevante na área.
 
-**[Sobre mim](/sobre).** Formação, livros publicados e valores pessoais que orientam este trabalho.
+**[Sobre mim](/sobre/).** Formação, livros publicados e valores pessoais que orientam este trabalho.
 
 --- content/livros/a1/index.md ---
 ---
@@ -6700,7 +6798,7 @@ O Universo é maravilhoso e nada como a ciência nos revela isso com mais clarez
 
 {{< figura src="/images/ciencia-fe/papa.jpg" alt="Com o papa Bento XVI" caption="Com o papa Bento XVI (Roma, 2007), durante a Escola de Verão do Observatório Astronômico do Vaticano." >}}
 
-### SCRIPT DE DEPLOY ###
+### SCRIPTS (deploy e novo recurso) ###
 
 --- atualiza ---
 rm -rf public \
@@ -6709,9 +6807,51 @@ rm -rf public \
   && git commit -m "${1:-atualiza site}" \
   && git push
 
+--- novo_recurso ---
+#!/bin/bash
+# novo_recurso — cria a página de um recurso didático e instala a simulação
+# Uso: ./novo_recurso <slug> [arquivo.html]
+#   ./novo_recurso cruzeiro-3d ~/Downloads/cruzeiro_3d.html
+#   ./novo_recurso tabela-magnitudes          (recurso sem simulação)
+set -e
+cd "$(dirname "$0")"
+
+slug="$1"; html="$2"
+if [ -z "$slug" ]; then
+    echo "Uso: ./novo_recurso <slug> [arquivo.html]"; exit 1
+fi
+md="content/recursos/$slug/index.md"
+if [ -e "$md" ]; then
+    echo "Já existe: $md"; exit 1
+fi
+
+hugo new "recursos/$slug/index.md"
+
+if [ -n "$html" ]; then
+    dest="static/recursos/$slug/sim"
+    mkdir -p "$dest"
+    cp "$html" "$dest/index.html"
+    echo "Simulação: $dest/index.html"
+    if ! grep -q 'classList.add("embed")' "$dest/index.html"; then
+        echo "AVISO: o HTML não tem o trecho do modo embed."
+        echo "       O título e a introdução da simulação vão aparecer duplicados na página."
+    fi
+else
+    python3 - "$md" <<'EOF'
+import sys
+p = sys.argv[1]
+t = open(p, encoding="utf-8").read()
+t = t.replace("\nsim: true\n", "\nsim: false\n", 1)
+open(p, "w", encoding="utf-8").write(t)
+EOF
+fi
+
+echo "Página: $md"
+echo "Capa opcional: content/recursos/$slug/capa.png (16:9)"
+
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |   416  
+  Pages            |   417  
   Paginator pages  |     0  
   Non-page files   |     6  
   Static files     |    21  
@@ -6719,7 +6859,58 @@ rm -rf public \
   Aliases          |     1  
   Cleaned          |     0  
 
-Total in 251 ms
+Total in 230 ms
+
+>>> BUILD LOCAL: SEO
+URLs no sitemap:            73
+Páginas com noindex:        3
+Conceitos com noindex:      147
+Links ?tag= restantes:      0
+Links internos sem barra:   0
+
+>>> SITE NO AR: STATUS HTTP
+200  https://www.profzabot.com.br/  ->  
+301  https://www.profzabot.com.br/az  ->  https://www.profzabot.com.br/az/
+200  https://www.profzabot.com.br/az/  ->  
+301  https://www.profzabot.com.br/ensino  ->  https://www.profzabot.com.br/ensino/
+200  https://www.profzabot.com.br/recursos/  ->  
+200  https://www.profzabot.com.br/recursos/fermi/sim/  ->  
+200  https://www.profzabot.com.br/recursos/fermi/sim/index.html  ->  
+200  https://www.profzabot.com.br/fermi/  ->  
+200  https://www.profzabot.com.br/audios/  ->  
+404  https://www.profzabot.com.br/pagina-que-nao-existe/  ->  
+301  https://profzabot.com.br/  ->  https://www.profzabot.com.br/
+301  http://www.profzabot.com.br/  ->  https://www.profzabot.com.br/
+301  https://alexandrezabot.github.io/  ->  https://www.profzabot.com.br/
+
+>>> SITE NO AR: META ROBOTS E CANONICAL
+/
+  robots:    
+  canonical: <link rel=canonical href=https://www.profzabot.com.br/>
+/az/
+  robots:    
+  canonical: <link rel=canonical href=https://www.profzabot.com.br/az/>
+/recursos/
+  robots:    
+  canonical: <link rel=canonical href=https://www.profzabot.com.br/recursos/>
+/recursos/fermi/sim/
+  robots:    <meta name="robots" content="noindex, indexifembedded">
+  canonical: 
+/fermi/
+  robots:    <meta name=robots content="noindex">
+  canonical: <link rel=canonical href=https://www.profzabot.com.br/recursos/fermi/>
+/audios/
+  robots:    <meta name=robots content="noindex, nofollow">
+  canonical: <link rel=canonical href=https://www.profzabot.com.br/audios/>
+
+robots.txt no ar:
+User-agent: *
+Disallow: /mentoria/
+Disallow: /artigos/
+
+Sitemap: https://www.profzabot.com.br/sitemap.xml
+
+URLs no sitemap no ar: 73
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt
