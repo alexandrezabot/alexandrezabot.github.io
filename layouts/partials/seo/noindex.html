@@ -1,0 +1,4 @@
+{{- $r := false -}}
+{{- with .Params.robots -}}{{- if strings.Contains . "noindex" -}}{{- $r = true -}}{{- end -}}{{- end -}}
+{{- if and (eq .Kind "term") (eq .Data.Plural "conceitos") (lt (len .Pages) 2) -}}{{- $r = true -}}{{- end -}}
+{{- return $r -}}

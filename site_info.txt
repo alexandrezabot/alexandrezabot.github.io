@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-b52fc26 novo depoimento
+8108cda troca destaques do AZ pelas edições mais bem avaliadas
 
 Branches:
 * main
@@ -29,7 +29,6 @@ Submódulos:
 
 Alterações não commitadas:
  M site_info.txt
-?? content/az/28.md
 
 >>> CONFIGURAÇÃO HUGO
 --- hugo.toml ---
@@ -3138,7 +3137,6 @@ draft: false
 description: "No último dia 26 de março recebemos o primeiro pacote de dados do Observatório Vera Rubin (...)"
 temas: ["Instrumentos e observatórios", "Cosmologia"]
 conceitos: ["survey", "Observatório Vera Rubin", "Sloan", "matéria escura", "energia escura", "lente gravitacional"]
-destaque: 6
 ---
 
 No último dia 26 de março recebemos o primeiro pacote de dados do Observatório Vera Rubin. Foi uma festa que já era esperada há anos. Todas nossas expectativas foram atendidas. Terminada a fase de primeiros ajustes, nos preparamos para um período de coleta de dados realmente relevantes para a Astrofísica. A empolgação dos cientistas é enorme, porque muito maior é a capacidade deste telescópio de impactar para sempre o que conhecemos sobre o Universo.
@@ -3380,7 +3378,6 @@ draft: false
 description: "Existe um tamanho máximo para uma estrela? A resposta envolve desafios observacionais, incertezas de modelagem e uma física de formação que ainda não está resolvida"
 temas: ["Estrelas"]
 conceitos: ["limite de massa estelar", "R136a1", "aglomerado estelar jovem", "binária eclipsante", "pressão de radiação", "formação estelar"]
-destaque: 5
 ---
 
 
@@ -3495,7 +3492,6 @@ draft: false
 description: "A dinâmica orbital já explicava 3I/ATLAS na primeira semana de observação, sem precisar de massa, tamanho ou constituição. Ainda assim, falou-se em tecnologia alienígena. Uma correção sobre a cobertura do terceiro objeto interestelar, e uma lição de Sagan que continua atual."
 temas: ["História e Filosofia da Ciência", "Sol e Sistema Solar"]
 conceitos: ["3I ATLAS", "objeto interestelar", "Oumuamua", "Borisov", "Carl Sagan", "Avi Loeb"]
-destaque: 4
 ---
 
 Dos vários livros que li do Carl Sagan, "O mundo assombrado pelos demônios" é o que considero mais importante, porque como bom vinho, vai ficando melhor com a passagem do tempo. Não era para ser assim, infelizmente, porque se ele ainda é atual, significa que não aprendemos suas lições. O último caso que ilustra bem a lamentável ignorância científica da nossa sociedade foi a cobertura midiática do cometa 3I/Atlas.
@@ -3752,7 +3748,7 @@ draft: false
 description: "Quando um objeto novo aparece no céu e ninguém sabe o que ele é, recebe um nome provisório. Foi o que aconteceu em 2018, quando o ATLAS flagrou um ponto novo e o catalogou como AT2018cow (...)"
 temas: ["Buracos negros e objetos compactos", "Estrelas"]
 conceitos: ["AT2018cow", "transiente rápido", "motor central", "supernova", "níquel radioativo"]
-destaque: 2
+destaque: 6
 ---
 
 
@@ -3785,6 +3781,7 @@ Acho esses casos muito interessantes. Quando os quasares apareceram nos anos 196
 title: "A estrela certa no lugar certo"
 date: 2026-08-27
 draft: false
+destaque: 4
 description: "Semana passada a colaboração GRAVITY+ anunciou a descoberta de S301, uma estrela que orbita o buraco negro do centro da Via Láctea a 25 mil km/s (...)"
 temas: ["Buracos negros e objetos compactos", "História e Filosofia da Ciência"]
 conceitos: ["Sagitário A", "S2", "GRAVITY", "relatividade geral", "precessão do periélio", "métrica de Kerr", "arrasto de referenciais"]
@@ -3860,6 +3857,7 @@ Dez anos depois, no mesmo ramo, Arthur Eddington fez o oposto. Diante do cálcul
 title: "Por que ninguém decide o destino da Terra?"
 date: 2026-09-10
 draft: false
+destaque: 2
 description: "Sempre que falo sobre evolução estelar, aparece a questão: o Sol vai engolir a Terra? A resposta padrão é sim (...)"
 temas: ["Estrelas", "Sol e Sistema Solar"]
 conceitos: ["evolução estelar", "gigante vermelha", "perda de massa", "vento estelar", "L2 Puppis", "destino da Terra"]
@@ -3966,6 +3964,7 @@ Naidu, R. P. et al. (2026). A gas-enshrouded and gas-reddened black hole at cosm
 title: "Por que uma protoestrela esquenta quando perde energia?"
 date: 2026-10-01
 draft: false
+destaque: 5
 description: "A gravidade tem uma termodinâmica própria, em que perder energia significa esquentar. O Teorema do Virial explica por que a estrela em formação acende, por que o Sol de Kelvin parecia jovem demais para Darwin e por que o núcleo de um aglomerado globular colapsa."
 temas: ["Estrelas", "Galáxias e meio interestelar"]
 conceitos: ["teorema do virial", "protoestrela", "Rudolf Clausius", "Lord Kelvin", "catástrofe gravotérmica", "aglomerado globular", "aglomerado de Coma", "Fritz Zwicky"]
@@ -6712,7 +6711,7 @@ rm -rf public \
 
 >>> TESTE DE BUILD
 -------------------+--------
-  Pages            |   405  
+  Pages            |   416  
   Paginator pages  |     0  
   Non-page files   |     6  
   Static files     |    21  
@@ -6720,7 +6719,7 @@ rm -rf public \
   Aliases          |     1  
   Cleaned          |     0  
 
-Total in 227 ms
+Total in 251 ms
 
 ============================================================
 Arquivo gerado em: /home/zabot/profzabot/site/site_info.txt

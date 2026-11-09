@@ -45,7 +45,7 @@
       <p>{{ .Params.description }}</p>
       {{ with .Params.tags }}
       <div class="chips">
-        {{ range . }}<a class="chip" href="?tag={{ . | urlquery }}" data-tag="{{ . }}">{{ . }}</a>{{ end }}
+        {{ range . }}<a class="chip" href="#tag={{ . | urlquery }}" data-tag="{{ . }}">{{ . }}</a>{{ end }}
       </div>
       {{ end }}
     </article>
@@ -61,7 +61,7 @@
   const busca = document.getElementById("busca");
   const chips = [...document.querySelectorAll("#chips .chip")];
   const vazio = document.getElementById("vazio");
-  const qs = new URLSearchParams(location.search);
+  const qs = new URLSearchParams(location.hash.slice(1) || location.search);
   let tag = qs.get("tag") || "";
   busca.value = qs.get("q") || "";
 
@@ -79,7 +79,7 @@
     const u = new URLSearchParams();
     if (tag) u.set("tag", tag);
     if (busca.value.trim()) u.set("q", busca.value.trim());
-    history.replaceState(null, "", location.pathname + (u.toString() ? "?" + u : ""));
+    history.replaceState(null, "", location.pathname + (u.toString() ? "#" + u : ""));
   }
   chips.forEach(b => b.addEventListener("click", () => { tag = (tag === b.dataset.tag) ? "" : b.dataset.tag; aplica(); }));
   document.querySelectorAll(".recurso-card .chip").forEach(a => a.addEventListener("click", e => {
