@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O céu muda com a latitude</title>
+<style>
+:root{--azul:#214478;--phi:#e07b00;--eixo:#a3222b;--txt:#1d2433;--sub:#5a6476;--borda:#d5dae3;--fundo:#f5f7fa}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--txt);line-height:1.45;font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:14px}
+h1{color:var(--azul);font-size:1.55rem;margin:0 0 2px}
+.instr{color:var(--sub);margin:0 0 10px}
+.paineis{display:grid;grid-template-columns:3fr 2fr;gap:12px}
+.painel{border:1px solid var(--borda);border-radius:8px;background:#fff;min-width:0}
+.painel h2{font-size:.78rem;font-weight:600;color:var(--sub);margin:0;padding:8px 12px 0;text-transform:uppercase;letter-spacing:.05em}
+svg{display:block;width:100%;height:auto;touch-action:none;-webkit-user-select:none;user-select:none}
+#esfera{cursor:grab}
+#esfera.arrastando{cursor:grabbing}
+#terra{cursor:pointer}
+#boneco{outline:none}
+#boneco:focus-visible .foco{stroke:var(--azul);stroke-width:1.5;stroke-dasharray:3 2}
+.nota{margin:10px 0 0;padding:10px 14px;border-left:4px solid var(--phi);background:#fff7ec;border-radius:0 6px 6px 0;min-height:3.2em;transition:opacity .25s}
+.controles{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:12px}
+.caixa{border:1px solid var(--borda);border-radius:8px;padding:10px 12px;background:var(--fundo)}
+.caixa h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);margin:0 0 6px}
+.linha{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--azul)}
+.escala{display:flex;justify-content:space-between;font-size:.75rem;color:var(--sub);margin:-4px 0 4px}
+#latTexto{width:7.5em;padding:4px 6px;border:1px solid var(--borda);border-radius:5px;font:inherit}
+button,select{font:inherit;font-size:.88rem;padding:4px 10px;border:1px solid var(--azul);border-radius:5px;background:#fff;color:var(--azul);cursor:pointer}
+button:hover{background:#e9eef6}
+button.prim{background:var(--azul);color:#fff}
+button.prim:hover{background:#2c5797}
+label.chk{font-size:.9rem;display:inline-flex;align-items:center;gap:4px;margin-right:10px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:0;font-size:.92rem}
+dt{color:var(--sub)}
+dd{margin:0;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin-top:10px}
+th,td{padding:4px 6px;text-align:left;border-bottom:1px solid var(--borda)}
+th{font-size:.78rem;color:var(--sub);font-weight:600}
+td.n{font-variant-numeric:tabular-nums}
+.rodape{font-size:.8rem;color:var(--sub);margin-top:14px;border-top:1px solid var(--borda);padding-top:8px}
+@media (max-width:760px){
+ .paineis,.controles{grid-template-columns:1fr}
+ .p-terra{order:-1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>O céu muda com a latitude</h1>
+<p class="instr">Arraste o observador sobre a Terra e veja como as estrelas se movem no céu dele.</p>
+
+<div class="paineis">
+ <div class="painel p-esfera">
+  <h2>O céu do observador</h2>
+  <svg id="esfera" viewBox="0 0 620 560" aria-label="Esfera celeste local do observador, com horizonte, polo celeste e rastros diurnos das estrelas" role="img" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"></svg>
+ </div>
+ <div class="painel p-terra">
+  <h2>O observador na Terra</h2>
+  <svg id="terra" viewBox="0 0 420 470" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+   <defs>
+    <marker id="mZ" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#444"/></marker>
+    <marker id="mP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#a3222b"/></marker>
+    <marker id="mL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9aa4b5"/></marker>
+   </defs>
+   <g id="terraFixa"></g>
+   <g id="terraDin"></g>
+   <g id="boneco" tabindex="0" role="slider" aria-label="Latitude do observador" aria-valuemin="-90" aria-valuemax="90" aria-valuenow="-26.3" aria-valuetext="26,3 graus sul">
+    <circle class="foco" cx="0" cy="-14" r="17" fill="rgba(255,255,255,0.01)" stroke="none"/>
+    <g stroke="#1d2433" stroke-width="2.2" stroke-linecap="round" fill="none">
+     <circle cx="0" cy="-24" r="5" fill="#fff"/>
+     <path d="M0 -19 L0 -8 M0 -8 L-5 0 M0 -8 L5 0 M-6 -15 L6 -15"/>
+    </g>
+   </g>
+  </svg>
+ </div>
+</div>
+
+<div class="nota" id="nota" aria-live="polite"></div>
+
+<div class="controles">
+ <div class="caixa">
+  <h3>Latitude</h3>
+  <div class="linha">
+   <input type="range" id="latSlider" min="-90" max="90" step="0.1" value="-26.3" aria-label="Latitude">
+   <input type="text" id="latTexto" aria-label="Latitude (ex.: 26,3 S)" inputmode="decimal">
+  </div>
+  <div class="escala"><span>90° S</span><span>0°</span><span>90° N</span></div>
+  <div class="linha">
+   <button data-lat="90">Polo Norte</button>
+   <button data-lat="0.03">Macapá</button>
+   <button data-lat="-5.8">Natal</button>
+   <button data-lat="-26.3">Joinville</button>
+   <button data-lat="-90">Polo Sul</button>
+  </div>
+  <h3 style="margin-top:12px">Animação e vista</h3>
+  <div class="linha">
+   <button id="play" class="prim" aria-pressed="true">Pausar</button>
+   <select id="vel" aria-label="Velocidade">
+    <option value="0.5">0,5×</option><option value="1" selected>1×</option><option value="3">3×</option>
+   </select>
+   <button id="vistaPadrao">Vista padrão</button>
+   <button id="baixar">Baixar imagem</button>
+  </div>
+  <div class="linha">
+   <label class="chk"><input type="checkbox" id="cEquador" checked> equador celeste</label>
+   <label class="chk"><input type="checkbox" id="cAbaixo" checked> mostrar parte abaixo do horizonte</label>
+   <label class="chk"><input type="checkbox" id="cRegioes"> regiões do céu</label>
+   <label class="chk"><input type="checkbox" id="cEstrelas" checked> estrelas brilhantes</label>
+  </div>
+ </div>
+ <div class="caixa">
+  <h3>Leituras</h3>
+  <dl>
+   <dt>Latitude</dt><dd id="rLat"></dd>
+   <dt>Altura do polo elevado</dt><dd id="rPolo"></dd>
+   <dt>Ângulo dos rastros com o horizonte</dt><dd id="rIncl"></dd>
+   <dt>Estrelas sempre visíveis</dt><dd id="rCirc"></dd>
+   <dt>Estrelas nunca visíveis</dt><dd id="rNunca"></dd>
+  </dl>
+  <table>
+   <thead><tr><th>Estrela</th><th>Declinação</th><th>Tempo acima do horizonte</th><th>Altura máxima</th></tr></thead>
+   <tbody id="tabEstrelas"></tbody>
+  </table>
+ </div>
+</div>
+
+<p class="rodape">Modelo sem refração atmosférica e sem o tamanho do disco estelar; tempos em horas siderais. Arraste a esfera para girar a vista. Créditos: Prof. Alexandre Zabot, Astrofísica para Todos, UFSC.</p>
+</div>
+
+<script>
+(function(){
+'use strict';
+var D = Math.PI/180;
+var NS = 'http://www.w3.org/2000/svg';
+var COR = {azul:'#214478', phi:'#e07b00', eixo:'#a3222b', abaixo:'#8b95a7', equador:'#7a3fb0',
+           estrela:'#f2b705', txt:'#1d2433', sub:'#5a6476', circ:'#3f9a4a', nunca:'#7d7d7d'};
+var ESTRELAS = [
+  {nome:'Acrux',      dec:-63.10, ar:12.44},
+  {nome:'Canopus',    dec:-52.70, ar:6.40},
+  {nome:'Sirius',     dec:-16.72, ar:6.75},
+  {nome:'Betelgeuse', dec:  7.41, ar:5.92},
+  {nome:'Vega',       dec: 38.78, ar:18.62},
+  {nome:'Polaris',    dec: 89.26, ar:2.53}
+];
+var DECS = [-75,-60,-45,-30,-15,0,15,30,45,60,75];
+
+var est = {lat:-26.3, A:270, e:20, tsl:100, tocando:true, vel:1,
+           abaixo:true, equador:true, regioes:false, estrelas:true};
+
+/* ---------- utilidades ---------- */
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+function cross(a,b){return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];}
+function lerp(a,b,t){return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t];}
+function num(v,c){if(c===undefined)c=1; var s=Math.abs(v).toFixed(c); return s.replace('.',',');}
+function fmtLat(v){ if(Math.abs(v)<0.05) return '0,0°'; return num(v)+'° '+(v<0?'S':'N'); }
+function fmtLatExt(v){ if(Math.abs(v)<0.05) return '0 graus'; return num(v)+' graus '+(v<0?'sul':'norte'); }
+function f1(x){return x.toFixed(1);}
+function caminho(pts){ var s=''; for(var i=0;i<pts.length;i++){ s+=(i?' L':'M')+f1(pts[i].x)+' '+f1(pts[i].y);} return s; }
+
+/* ---------- astronomia ---------- */
+// referencial do observador: x = Leste, y = Norte, z = Zênite
+function horiz(dec,H,lat){
+  var sd=Math.sin(dec*D), cd=Math.cos(dec*D), sh=Math.sin(H*D), ch=Math.cos(H*D),
+      sf=Math.sin(lat*D), cf=Math.cos(lat*D);
+  return [-cd*sh, cf*sd - sf*cd*ch, sf*sd + cf*cd*ch];
+}
+function horasAcima(dec,lat){
+  var f=clamp(lat,-89.999,89.999);
+  var k=-Math.tan(f*D)*Math.tan(dec*D);
+  if(k<=-1) return 24;
+  if(k>=1) return 0;
+  return 2*Math.acos(k)/D/15;
+}
+function alturaMax(dec,lat){ return 90-Math.abs(lat-dec); }
+
+/* ---------- esfera: projeção ---------- */
+var CX=310, CY=270, R=210;
+function camera(){
+  var A=est.A*D, e=est.e*D;
+  var c=[Math.sin(A)*Math.cos(e), Math.cos(A)*Math.cos(e), Math.sin(e)];
+  var r=[-Math.cos(A), Math.sin(A), 0];
+  return {c:c, r:r, u:cross(c,r)};
+}
+function proj(v,cam){ return {x:CX+R*dot(v,cam.r), y:CY-R*dot(v,cam.u), d:dot(v,cam.c)}; }
+
+var ZT=-1e-9;
+function estado(v,cam){ return v[2]<ZT ? 'ab' : (dot(v,cam.c)>=0 ? 'fr' : 'tr'); }
+
+// divide um círculo (função t -> vetor) em trechos por estado
+function trechos(fn, n, cam){
+  var out={ab:[],fr:[],tr:[]}, seg=[], pv=null, ps=null;
+  for(var i=0;i<=n;i++){
+    var v=fn(360*i/n), s=estado(v,cam);
+    if(ps!==null && s!==ps){
+      var t, zc=(pv[2]<ZT)!==(v[2]<ZT);
+      if(zc){ t=(pv[2]-ZT)/(pv[2]-v[2]); }
+      else { var d0=dot(pv,cam.c), d1=dot(v,cam.c); t=d0/(d0-d1); }
+      var pm=proj(lerp(pv,v,t),cam);
+      seg.push(pm); out[ps].push(seg); seg=[pm];
+    }
+    seg.push(proj(v,cam)); pv=v; ps=s;
+  }
+  out[ps].push(seg);
+  return out;
+}
+
+function el(tag, at, txt){
+  var s='<'+tag;
+  for(var k in at){ if(at[k]!==null && at[k]!==undefined) s+=' '+k+'="'+at[k]+'"'; }
+  if(txt!==undefined) return s+'>'+txt+'</'+tag+'>';
+  return s+'/>';
+}
+function seta(p,q,cor,op){
+  var dx=q.x-p.x, dy=q.y-p.y, L=Math.hypot(dx,dy); if(L<0.01) return '';
+  dx/=L; dy/=L; var a=7, b=3.6;
+  var tip={x:p.x+dx*a*0.6, y:p.y+dy*a*0.6};
+  var b1={x:p.x-dx*a*0.4-dy*b, y:p.y-dy*a*0.4+dx*b};
+  var b2={x:p.x-dx*a*0.4+dy*b, y:p.y-dy*a*0.4-dx*b};
+  return el('path',{d:'M'+f1(tip.x)+' '+f1(tip.y)+' L'+f1(b1.x)+' '+f1(b1.y)+' L'+f1(b2.x)+' '+f1(b2.y)+'Z', fill:cor, 'fill-opacity':op});
+}
+
+var svgE=document.getElementById('esfera');
+
+function desenhaEsfera(){
+  var lat=est.lat, cam=camera();
+  var L={ab:'', disco:'', regBaixo:'', tr:'', meio:'', fr:'', regCima:'', estrelas:'', rot:''};
+  var eq = Math.abs(lat)<0.05;
+  var s = lat>=0 ? 1 : -1;                 // hemisfério do polo elevado
+  var cf=Math.cos(lat*D), sf=Math.sin(lat*D);
+  var Pel=[0, s*cf, s*sf];                 // polo elevado (para φ<0 é o polo sul celeste)
+  var Pdep=[0,-s*cf,-s*sf];
+
+  // fundo: esfera translúcida
+  var fundo = el('circle',{cx:CX,cy:CY,r:R,fill:'#f2f5fa',stroke:'#9aa6b8','stroke-width':1.2});
+
+  // regiões do céu
+  if(est.regioes && Math.abs(lat)>=0.5){
+    var lim=90-Math.abs(lat);
+    var poly=function(dec){ var pts=[]; for(var i=0;i<=90;i++){ pts.push(proj(horiz(dec,i*4,lat),cam)); } return caminho(pts)+'Z'; };
+    L.regBaixo += el('path',{d:poly(-s*lim),fill:COR.nunca,'fill-opacity':0.22,stroke:COR.nunca,'stroke-width':1.6,'stroke-opacity':0.7});
+    L.regCima  += el('path',{d:poly(s*lim),fill:COR.circ,'fill-opacity':0.18,stroke:COR.circ,'stroke-width':1.8,'stroke-opacity':0.85});
+  }
+
+  // disco do horizonte
+  var hz=[]; for(var i=0;i<=90;i++){ var t=i*4*D; hz.push(proj([Math.sin(t),Math.cos(t),0],cam)); }
+  L.disco += el('path',{d:caminho(hz)+'Z',fill:'#dde4ee','fill-opacity':0.78,stroke:COR.azul,'stroke-width':1.6});
+  var pN=proj([0,1,0],cam), pS=proj([0,-1,0],cam);
+  L.disco += el('path',{d:'M'+f1(pN.x)+' '+f1(pN.y)+' L'+f1(pS.x)+' '+f1(pS.y)+' M'+f1(proj([1,0,0],cam).x)+' '+f1(proj([1,0,0],cam).y)+' L'+f1(proj([-1,0,0],cam).x)+' '+f1(proj([-1,0,0],cam).y),
+    stroke:COR.azul,'stroke-width':0.8,'stroke-opacity':0.45,'stroke-dasharray':'4 4',fill:'none'});
+
+  // rastros diurnos
+  var estilo={
+    fr:{stroke:COR.azul,'stroke-width':1.7,fill:'none','stroke-linecap':'round'},
+    tr:{stroke:COR.azul,'stroke-width':1.2,'stroke-opacity':0.33,fill:'none'},
+    ab:{stroke:COR.abaixo,'stroke-width':1,'stroke-opacity':0.6,'stroke-dasharray':'3 4',fill:'none'}
+  };
+  function traca(dec, est_, camada){
+    var tr=trechos(function(H){return horiz(dec,H,lat);},180,cam);
+    ['ab','tr','fr'].forEach(function(k){
+      if(k==='ab' && !est.abaixo) return;
+      tr[k].forEach(function(seg){ if(seg.length>1){ var a=Object.assign({d:caminho(seg)},est_[k]); L[camada?camada(k):k]+=el('path',a);} });
+    });
+    // setas de sentido (para Oeste), só na parte visível
+    [60,180,300].forEach(function(H){
+      var v=horiz(dec,H,lat); if(v[2]<0.03) return;
+      var p=proj(v,cam), q=proj(horiz(dec,H+3,lat),cam);
+      var fr=p.d>=0;
+      L[fr?'fr':'tr'] += seta(p,q,est_.fr.stroke, fr?0.95:0.4);
+    });
+  }
+  DECS.forEach(function(dec){ if(dec===0 && est.equador) return; traca(dec, estilo); });
+  if(est.equador){
+    traca(0,{
+      fr:{stroke:COR.equador,'stroke-width':2,fill:'none','stroke-dasharray':'9 3 2 3'},
+      tr:{stroke:COR.equador,'stroke-width':1.4,'stroke-opacity':0.4,fill:'none','stroke-dasharray':'9 3 2 3'},
+      ab:{stroke:COR.equador,'stroke-width':1,'stroke-opacity':0.45,'stroke-dasharray':'2 4',fill:'none'}
+    });
+  }
+
+  // eixo do mundo, zênite, observador
+  var O={x:CX,y:CY};
+  var pel=proj(Pel,cam), pdep=proj(Pdep,cam), pz=proj([0,0,1],cam);
+  if(est.abaixo || eq){
+    L.ab += el('line',{x1:O.x,y1:O.y,x2:f1(pdep.x),y2:f1(pdep.y),stroke:COR.eixo,'stroke-width':1.4,'stroke-opacity':0.55,'stroke-dasharray':'5 4'});
+  }
+  L.meio += el('line',{x1:O.x,y1:O.y,x2:f1(pel.x),y2:f1(pel.y),stroke:COR.eixo,'stroke-width':2.2});
+  L.meio += el('line',{x1:O.x,y1:O.y,x2:f1(pz.x),y2:f1(pz.y),stroke:'#666','stroke-width':0.9,'stroke-dasharray':'2 3'});
+  L.meio += el('circle',{cx:f1(pz.x),cy:f1(pz.y),r:3.5,fill:'#444'});
+  L.rot  += el('text',{x:f1(pz.x-10),y:f1(pz.y-6),'text-anchor':'end','font-size':15,'font-weight':700,fill:'#444'},'Z');
+  L.meio += el('circle',{cx:O.x,cy:O.y,r:3,fill:COR.txt});
+
+  // polos
+  function rotPolo(P,nome,forte){
+    var p=proj(P,cam);
+    L.meio += el('circle',{cx:f1(p.x),cy:f1(p.y),r:forte?5:3.5,fill:COR.eixo,'fill-opacity':forte?1:0.5});
+    var dx=p.x-CX, dy=p.y-CY, Lr=Math.hypot(dx,dy)||1;
+    var off = eq ? {x:0,y:-16} : {x:dx/Lr*16, y:dy/Lr*16};
+    L.rot += el('text',{x:f1(p.x+off.x),y:f1(p.y+off.y+5),'text-anchor':'middle','font-size':14,'font-weight':700,fill:COR.eixo,'fill-opacity':forte?1:0.55},nome);
+  }
+  if(eq){ rotPolo([0,1,0],'PN',true); rotPolo([0,-1,0],'PS',true); }
+  else {
+    rotPolo(Pel, s>0?'PN':'PS', true);
+    if(est.abaixo) rotPolo(Pdep, s>0?'PS':'PN', false);
+  }
+
+  // arco do ângulo φ, no plano do meridiano
+  if(Math.abs(lat)>=0.5){
+    var ar=[], rA=0.3, a=Math.abs(lat);
+    for(var j=0;j<=40;j++){ var tt=a*j/40*D; ar.push(proj([0,s*rA*Math.cos(tt),rA*Math.sin(tt)],cam)); }
+    L.meio += el('path',{d:caminho(ar),stroke:COR.phi,'stroke-width':3.2,fill:'none'});
+    var pH=proj([0,s*0.42,0],cam);
+    L.meio += el('line',{x1:O.x,y1:O.y,x2:f1(pH.x),y2:f1(pH.y),stroke:COR.phi,'stroke-width':1.6});
+    var tm=a/2*D, pl=proj([0,s*0.47*Math.cos(tm),0.47*Math.sin(tm)],cam);
+    L.rot += el('text',{x:f1(pl.x),y:f1(pl.y+5),'text-anchor':'middle','font-size':14,'font-weight':700,fill:COR.phi,stroke:'#fff','stroke-width':3,'paint-order':'stroke'},'φ = '+fmtLat(lat));
+  }
+
+  // pontos cardeais
+  [['N',[0,1,0]],['S',[0,-1,0]],['L',[1,0,0]],['O',[-1,0,0]]].forEach(function(c){
+    var p=proj([c[1][0]*1.1,c[1][1]*1.1,0],cam);
+    L.rot += el('text',{x:f1(p.x),y:f1(p.y+5),'text-anchor':'middle','font-size':15,'font-weight':700,fill:COR.azul,'fill-opacity':p.d>=-0.3?1:0.55},c[0]);
+  });
+
+  // estrelas brilhantes
+  if(est.estrelas){
+    ESTRELAS.forEach(function(st){
+      var H=est.tsl-st.ar*15, v=horiz(st.dec,H,lat), p=proj(v,cam);
+      var abaixo=v[2]<0;
+      if(abaixo && !est.abaixo) return;
+      var op = abaixo?0.35:(p.d>=0?1:0.6);
+      L.estrelas += el('circle',{cx:f1(p.x),cy:f1(p.y),r:5.5,fill:abaixo?'#fff':COR.estrela,stroke:'#6b4e00','stroke-width':1.2,'fill-opacity':op,'stroke-opacity':op});
+      L.estrelas += el('text',{x:f1(p.x+8),y:f1(p.y-6),'font-size':12.5,'font-weight':600,fill:COR.txt,'fill-opacity':op,stroke:'#fff','stroke-width':2.5,'stroke-opacity':op*0.8,'paint-order':'stroke'},st.nome);
+    });
+  }
+
+  // legenda e título (entram na imagem exportada)
+  var leg='';
+  var ly=538;
+  leg += el('text',{x:14,y:24,'font-size':15,'font-weight':700,fill:COR.azul},'Latitude '+fmtLat(lat));
+  leg += el('line',{x1:14,y1:ly,x2:40,y2:ly,stroke:COR.azul,'stroke-width':1.7});
+  leg += el('text',{x:46,y:ly+4,'font-size':11.5,fill:COR.sub},'acima do horizonte');
+  leg += el('line',{x1:160,y1:ly,x2:186,y2:ly,stroke:COR.azul,'stroke-width':1.2,'stroke-opacity':0.33});
+  leg += el('text',{x:192,y:ly+4,'font-size':11.5,fill:COR.sub},'acima, atrás');
+  leg += el('line',{x1:276,y1:ly,x2:302,y2:ly,stroke:COR.abaixo,'stroke-width':1,'stroke-dasharray':'3 4'});
+  leg += el('text',{x:308,y:ly+4,'font-size':11.5,fill:COR.sub},'abaixo do horizonte');
+  if(est.equador){
+    leg += el('line',{x1:432,y1:ly,x2:458,y2:ly,stroke:COR.equador,'stroke-width':2,'stroke-dasharray':'9 3 2 3'});
+    leg += el('text',{x:464,y:ly+4,'font-size':11.5,fill:COR.sub},'equador celeste');
+  }
+
+  svgE.innerHTML =
+    el('rect',{x:0,y:0,width:620,height:560,fill:'#ffffff'}) + fundo +
+    '<g>'+L.ab+'</g>' + L.regBaixo + L.disco + L.regCima +
+    '<g>'+L.tr+'</g><g>'+L.meio+'</g><g>'+L.fr+'</g><g>'+L.estrelas+'</g><g>'+L.rot+'</g>' + leg;
+}
+
+/* ---------- Terra ---------- */
+var TX=215, TY=240, TR=125;
+var gFixa=document.getElementById('terraFixa'), gDin=document.getElementById('terraDin'), bon=document.getElementById('boneco');
+var svgT=document.getElementById('terra');
+
+function desenhaTerraFixa(){
+  var s='';
+  // luz de uma estrela no polo: direções paralelas ao eixo
+  [36,58,80].forEach(function(x){ s+=el('line',{x1:x,y1:34,x2:x,y2:104,stroke:'#9aa4b5','stroke-width':1.4,'marker-end':'url(#mL)'}); });
+  s+=el('text',{x:20,y:124,'font-size':10.5,fill:'#8a93a3'},'luz das estrelas');
+  s+=el('text',{x:20,y:137,'font-size':10.5,fill:'#8a93a3'},'(direções paralelas)');
+  // eixo
+  s+=el('line',{x1:TX,y1:TY-TR-68,x2:TX,y2:TY+TR+68,stroke:COR.eixo,'stroke-width':1.8});
+  s+=el('text',{x:TX,y:TY-TR-76,'text-anchor':'middle','font-size':14,'font-weight':700,fill:COR.eixo},'PN');
+  s+=el('text',{x:TX,y:TY+TR+90,'text-anchor':'middle','font-size':14,'font-weight':700,fill:COR.eixo},'PS');
+  // Terra
+  s+=el('circle',{cx:TX,cy:TY,r:TR,fill:'#dfe9f6',stroke:COR.azul,'stroke-width':1.4});
+  [-60,-30,30,60].forEach(function(l){
+    var y=TY-TR*Math.sin(l*D), rx=TR*Math.cos(l*D), ry=rx*0.18;
+    s+=el('path',{d:'M'+f1(TX-rx)+' '+f1(y)+' A'+f1(rx)+' '+f1(ry)+' 0 0 0 '+f1(TX+rx)+' '+f1(y),stroke:'#a9bbd6','stroke-width':0.9,fill:'none'});
+  });
+  var ry=TR*0.18;
+  s+=el('path',{d:'M'+(TX-TR)+' '+TY+' A'+TR+' '+f1(ry)+' 0 0 1 '+(TX+TR)+' '+TY,stroke:COR.azul,'stroke-width':1,'stroke-dasharray':'4 3',fill:'none','stroke-opacity':0.6});
+  s+=el('path',{d:'M'+(TX-TR)+' '+TY+' A'+TR+' '+f1(ry)+' 0 0 0 '+(TX+TR)+' '+TY,stroke:COR.azul,'stroke-width':1.6,fill:'none'});
+  s+=el('text',{x:TX-TR+10,y:TY+ry+16,'font-size':11,fill:COR.azul},'equador');
+  // meridiano do limbo direito, onde o boneco anda
+  s+=el('path',{d:'M'+TX+' '+(TY-TR)+' A'+TR+' '+TR+' 0 0 1 '+TX+' '+(TY+TR),stroke:COR.azul,'stroke-width':2.6,fill:'none'});
+  s+=el('circle',{cx:TX,cy:TY,r:2.5,fill:COR.azul});
+  gFixa.innerHTML=s;
+}
+
+function arco2d(cx,cy,r,a1,a2){
+  var d=a2-a1; while(d>Math.PI)d-=2*Math.PI; while(d<-Math.PI)d+=2*Math.PI;
+  var n=Math.max(2,Math.ceil(Math.abs(d)/(3*D))), pts=[];
+  for(var i=0;i<=n;i++){ var a=a1+d*i/n; pts.push({x:cx+r*Math.cos(a), y:cy+r*Math.sin(a)}); }
+  return caminho(pts);
+}
+
+function desenhaTerra(){
+  var lat=est.lat, f=lat*D, s='';
+  var P={x:TX+TR*Math.cos(f), y:TY-TR*Math.sin(f)};
+  var rad={x:Math.cos(f), y:-Math.sin(f)};          // zênite (tela)
+  var tS={x:Math.sin(f), y:Math.cos(f)};            // horizonte apontando para o sul local
+  var eq=Math.abs(lat)<0.05, h=lat>=0?1:-1;
+  var hl=0.4*TR;
+  // raio até o boneco e arco no centro
+  s+=el('line',{x1:TX,y1:TY,x2:f1(P.x),y2:f1(P.y),stroke:'#6f7f99','stroke-width':1,'stroke-dasharray':'3 3'});
+  s+=el('line',{x1:TX,y1:TY,x2:TX+TR,y2:TY,stroke:'#6f7f99','stroke-width':1,'stroke-dasharray':'3 3'});
+  // horizonte local
+  s+=el('line',{x1:f1(P.x-tS.x*hl),y1:f1(P.y-tS.y*hl),x2:f1(P.x+tS.x*hl),y2:f1(P.y+tS.y*hl),stroke:'#178a5b','stroke-width':3.2,'stroke-linecap':'round'});
+  // zênite
+  s+=el('line',{x1:f1(P.x+rad.x*30),y1:f1(P.y+rad.y*30),x2:f1(P.x+rad.x*62),y2:f1(P.y+rad.y*62),stroke:'#444','stroke-width':1.6,'marker-end':'url(#mZ)'});
+  var nz={x:-rad.y, y:rad.x};
+  s+=el('text',{x:f1(P.x+rad.x*64+nz.x*14),y:f1(P.y+rad.y*64+nz.y*14+5),'text-anchor':nz.x<-0.5?'end':(nz.x>0.5?'start':'middle'),'font-size':13,'font-weight':700,fill:'#444'},'Z');
+  var ladoP = nz.x>0.5 ? -1 : 1;
+  // polo(s) celeste(s) visível(is): paralelo ao eixo
+  function polo(dir,nome){
+    s+=el('line',{x1:f1(P.x),y1:f1(P.y),x2:f1(P.x),y2:f1(P.y+dir*70),stroke:COR.eixo,'stroke-width':2,'marker-end':'url(#mP)'});
+    s+=el('text',{x:f1(P.x+ladoP*12),y:f1(P.y+dir*62+5),'text-anchor':ladoP>0?'start':'end','font-size':13,'font-weight':700,fill:COR.eixo},nome);
+  }
+  if(eq){ polo(-1,'PN'); polo(1,'PS'); } else polo(-h, h>0?'PN':'PS');
+  // ângulo φ duas vezes
+  if(Math.abs(lat)>=0.5){
+    s+=el('path',{d:arco2d(TX,TY,40,0,-f),stroke:COR.phi,'stroke-width':3,fill:'none'});
+    var bc=-f/2;
+    s+=el('text',{x:f1(TX+62*Math.cos(bc)),y:f1(TY+62*Math.sin(bc)+5),'text-anchor':'start','font-size':12.5,'font-weight':700,fill:COR.phi,stroke:'#dfe9f6','stroke-width':3,'paint-order':'stroke'},'φ = '+fmtLat(lat));
+    var hd = h>0 ? {x:-tS.x,y:-tS.y} : tS;          // horizonte na direção do polo elevado
+    var pd = {x:0,y:-h};
+    var a1=Math.atan2(hd.y,hd.x), a2=Math.atan2(pd.y,pd.x);
+    s+=el('path',{d:arco2d(P.x,P.y,30,a1,a2),stroke:COR.phi,'stroke-width':3,fill:'none'});
+    var bx=hd.x+pd.x, by=hd.y+pd.y, bl=Math.hypot(bx,by)||1; bx/=bl; by/=bl;
+    var lx=P.x+bx*48, ly=P.y+by*48;
+    s+=el('text',{x:f1(lx),y:f1(ly+5),'text-anchor':bx<-0.3?'end':(bx>0.3?'start':'middle'),'font-size':12.5,'font-weight':700,fill:COR.phi,stroke:'#fff','stroke-width':3,'paint-order':'stroke'},'φ = '+fmtLat(lat));
+  }
+  gDin.innerHTML=s;
+  bon.setAttribute('transform','translate('+f1(P.x)+' '+f1(P.y)+') rotate('+f1(90-lat)+')');
+  bon.setAttribute('aria-valuenow', lat.toFixed(1));
+  bon.setAttribute('aria-valuetext', fmtLatExt(lat));
+}
+
+/* ---------- leituras e notas ---------- */
+var notaEl=document.getElementById('nota'), notaCat=null, notaTimer=null;
+function textoNota(lat){
+  var a=Math.abs(lat);
+  if(a<2) return ['eq','No equador os dois polos celestes estão no horizonte. Toda estrela nasce subindo na vertical e passa 12 horas visível.'];
+  if(a>88) return ['polo','No polo o polo celeste está no zênite. As estrelas giram paralelas ao horizonte, sem nascer nem se pôr, e metade do céu nunca aparece.'];
+  return ['meio','O polo celeste '+(lat<0?'sul':'norte')+' está a '+num(a)+'° acima do horizonte, o mesmo ângulo da latitude. Os rastros fazem '+num(90-a)+'° com o horizonte. Estrelas perto do polo elevado nunca se põem, e as perto do polo oposto nunca nascem.'];
+}
+function atualizaNota(){
+  var n=textoNota(est.lat);
+  if(notaCat===null){ notaCat=n[0]; notaEl.textContent=n[1]; return; }
+  if(n[0]===notaCat){ if(!notaTimer) notaEl.textContent=n[1]; return; }
+  notaCat=n[0];
+  notaEl.style.opacity=0;
+  clearTimeout(notaTimer);
+  notaTimer=setTimeout(function(){ notaTimer=null; notaEl.textContent=textoNota(est.lat)[1]; notaEl.style.opacity=1; },250);
+}
+
+function atualizaLeituras(){
+  var lat=est.lat, a=Math.abs(lat), lim=90-a;
+  var hemEl = lat<0?'S':'N', hemOp = lat<0?'N':'S';
+  document.getElementById('rLat').textContent=fmtLat(lat);
+  document.getElementById('rPolo').textContent = a<0.05 ? '0,0° (PN e PS no horizonte)' : num(a)+'° ('+(lat<0?'PS':'PN')+')';
+  document.getElementById('rIncl').textContent = num(lim)+'°'+(a>89.95?' (paralelos ao horizonte)':'');
+  if(a<0.05){
+    document.getElementById('rCirc').textContent='nenhuma, todas nascem e se põem';
+    document.getElementById('rNunca').textContent='nenhuma';
+  } else if(a>89.95){
+    document.getElementById('rCirc').textContent='todo o hemisfério celeste '+(lat<0?'sul':'norte');
+    document.getElementById('rNunca').textContent='todo o hemisfério celeste '+(lat<0?'norte':'sul');
+  } else {
+    document.getElementById('rCirc').textContent='declinação além de '+num(lim)+'° '+hemEl;
+    document.getElementById('rNunca').textContent='declinação além de '+num(lim)+'° '+hemOp;
+  }
+  var tb='';
+  ESTRELAS.forEach(function(st){
+    var h=horasAcima(st.dec,lat), hm=alturaMax(st.dec,lat), th, tm;
+    if(h<=0){ th='nunca nasce'; tm='—'; }
+    else { th = h>=24 ? '24 h (nunca se põe)' : num(h)+' h'; tm=num(hm)+'°'; }
+    tb+='<tr><td>'+st.nome+'</td><td class="n">'+fmtLat(st.dec)+'</td><td class="n">'+th+'</td><td class="n">'+tm+'</td></tr>';
+  });
+  document.getElementById('tabEstrelas').innerHTML=tb;
+}
+
+/* ---------- estado ---------- */
+var slider=document.getElementById('latSlider'), latTexto=document.getElementById('latTexto');
+var sujo=true;
+function setLat(v, origem){
+  if(!isFinite(v)) return;
+  v=Math.round(clamp(v,-90,90)*100)/100;
+  if(v===0) v=0;
+  est.lat=v;
+  if(origem!=='slider') slider.value=v;
+  slider.setAttribute('aria-valuetext', fmtLatExt(v));
+  if(origem!=='texto') latTexto.value=fmtLat(v);
+  desenhaTerra(); atualizaLeituras(); atualizaNota();
+  sujo=true;
+}
+function parseLat(t){
+  t=t.trim().toUpperCase().replace(',', '.').replace('−','-').replace('°','');
+  var m=t.match(/^([+-]?\d+(?:\.\d+)?)\s*([NS])?$/);
+  if(!m) return NaN;
+  var v=parseFloat(m[1]);
+  if(m[2]==='S') v=-Math.abs(v);
+  if(m[2]==='N') v=Math.abs(v);
+  return v;
+}
+
+/* ---------- interação: Terra ---------- */
+function ptSvg(svg,ev){
+  var p=svg.createSVGPoint(); p.x=ev.clientX; p.y=ev.clientY;
+  return p.matrixTransform(svg.getScreenCTM().inverse());
+}
+function latDoPonteiro(ev){
+  var p=ptSvg(svgT,ev);
+  return Math.atan2(TY-p.y, Math.max(p.x-TX, 1e-6))/D;
+}
+var arrT=false;
+svgT.addEventListener('pointerdown',function(ev){ arrT=true; svgT.setPointerCapture(ev.pointerId); bon.focus({preventScroll:true}); setLat(latDoPonteiro(ev)); ev.preventDefault(); });
+svgT.addEventListener('pointermove',function(ev){ if(arrT) setLat(latDoPonteiro(ev)); });
+svgT.addEventListener('pointerup',function(){ arrT=false; });
+svgT.addEventListener('pointercancel',function(){ arrT=false; });
+bon.addEventListener('keydown',function(ev){
+  var p=ev.shiftKey?10:1, d=0;
+  if(ev.key==='ArrowUp'||ev.key==='ArrowRight') d=p;
+  else if(ev.key==='ArrowDown'||ev.key==='ArrowLeft') d=-p;
+  else if(ev.key==='PageUp') d=10; else if(ev.key==='PageDown') d=-10;
+  else if(ev.key==='Home'){ setLat(-90); ev.preventDefault(); return; }
+  else if(ev.key==='End'){ setLat(90); ev.preventDefault(); return; }
+  if(d){ setLat(est.lat+d); ev.preventDefault(); }
+});
+
+/* ---------- interação: esfera ---------- */
+var arrE=null;
+svgE.addEventListener('pointerdown',function(ev){ arrE={x:ev.clientX,y:ev.clientY,A:est.A,e:est.e}; svgE.setPointerCapture(ev.pointerId); svgE.classList.add('arrastando'); });
+svgE.addEventListener('pointermove',function(ev){
+  if(!arrE) return;
+  est.A=((arrE.A-(ev.clientX-arrE.x)*0.4)%360+360)%360;
+  est.e=clamp(arrE.e+(ev.clientY-arrE.y)*0.3,0,60);
+  sujo=true;
+});
+function soltaE(){ arrE=null; svgE.classList.remove('arrastando'); }
+svgE.addEventListener('pointerup',soltaE);
+svgE.addEventListener('pointercancel',soltaE);
+
+/* ---------- controles ---------- */
+slider.addEventListener('input',function(){ setLat(parseFloat(slider.value),'slider'); });
+latTexto.addEventListener('change',function(){ var v=parseLat(latTexto.value); if(isFinite(v)) setLat(v); else latTexto.value=fmtLat(est.lat); });
+latTexto.addEventListener('keydown',function(ev){ if(ev.key==='Enter') latTexto.blur(); });
+Array.prototype.forEach.call(document.querySelectorAll('button[data-lat]'),function(b){
+  b.addEventListener('click',function(){ setLat(parseFloat(b.getAttribute('data-lat'))); });
+});
+var bPlay=document.getElementById('play');
+function atualizaPlay(){ bPlay.textContent=est.tocando?'Pausar':'Animar'; bPlay.setAttribute('aria-pressed',est.tocando?'true':'false'); }
+bPlay.addEventListener('click',function(){ est.tocando=!est.tocando; atualizaPlay(); });
+document.getElementById('vel').addEventListener('change',function(ev){ est.vel=parseFloat(ev.target.value); });
+document.getElementById('vistaPadrao').addEventListener('click',function(){ est.A=270; est.e=20; sujo=true; });
+[['cEquador','equador'],['cAbaixo','abaixo'],['cRegioes','regioes'],['cEstrelas','estrelas']].forEach(function(c){
+  var x=document.getElementById(c[0]); x.checked=est[c[1]];
+  x.addEventListener('change',function(){ est[c[1]]=x.checked; sujo=true; });
+});
+
+/* ---------- exportar PNG ---------- */
+document.getElementById('baixar').addEventListener('click',function(){
+  var clone=svgE.cloneNode(true);
+  clone.setAttribute('xmlns',NS);
+  clone.setAttribute('width','1240'); clone.setAttribute('height','1120');
+  var xml=new XMLSerializer().serializeToString(clone);
+  var url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml;charset=utf-8'}));
+  var img=new Image();
+  img.onload=function(){
+    var cv=document.createElement('canvas'); cv.width=1240; cv.height=1120;
+    var cx=cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,cv.width,cv.height);
+    cx.drawImage(img,0,0,cv.width,cv.height); URL.revokeObjectURL(url);
+    cv.toBlob(function(b){
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(b);
+      a.download='ceu_latitude_'+fmtLat(est.lat).replace(/[°\s]/g,'').replace(',','p')+'.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+    },'image/png');
+  };
+  img.src=url;
+});
+
+/* ---------- laço ---------- */
+var t0=null;
+function quadro(t){
+  if(t0===null) t0=t;
+  var dt=Math.min(0.1,(t-t0)/1000); t0=t;
+  if(est.tocando){ est.tsl=(est.tsl+dt*15*est.vel)%360; sujo=true; }  // 360° por 24 s a 1×
+  if(sujo){ desenhaEsfera(); sujo=false; }
+  requestAnimationFrame(quadro);
+}
+
+/* ---------- início ---------- */
+try{ if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) est.tocando=false; }catch(e){}
+var qs=new URLSearchParams(location.search);
+if(qs.has('lat')){ var v0=parseLat(qs.get('lat')); if(isFinite(v0)) est.lat=v0; }
+desenhaTerraFixa();
+atualizaPlay();
+setLat(est.lat);
+requestAnimationFrame(quadro);
+
+// exposto para testes
+window.__ceu={horasAcima:horasAcima, alturaMax:alturaMax, horiz:horiz, setLat:setLat, est:est, desenhaEsfera:desenhaEsfera};
+})();
+</script>
+</body>
+</html>
