@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<meta name="robots" content="noindex, indexifembedded">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>O céu muda com a latitude</title>
+<script>
+  // Embutida num iframe (página do recurso), esconde título, introdução e rodapé,
+  // que já estão na página do site. Aberta sozinha, mostra tudo.
+  if (window.self !== window.top) document.documentElement.classList.add("embed");
+</script>
 <style>
 :root{--azul:#214478;--phi:#e07b00;--eixo:#a3222b;--txt:#1d2433;--sub:#5a6476;--borda:#d5dae3;--fundo:#f5f7fa}
 *{box-sizing:border-box}
@@ -42,6 +48,8 @@ th,td{padding:4px 6px;text-align:left;border-bottom:1px solid var(--borda)}
 th{font-size:.78rem;color:var(--sub);font-weight:600}
 td.n{font-variant-numeric:tabular-nums}
 .rodape{font-size:.8rem;color:var(--sub);margin-top:14px;border-top:1px solid var(--borda);padding-top:8px}
+.embed h1,.embed .instr,.embed .rodape{display:none}
+.embed .wrap{padding:4px 0}
 @media (max-width:760px){
  .paineis,.controles{grid-template-columns:1fr}
  .p-terra{order:-1}
