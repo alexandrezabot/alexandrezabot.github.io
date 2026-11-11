@@ -1,5 +1,5 @@
 ============================================================
-INFORMAÇÕES DO SITE — 
+INFORMAÇÕES DO SITE — 2026-11-11 09:30:15
 ============================================================
 
 >>> SISTEMA
@@ -18,7 +18,7 @@ origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (fetch)
 origin	git@github.com:alexandrezabot/alexandrezabot.github.io.git (push)
 
 Último commit:
-b690c32 SEO: filtros em fragmento, links com barra, noindex em simulações e conceitos únicos, sitemap, 404
+662b0d7 aliases /home e /sobre-mim; novo_recurso insere meta robots
 
 Branches:
 * main
@@ -30,6 +30,7 @@ Submódulos:
 Alterações não commitadas:
  M coleta_site.sh
  M site_info.txt
+?? content/az/29.md
 
 >>> CONFIGURAÇÃO HUGO
 --- hugo.toml ---
@@ -882,6 +883,7 @@ a.chip:hover { background-color: var(--indigo); color: var(--creme); }
 ./content/az/26.md
 ./content/az/27.md
 ./content/az/28.md
+./content/az/29.md
 ./content/az-arquivo.md
 ./content/az/_index.md
 ./content/az-indice.md
@@ -4265,6 +4267,34 @@ No dia 2 de dezembro será publicado o quarto catálogo do Gaia, com cinco anos 
 
 - Jiao, Y. et al. (2023). *Detection of the Keplerian decline in the Milky Way rotation curve*. A&A, 678, A208. [DOI](https://doi.org/10.1051/0004-6361/202347513)
 
+--- content/az/29.md ---
+---
+title: "Como nasce um sucessor"
+date: 2026-11-12
+draft: false
+description: "O Swift reagia em minutos às explosões de raios gama e não deixou sucessor. Missões científicas nascem de concorrências por um orçamento finito, e uma função contínua compete mal com propostas que trazem perguntas novas."
+temas: ["Instrumentos e observatórios", "História e Filosofia da Ciência"]
+conceitos: ["Swift", "explosão de raios gama", "GRB 050509B", "GW170817", "kilonova", "astrofísica multimensageira", "onda gravitacional", "THESEUS"]
+---
+
+No dia 4 de novembro, o observatório Swift da NASA entrou na atmosfera e se desfez sobre a Indonésia. A causa da queda foi o Sol, porque no máximo do ciclo solar a alta atmosfera esquenta, se expande e freia os satélites em órbita baixa. O artigo que apresentou a missão em 2004 previa cerca de 8 anos até a queda, mas foram quase 22.
+
+Cada faixa do espectro eletromagnético exige um equipamento próprio. Como a atmosfera absorve raios gama, raios X e ultravioleta, os telescópios dessas faixas precisam estar no espaço. Alguns eventos chegam também como Ondas Gravitacionais, medidas pelo LIGO. Nenhum observatório faz tudo, e por isso a Astrofísica multimensageira é trabalho para uma constelação de equipamentos. O problema é que uma explosão de raios gama dura de frações de segundo a poucos minutos, e sem uma posição precisa ninguém sabe para onde apontar os telescópios que observam em outras frequências. O Swift levava três telescópios no mesmo satélite. Quando o detector de raios gama registrava uma explosão, o satélite enviava as coordenadas para a Terra e girava sozinho para apontar os telescópios de raios X e ultravioleta ao mesmo ponto. Em poucos minutos, outros observatórios podiam estudar o brilho residual (*afterglow*) da explosão.
+
+GRB 050509B é um evento que considero interessante. Aconteceu em maio de 2005 e durou 0.03 segundo. O Swift encontrou seu brilho residual, algo inédito para uma explosão tão curta, numa galáxia elíptica de estrelas velhas. Isso reforçou a hipótese de que as explosões curtas vêm da fusão de estrelas de nêutrons, confirmada em 2017, quando o LIGO detectou uma dessas fusões e o Swift registrou o ultravioleta da kilonova antes que ele se apagasse. No entanto, a estatística ficou aquém do esperado. O artigo de 2004 prometia redshift para a maioria das explosões, e em 2008 havia para 126 de 380. Aquela fusão de 2017 continua sendo a única com contrapartida luminosa bem observada.
+
+Infelizmente, mesmo sabendo que o Swift tinha os dias contados, não lançamos um sucessor. Por quê? Missões científicas nascem de concorrências entre grupos de cientistas. A NASA abre editais com teto de custo, de 300 milhões de dólares nas missões médias, e cada proposta disputa a vaga com projetos de toda a Astrofísica, julgados pelo valor científico e pela viabilidade. Como o dinheiro é finito, a pergunta é onde ele rende mais ciência. Na rodada de 2021, o STAR-X, que faria acompanhamento rápido em raios X e ultravioleta, chegou à final e perdeu para o UVEX, um telescópio ultravioleta. Na Europa, o THESEUS, herdeiro natural do Swift, mesmo sendo considerado viável, perdeu a disputa duas vezes, em 2021 e em junho deste ano.
+
+Concordo com o julgamento nesses resultados. Quem propõe continuar fazendo o que o Swift fazia compete com quem traz perguntas novas, e é natural que a novidade pese mais. A comunidade percebeu o risco, e o relatório decenal americano de 2021 pôs um programa de missões para o céu transiente como a prioridade de sustentação mais alta no espaço. Porém, enquanto o Swift funcionava, a falta dele era hipotética. A capacidade de reagir em minutos é como um reflexo, que só notamos quando falha. Missões como o SVOM e o Einstein Probe vão cobrir parte desse trabalho, mas muitas explosões vão passar sem que ninguém chegue a tempo. Agora que o Swift se foi, pode ser que um sucessor ganhe a disputa.
+
+*Prof. Alexandre Zabot*
+
+## Referências
+
+- Gehrels, N. et al. (2004). *The Swift Gamma-Ray Burst Mission*. The Astrophysical Journal, 611, 1005. [DOI](https://doi.org/10.1086/422091)
+- Gehrels, N., Ramirez-Ruiz, E. & Fox, D. B. (2009). *Gamma-Ray Bursts in the Swift Era*. Annual Review of Astronomy and Astrophysics, 47, 567. [DOI](https://doi.org/10.1146/annurev.astro.46.060407.145147)
+- Evans, P. A. et al. (2017). *Swift and NuSTAR observations of GW170817: Detection of a blue kilonova*. Science, 358, 1565. [DOI](https://doi.org/10.1126/science.aap9580)
+
 --- content/az-arquivo.md ---
 ---
 title: "Arquivo do Astrofísica de A a Z"
@@ -4623,6 +4653,7 @@ Meu trabalho de ensino se organiza hoje em dois caminhos paralelos:
 
 --- content/_index.md ---
 ---
+aliases: ["/home/"]
 title: "Home"
 description: "Sou professor universitário desde 2010, atuando hoje na UFSC nas áreas de astrofísica, física e matemática aplicada. Escrevo livros, ensino em cursos regulares e abertos."
 ---
@@ -6761,6 +6792,7 @@ Os três exemplos reproduzem os casos que vimos na aula. Quando o salto fica peq
 
 --- content/sobre.md ---
 ---
+aliases: ["/sobre-mim/"]
 title: "Sobre mim"
 description: "Estudo e ensino astrofísica desde 2001. Desde 2018 meu trabalho se voltou também para o ensino online."
 url: "/sobre"
@@ -6831,6 +6863,15 @@ if [ -n "$html" ]; then
     dest="static/recursos/$slug/sim"
     mkdir -p "$dest"
     cp "$html" "$dest/index.html"
+    if ! grep -q 'indexifembedded' "$dest/index.html"; then
+        python3 - "$dest/index.html" <<'EOF2'
+import re, sys
+p = sys.argv[1]; s = open(p, encoding="utf-8").read()
+s, n = re.subn(r"(<head[^>]*>)", r'\1\n<meta name="robots" content="noindex, indexifembedded">', s, count=1)
+open(p, "w", encoding="utf-8").write(s)
+print("Meta robots inserida" if n else "AVISO: HTML sem <head>, meta robots NÃO inserida")
+EOF2
+    fi
     echo "Simulação: $dest/index.html"
     if ! grep -q 'classList.add("embed")' "$dest/index.html"; then
         echo "AVISO: o HTML não tem o trecho do modo embed."
@@ -6856,14 +6897,14 @@ echo "Capa opcional: content/recursos/$slug/capa.png (16:9)"
   Non-page files   |     6  
   Static files     |    21  
   Processed images |    54  
-  Aliases          |     1  
+  Aliases          |     3  
   Cleaned          |     0  
 
-Total in 230 ms
+Total in 127 ms
 
 >>> BUILD LOCAL: SEO
 URLs no sitemap:            73
-Páginas com noindex:        3
+Páginas com noindex:        154
 Conceitos com noindex:      147
 Links ?tag= restantes:      0
 Links internos sem barra:   0

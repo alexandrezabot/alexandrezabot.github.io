@@ -27,7 +27,7 @@ status_url() {
 
 {
 echo "============================================================"
-echo "INFORMAÇÕES DO SITE — $(date '+%Y-%m-%d %H:%M:%S')"
+echo "INFORMAÇÕES DO SITE — $(command date '+%Y-%m-%d %H:%M:%S')"
 echo "============================================================"
 echo
 
@@ -134,7 +134,7 @@ echo
 
 echo ">>> BUILD LOCAL: SEO"
 echo "URLs no sitemap:            $(grep -o '<loc>' public/sitemap.xml 2>/dev/null | wc -l)"
-echo "Páginas com noindex:        $(grep -rl 'name="robots" content="noindex' public --include='*.html' 2>/dev/null | wc -l)"
+echo "Páginas com noindex:        $(grep -rlE 'name="?robots"? content="?noindex' public --include='*.html' 2>/dev/null | wc -l)"
 echo "Conceitos com noindex:      $(grep -rl 'noindex' public/az/conceito --include='*.html' 2>/dev/null | wc -l)"
 echo "Links ?tag= restantes:      $(grep -rl '?tag=' public --include='*.html' 2>/dev/null | wc -l)"
 echo "Links internos sem barra:   $(grep -rhoE 'href="/(ensino|livros|az|recursos|sobre|contato)"' public --include='*.html' 2>/dev/null | wc -l)"
