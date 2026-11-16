@@ -15,7 +15,7 @@ capitalizeListTitles = false
   ga_id = "G-YY0YJ7HRDS"
 
 [params.aviso]
-  ativo = true
+  ativo = false
   link = "/cursos/imersao-via-lactea/"
   texto = "Imersão · Via Láctea, uma biografia"
   detalhe = "Sábado, 14 de novembro"
