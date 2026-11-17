@@ -1,7 +1,7 @@
-/* Seção Recursos didáticos (/recursos/)
+/* Seção Recursos didáticos (/laboratorio/)
    Usa as classes do tema e do site.css (posts-grid, post-card, post-meta,
    chips, chip, coluna-prosa, linha-indigo, voltar-link) e acrescenta só
-   o que é próprio dos recursos. Carregado pelo baseof quando .Section = recursos. */
+   o que é próprio dos recursos. Carregado pelo baseof quando .Section = laboratorio. */
 
 /* ---------- filtro da lista ---------- */
 .recursos-filtro { margin: 2rem 0 0; }

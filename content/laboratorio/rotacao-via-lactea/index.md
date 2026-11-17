@@ -1,5 +1,6 @@
 ---
 title: "Quem gira mais depressa na Via Láctea"
+aliases: ["/recursos/rotacao-via-lactea/"]
 description: "A barra, o Sol, os braços espirais, as estrelas a 12 kpc e o empenamento do disco giram em torno do centro da Galáxia, cada um com o seu período. A simulação mostra 1 bilhão de anos e deixa mudar os períodos e o ponto de vista."
 date: 2026-11-11
 tipo: "Simulação"

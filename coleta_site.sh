@@ -95,7 +95,7 @@ echo ">>> ARCHETYPES"
 find archetypes -name "*.md" 2>/dev/null | sort | dump_tree
 
 echo ">>> SIMULAÇÕES ESTÁTICAS (primeiras 20 linhas de cada)"
-for f in $(find static/recursos -path "*/sim/index.html" 2>/dev/null | sort); do
+for f in $(find static/laboratorio -path "*/sim/index.html" 2>/dev/null | sort); do
     echo "--- $f ---"
     head -20 "$f"
     echo
@@ -137,7 +137,7 @@ echo "URLs no sitemap:            $(grep -o '<loc>' public/sitemap.xml 2>/dev/nu
 echo "Páginas com noindex:        $(grep -rlE 'name="?robots"? content="?noindex' public --include='*.html' 2>/dev/null | wc -l)"
 echo "Conceitos com noindex:      $(grep -rl 'noindex' public/az/conceito --include='*.html' 2>/dev/null | wc -l)"
 echo "Links ?tag= restantes:      $(grep -rl '?tag=' public --include='*.html' 2>/dev/null | wc -l)"
-echo "Links internos sem barra:   $(grep -rhoE 'href="/(ensino|livros|az|recursos|sobre|contato)"' public --include='*.html' 2>/dev/null | wc -l)"
+echo "Links internos sem barra:   $(grep -rhoE 'href="/(ensino|livros|az|laboratorio|sobre|contato)"' public --include='*.html' 2>/dev/null | wc -l)"
 echo
 
 echo ">>> SITE NO AR: STATUS HTTP"
@@ -146,9 +146,11 @@ for u in \
     "$SITE/az" \
     "$SITE/az/" \
     "$SITE/ensino" \
+    "$SITE/laboratorio/" \
+    "$SITE/laboratorio/fermi/sim/" \
+    "$SITE/laboratorio/fermi/sim/index.html" \
     "$SITE/recursos/" \
     "$SITE/recursos/fermi/sim/" \
-    "$SITE/recursos/fermi/sim/index.html" \
     "$SITE/fermi/" \
     "$SITE/audios/" \
     "$SITE/pagina-que-nao-existe/" \
@@ -160,7 +162,7 @@ done
 echo
 
 echo ">>> SITE NO AR: META ROBOTS E CANONICAL"
-for p in / /az/ /recursos/ /recursos/fermi/sim/ /fermi/ /audios/; do
+for p in / /az/ /laboratorio/ /laboratorio/fermi/sim/ /recursos/ /recursos/fermi/sim/ /fermi/ /audios/; do
     html=$(curl -s --max-time 15 "$SITE$p")
     echo "$p"
     echo "  robots:    $(echo "$html" | grep -oE '<meta name="?robots"?[^>]*>' | head -1)"

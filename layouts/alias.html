@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{{ .Permalink }}</title>
+  <link rel="canonical" href="{{ .Permalink }}">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url={{ .Permalink }}">
+  <script>location.replace({{ .Permalink }} + location.search + location.hash);</script>
+</head>
+<body><p>Esta página mudou para <a href="{{ .Permalink }}">{{ .Permalink }}</a>.</p></body>
+</html>

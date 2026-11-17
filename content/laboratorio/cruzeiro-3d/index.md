@@ -1,5 +1,6 @@
 ---
 title: "O Cruzeiro do Sul em 3D"
+aliases: ["/recursos/cruzeiro-3d/"]
 description: "As cinco estrelas do Cruzeiro, cada uma na sua distância verdadeira. Girando o espaço, a cruz se desfaz, e só volta a aparecer quando olhamos a partir da Terra."
 date: 2026-10-21
 tipo: "Simulação"

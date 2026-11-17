@@ -1,5 +1,6 @@
 ---
 title: "O céu muda com a latitude"
+aliases: ["/recursos/ceu-latitude/"]
 description: "Em Joinville o polo celeste sul está 26.3 graus acima do horizonte, exatamente a latitude da cidade. Dessa igualdade decorrem a inclinação dos rastros das estrelas, as estrelas que nunca se põem e as que nunca nascem."
 date: 2026-11-11
 tipo: "Simulação"

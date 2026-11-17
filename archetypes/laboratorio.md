@@ -3,7 +3,7 @@ title: "{{ replace .File.ContentBaseName "-" " " | title }}"
 description: ""
 date: {{ .Date }}
 tipo: "Simulação"
-# sim: true embute static/recursos/<slug>/sim/index.html na página
+# sim: true embute static/laboratorio/<slug>/sim/index.html na página
 sim: true
 # estado inicial da simulação embutida, se ela aceitar parâmetros (ex.: "vista=terra&exag=1")
 sim_params: ""

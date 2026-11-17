@@ -5,7 +5,7 @@ date: 2026-06-22
 tipo: "Simulação"
 sim: true
 sim_params: ""
-aliases: ["/fermi/"]
+aliases: ["/fermi/", "/recursos/fermi/"]
 tags: ["paradoxo de Fermi", "equação de Drake", "vida no Universo", "estatística"]
 aulas:
   - curso: "Imersão A Era das Bioassinaturas"

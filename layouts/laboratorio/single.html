@@ -8,7 +8,7 @@
     {{ with .Params.description }}<p class="recurso-lead">{{ . }}</p>{{ end }}
   </div>
 
-  {{/* sim: true → embute static/recursos/<slug>/sim/index.html */}}
+  {{/* sim: true → embute static/laboratorio/<slug>/sim/index.html */}}
   {{ if .Params.sim }}
     {{ $src := printf "%ssim/" .RelPermalink }}
     {{ $nome := "recurso" }}{{ with .File }}{{ $nome = .ContentBaseName }}{{ end }}

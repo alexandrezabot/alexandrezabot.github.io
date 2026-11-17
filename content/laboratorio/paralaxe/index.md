@@ -1,5 +1,6 @@
 ---
 title: "Paralaxe"
+aliases: ["/recursos/paralaxe/"]
 description: "Dois pontos de observação veem o mesmo alvo em direções um pouco diferentes, e o alvo parece saltar contra o fundo de estrelas. O tamanho desse salto depende da distância e da base."
 date: 2026-10-28
 tipo: "Simulação"
