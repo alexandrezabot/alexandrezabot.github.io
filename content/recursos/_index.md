@@ -1,5 +1,5 @@
 ---
-title: "Recursos didáticos"
+title: "Laboratório de Astrofísica"
 description: "Simulações e outros materiais interativos que preparo para as minhas aulas, cada um com uma explicação de como usar. Livres para uso em sala, sob licença CC BY-NC 4.0."
 ---
 

@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   {{ $title := cond .IsHome (printf "%s — Astrofísica e Cosmologia" .Site.Title) (printf "%s | %s" .Title .Site.Title) }}
+  {{ if and (eq .Section "recursos") .IsPage .Params.tipo }}
+    {{ $title = printf "%s · %s interativa | %s" .Title (lower .Params.tipo) .Site.Title }}
+  {{ end }}
   {{ $description := cond (ne .Description "") .Description .Site.Params.description }}
   {{ $image := .Site.Params.ogImage | absURL }}
-  {{ with .Resources.GetMatch "capa.jpg" }}
+  {{ with .Resources.GetMatch "capa.*" }}
     {{ $image = (.Fit "1200x630 webp q85").Permalink }}
   {{ end }}
 
