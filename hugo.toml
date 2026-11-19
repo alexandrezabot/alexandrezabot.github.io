@@ -4,6 +4,7 @@ defaultContentLanguage = "pt-br"
 title = "Prof. Zabot"
 theme = "profzabot-custom"
 capitalizeListTitles = false
+buildFuture = true
 
 [outputs]
   home = ["HTML"]
