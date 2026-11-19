@@ -48,10 +48,10 @@ echo "Commits locais ainda não enviados (origin/main..HEAD):"
 git log --oneline origin/main..HEAD 2>/dev/null
 echo
 echo "Últimos 5 commits (data local):"
-git log -5 --date=format:'%Y-%m-%d %H:%M' --format='%h  %ad  %s'
+git log -5 --date=format-local:'%Y-%m-%d %H:%M' --format='%h  %ad  %s'
 echo
 echo "Último deploy em gh-pages:"
-git log -1 --date=format:'%Y-%m-%d %H:%M' --format='%h  %ad  %s' origin/gh-pages 2>/dev/null
+git log -1 --date=format-local:'%Y-%m-%d %H:%M' --format='%h  %ad  %s' origin/gh-pages 2>/dev/null
 echo
 echo "Remotes:"
 git remote -v
